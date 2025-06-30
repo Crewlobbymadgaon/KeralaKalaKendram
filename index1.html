@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kerala Kala Kendram, Margao</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'Noto Sans Malayalam', sans-serif;
+    scroll-behavior: smooth; /* smooth scrolling */
+  }
+  .header-container {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    height: 160px; /* Increased to fit logo */
+  }
+  .fade-text {
+    position: absolute;
+    width: 100%;
+    top: 90px; /* Position text below logo */
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    user-select: none;
+  }
+  .fade-text.active {
+    opacity: 1;
+  }
+  .letter span {
+    display: inline-block;
+    margin-right: 0.08em;
+    font-weight: normal;
+    transition: all 0.3s ease;
+  }
+  .word-space {
+    margin-right: 0.6em;
+  }
+  .bold-letter {
+    font-weight: 900;
+    font-size: 1.25em;
+    color: #facc15;
+    text-shadow:
+      0 0 3px rgba(250, 204, 21, 0.7),
+      0 0 8px rgba(250, 204, 21, 0.5);
+    transform-origin: bottom left;
+  }
+  .bold-letter:hover {
+    color: #eab308;
+    text-shadow:
+      0 0 5px rgba(234, 179, 8, 0.9),
+      0 0 10px rgba(234, 179, 8, 0.7);
+    transform: scale(1.2);
+  }
+</style>
+</head>
+<body class="bg-white text-gray-800">
+  <!-- Header -->
+  <div class="text-center">
+    <header class="bg-blue-600 text-white shadow-md">
+      <div class="container mx-auto px-4 py-8">
+        <div class="header-container relative" role="banner">
+          <img 
+            src="kkklogo.png" 
+            alt="Kerala Kala Kendram Logo" 
+            style="display:block; margin: 0 auto 10px auto; max-height: 80px; width: auto;"
+          />
+          <div id="englishText" class="fade-text active" aria-label="Kerala Kala Kendram Margao"></div>
+          <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
+        </div>
+        <p class="text-sm mt-6">A Socio-Cultural Organisation For Keralites</p>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="bg-blue-700">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center justify-center h-12">
+            <!-- Desktop menu -->
+            <ul class="hidden md:flex space-x-8 text-white font-semibold justify-center">
+              <li><a href="#about" class="hover:text-yellow-400">About Us</a></li>
+              <li><a href="#events" class="hover:text-yellow-400">Events</a></li>
+              <li><a href="#gallery" class="hover:text-yellow-400">Gallery</a></li>
+              <li><a href="#membership" class="hover:text-yellow-400">Membership</a></li>
+              <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
+            </ul>
+
+            <!-- Mobile menu button -->
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none ml-auto" aria-label="Toggle menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile menu -->
+          <ul id="mobile-menu" class="hidden flex-col space-y-2 py-4 text-white font-semibold md:hidden text-center">
+            <li><a href="#about" class="block px-4 py-2 hover:bg-blue-600 rounded">About Us</a></li>
+            <li><a href="#events" class="block px-4 py-2 hover:bg-blue-600 rounded">Events</a></li>
+            <li><a href="#gallery" class="block px-4 py-2 hover:bg-blue-600 rounded">Gallery</a></li>
+            <li><a href="#membership" class="block px-4 py-2 hover:bg-blue-600 rounded">Membership</a></li>
+            <li><a href="#contact" class="block px-4 py-2 hover:bg-blue-600 rounded">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <!-- Content Sections -->
+  <main class="container mx-auto px-4">
+    <!-- About Us -->
+    <section id="about" class="max-w-4xl mx-auto my-12">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">About Us</h2>
+      <p class="text-gray-700 leading-relaxed text-center">
+        Kerala Kala Kendram, Margao is a vibrant socio-cultural organisation dedicated to 
+        promoting the rich heritage, art, and traditions of Kerala among Keralites residing 
+        in Goa. We organize festivals, traditional performances, cultural workshops, and 
+        community welfare activities.
+      </p>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section id="events" class="max-w-4xl mx-auto my-12">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Upcoming Events</h2>
+      <ul class="list-disc list-inside text-gray-700 space-y-2 max-w-md mx-auto">
+        <li><strong>Onam Celebration 2025</strong> — August 30, 2025, at Margao Community Hall</li>
+        <li><strong>Classical Dance Workshop</strong> — September 15-20, 2025</li>
+        <li><strong>Felicitation Ceremony for Meritorious Students</strong> — October 10, 2025</li>
+      </ul>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="max-w-4xl mx-auto my-12">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Gallery</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="gallery1.jpg" alt="Onam Festival" class="rounded shadow" />
+        <img src="gallery2.jpg" alt="Dance Performance" class="rounded shadow" />
+        <img src="gallery3.jpg" alt="Student Felicitation" class="rounded shadow" />
+        <img src="gallery4.jpg" alt="Cultural Gathering" class="rounded shadow" />
+      </div>
+    </section>
+
+    <!-- Membership -->
+    <section id="membership" class="max-w-4xl mx-auto my-12">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Membership</h2>
+      <p class="text-gray-700 leading-relaxed text-center max-w-lg mx-auto">
+        Join Kerala Kala Kendram to be part of a passionate community that celebrates Kerala's 
+        culture and supports Keralites in Goa. To apply for membership, please contact us 
+        through the details below or visit our office during working hours.
+      </p>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact" class="max-w-4xl mx-auto my-12 mb-16">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Contact Us</h2>
+      <p class="text-gray-700 text-center">
+        <strong>Address:</strong> Kerala Kala Kendram, Near Margao Bus Stand, Margao, Goa<br />
+        <strong>Phone:</strong> +91 98765 43210<br />
+        <strong>Email:</strong> info@keralakendram.org<br />
+        <strong>Follow us on:</strong>
+      </p>
+      <div class="flex justify-center space-x-6 mt-4 text-blue-600">
+        <a href="#" aria-label="Facebook" class="hover:text-blue-800">Facebook</a>
+        <a href="#" aria-label="Instagram" class="hover:text-pink-600">Instagram</a>
+        <a href="#" aria-label="Twitter" class="hover:text-blue-400">Twitter</a>
+      </div>
+    </section>
+  </main>
+
+<script>
+  // Text animation code
+  function splitToGraphemes(str) {
+    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+      const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+      return Array.from(segmenter.segment(str), s => s.segment);
+    }
+    return Array.from(str);
+  }
+
+  function wrapTextWithSpansBoldFirst(text) {
+    const words = text.split(' ');
+    return words.map(word => {
+      const graphemes = splitToGraphemes(word);
+      const letters = graphemes.map((g, i) => {
+        const cls = (i === 0) ? 'bold-letter' : '';
+        return `<span class="${cls}">${g}</span>`;
+      }).join('');
+      return `<span class="word-space">${letters}</span>`;
+    }).join('');
+  }
+
+  const englishTextContent = `
+    <h1 class="text-4xl tracking-wide leading-tight letter" aria-hidden="true">
+      ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
+    </h1>
+    <h2 class="text-2xl mt-1 letter" aria-hidden="true">
+      ${wrapTextWithSpansBoldFirst('Margao')}
+    </h2>
+  `;
+
+  const malayalamTextContent = `
+    <h1 class="text-3xl leading-tight letter font-bold" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+      ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
+    </h1>
+    <h2 class="text-xl mt-1 letter font-semibold" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+      ${wrapTextWithSpansBoldFirst('മർഗാവ്')}
+    </h2>
+  `;
+
+  const englishDiv = document.getElementById('englishText');
+  const malayalamDiv = document.getElementById('malayalamText');
+
+  englishDiv.innerHTML = englishTextContent;
+  malayalamDiv.innerHTML = malayalamTextContent;
+
+  let showingEnglish = true;
+
+  function toggleFade() {
+    if (showingEnglish) {
+      englishDiv.classList.remove('active');
+      malayalamDiv.classList.add('active');
+    } else {
+      malayalamDiv.classList.remove('active');
+      englishDiv.classList.add('active');
+    }
+    showingEnglish = !showingEnglish;
+  }
+
+  setInterval(toggleFade, 6000);
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+</body>
+</html>
+
