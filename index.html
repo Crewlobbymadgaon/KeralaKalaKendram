@@ -75,8 +75,8 @@
 <body class="bg-white text-gray-800">
   <!-- Header -->
   <div class="text-center">
-   <header class="header-gradient text-white shadow-md">
-      <div class="container mx-auto px-4 py-8">
+ <header class="header-gradient text-white shadow-md border-b border-b-2 border-yellow-800">
+      <div class="container mx-auto px-4 py-2">
         <div class="header-container relative" role="banner">
           <img 
             src="kkklogo.png" 
@@ -104,84 +104,131 @@
 }
 </style>
       </div>
-
-      <!-- Navigation -->
-      <nav class="bg-blue-700">
-        <div class="container mx-auto px-4">
-          <div class="flex items-center justify-center h-12">
-            <!-- Desktop menu -->
-            <ul class="hidden md:flex space-x-8 text-white font-semibold justify-center">
-              <li><a href="#about" class="hover:text-yellow-400">About Us</a></li>
-              <li><a href="#events" class="hover:text-yellow-400">Events</a></li>
-              <li><a href="#gallery" class="hover:text-yellow-400">Gallery</a></li>
-              <li><a href="#membership" class="hover:text-yellow-400">Membership</a></li>
-              <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
-            </ul>
-
-            <!-- Mobile menu button -->
-            <button id="menu-btn" class="md:hidden text-white focus:outline-none ml-auto" aria-label="Toggle menu">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Mobile menu -->
-          <ul id="mobile-menu" class="hidden flex-col space-y-2 py-4 text-white font-semibold md:hidden text-center">
-            <li><a href="#about" class="block px-4 py-2 hover:bg-blue-600 rounded">About Us</a></li>
-            <li><a href="#events" class="block px-4 py-2 hover:bg-blue-600 rounded">Events</a></li>
-            <li><a href="#gallery" class="block px-4 py-2 hover:bg-blue-600 rounded">Gallery</a></li>
-            <li><a href="#membership" class="block px-4 py-2 hover:bg-blue-600 rounded">Membership</a></li>
-            <li><a href="#contact" class="block px-4 py-2 hover:bg-blue-600 rounded">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+      </header>
   </div>
+    
+      
+      <div class="w-full bg-yellow-100 border-b-2 border-yellow-800 py-2 relative overflow-hidden">
+  <!-- 📢 Sticky Emoji -->
+  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-900 text-xl sm:text-2xl font-bold z-20 pointer-events-none">
+    📢
+  </span>
 
-  <!-- Content Sections -->
-  <main class="container mx-auto px-4">
-    <!-- About Us -->
-    <section id="about" class="max-w-4xl mx-auto my-12">
-      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">About Us</h2>
-      <p class="text-gray-700 leading-relaxed text-center">
-        Kerala Kala Kendram, Margao is a vibrant socio-cultural organisation dedicated to 
-        promoting the rich heritage, art, and traditions of Kerala among Keralites residing 
-        in Goa. We organize festivals, traditional performances, cultural workshops, and 
-        community welfare activities.
-      </p>
-    </section>
+  <!-- Left mask to hide text behind emoji -->
+  <div class="absolute left-0 top-0 h-full w-10 sm:w-14 bg-yellow-100 z-10 pointer-events-none"></div>
 
-    <!-- Upcoming Events -->
-    <section id="events" class="max-w-4xl mx-auto my-12">
-      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Upcoming Events</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2 max-w-md mx-auto">
-        <li><strong>Onam Celebration 2025</strong> — August 30, 2025, at Margao Community Hall</li>
-        <li><strong>Classical Dance Workshop</strong> — September 15–20, 2025</li>
-        <li><strong>Felicitation Ceremony for Meritorious Students</strong> — October 10, 2025</li>
+  <!-- Scrolling text wrapper -->
+  <div class="pl-12 sm:pl-16 overflow-hidden whitespace-nowrap relative">
+    <div class="flex animate-announcement min-w-max gap-12 text-base sm:text-lg text-yellow-900 font-semibold">
+      <!-- Messages (duplicated for seamless loop) -->
+      <span>Onam Celebration 2025 – Aug 30 at Margao Community Hall</span>
+      <span>Classical Dance Workshop – Sept 15–20, Open for all ages</span>
+      <span>Felicitation Ceremony – Oct 10, Honouring Achievers</span>
+      <span>🎉 Join Kerala Kala Kendram Today – Membership Open!</span>
+
+      <!-- Duplicate messages -->
+      <span>Onam Celebration 2025 – Aug 30 at Margao Community Hall</span>
+      <span>Classical Dance Workshop – Sept 15–20, Open for all ages</span>
+      <span>Felicitation Ceremony – Oct 10, Honouring Achievers</span>
+      <span>🎉 Join Kerala Kala Kendram Today – Membership Open!</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes announcement {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-announcement {
+    animation: announcement 25s linear infinite;
+  }
+</style>
+  
+      <!-- Navigation -->
+<nav class="relative w-full bg-transparent text-yellow-900 z-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex items-center justify-between h-12">
+
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-6 text-yellow-900 font-semibold text-sm sm:text-base">
+        <li><a href="#about" class="hover:text-yellow-600 transition">About Us</a></li>
+        <li><a href="#events" class="hover:text-yellow-600 transition">Events</a></li>
+        <li><a href="#gallery" class="hover:text-yellow-600 transition">Gallery</a></li>
+        <li><a href="#membership" class="hover:text-yellow-600 transition">Membership</a></li>
+        <li><a href="#contact" class="hover:text-yellow-600 transition">Contact</a></li>
       </ul>
-    </section>
 
-    <!-- Gallery -->
-    <section id="gallery" class="max-w-4xl mx-auto my-12">
-      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Gallery</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <img src="gallery1.jpg" alt="Onam Festival" class="rounded shadow" loading="lazy" />
-        <img src="gallery2.jpg" alt="Dance Performance" class="rounded shadow" loading="lazy" />
-        <img src="gallery3.jpg" alt="Student Felicitation" class="rounded shadow" loading="lazy" />
-        <img src="gallery4.jpg" alt="Cultural Gathering" class="rounded shadow" loading="lazy" />
+      <!-- Mobile Button -->
+      <button id="menu-btn" class="md:hidden text-yellow-900 focus:outline-none" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <ul id="mobile-menu" class="hidden flex-col space-y-2 py-2 text-yellow-900 font-semibold md:hidden text-center">
+      <li><a href="#about" class="block px-4 py-2 hover:bg-yellow-100 rounded">About Us</a></li>
+      <li><a href="#events" class="block px-4 py-2 hover:bg-yellow-100 rounded">Events</a></li>
+      <li><a href="#gallery" class="block px-4 py-2 hover:bg-yellow-100 rounded">Gallery</a></li>
+      <li><a href="#membership" class="block px-4 py-2 hover:bg-yellow-100 rounded">Membership</a></li>
+      <li><a href="#contact" class="block px-4 py-2 hover:bg-yellow-100 rounded">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+  <!-- Content Sections -->
+<!-- Image Carousel (Auto Slide) -->
+<section class="max-w-4xl mx-auto mt-12">
+  <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Gallery Preview</h2>
+
+  <div 
+    x-data="{ currentSlide: 1, total: 3, init() { 
+        setInterval(() => { 
+          this.currentSlide = this.currentSlide === this.total ? 1 : this.currentSlide + 1 
+        }, 4000); 
+      } 
+    }" 
+    x-init="init" 
+    class="relative overflow-hidden rounded shadow"
+  >
+    <!-- Slides -->
+    <div class="flex transition-all duration-700" 
+         :style="`transform: translateX(-${(currentSlide - 1) * 100}%)`">
+      <div class="min-w-full">
+        <img src="gallery1.jpg" alt="Image 1" class="w-full h-64 object-cover" />
       </div>
-    </section>
+      <div class="min-w-full">
+        <img src="gallery2.jpg" alt="Image 2" class="w-full h-64 object-cover" />
+      </div>
+      <div class="min-w-full">
+        <img src="gallery3.jpg" alt="Image 3" class="w-full h-64 object-cover" />
+      </div>
+    </div>
 
-    <!-- Membership -->
-    <section id="membership" class="max-w-4xl mx-auto my-12">
-      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Membership</h2>
-      <p class="text-gray-700 leading-relaxed text-center max-w-lg mx-auto">
-        Join Kerala Kala Kendram to be part of a passionate community that celebrates Kerala's 
-        culture and supports Keralites in Goa. To apply for membership, please contact us 
-        through the details below or visit our office during working hours.
-      </p>
-    </section>
+    <!-- Navigation Buttons -->
+    <button @click="currentSlide = currentSlide === 1 ? total : currentSlide - 1"
+      class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full">
+      ◀
+    </button>
+    <button @click="currentSlide = currentSlide === total ? 1 : currentSlide + 1"
+      class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full">
+      ▶
+    </button>
+
+    <!-- Dots -->
+    <div class="flex justify-center mt-4 space-x-2 absolute bottom-4 w-full">
+      <template x-for="i in total">
+        <button @click="currentSlide = i" 
+                :class="i === currentSlide ? 'bg-blue-700' : 'bg-gray-400'"
+                class="w-3 h-3 rounded-full focus:outline-none"></button>
+      </template>
+    </div>
+  </div>
+</section>
 
     <!-- Contact Us -->
     <section id="contact" class="max-w-4xl mx-auto my-12 mb-16">
@@ -226,13 +273,13 @@ const englishTextContent = `
   <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true">
     ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
   </h1>
-  <h2 class="text-lg sm:text-xl letter text-center font-semibold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true">
+  <h2 class="text-lg sm:text-xl letter text-center font-semibold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-1" aria-hidden="true">
     ${wrapTextWithSpansBoldFirst('Margao')}
   </h2>
 `;
 
 const malayalamTextContent = `
-  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide letter font-bold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide letter font-bold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-1" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
     ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
   </h1>
   <h2 class="text-lg sm:text-xl letter font-semibold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
