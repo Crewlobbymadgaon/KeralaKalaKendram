@@ -11,6 +11,10 @@
     font-family: 'Noto Sans Malayalam', sans-serif;
     scroll-behavior: smooth;
   }
+  .regular-letter {
+    color: #713f12; /* Tailwind yellow-900 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25); /* subtle dark shadow */
+  }
   .header-container {
     position: relative;
     max-width: 700px;
@@ -82,7 +86,23 @@
           <div id="englishText" class="fade-text active" aria-label="Kerala Kala Kendram Margao"></div>
           <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
         </div>
-        <p class="text-sm mt-2 sm:mt-6">A Socio-Cultural Organisation For Keralites</p>
+   <div class="overflow-hidden whitespace-nowrap">
+  <p class="text-sm font-bold mt-0.5 sm:mt-2 inline-block animate-marquee text-yellow-900">
+    A Socio-Cultural Organisation of Keralites in Goa
+  </p>
+</div>
+
+<style>
+  @keyframes marquee {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+ .animate-marquee {
+  animation: marquee 13s linear infinite;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+</style>
       </div>
 
       <!-- Navigation -->
@@ -195,7 +215,7 @@
     return words.map(word => {
       const graphemes = splitToGraphemes(word);
       const letters = graphemes.map((g, i) => {
-        const cls = (i === 0) ? 'bold-letter' : '';
+        const cls = (i === 0) ? 'bold-letter' : 'regular-letter';
         return `<span class="${cls}">${g}</span>`;
       }).join('');
       return `<span class="word-space">${letters}</span>`;
@@ -203,19 +223,19 @@
   }
 
 const englishTextContent = `
-  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide leading-tight letter text-center" aria-hidden="true">
+  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide leading-tight letter text-center font-bold regular-letter" aria-hidden="true">
     ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
   </h1>
-  <h2 class="text-lg sm:text-xl mt-1 letter text-center" aria-hidden="true">
+  <h2 class="text-lg sm:text-xl mt-1 letter text-center font-semibold regular-letter" aria-hidden="true">
     ${wrapTextWithSpansBoldFirst('Margao')}
   </h2>
 `;
 
 const malayalamTextContent = `
-  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide letter font-bold text-center" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+  <h1 class="text-2xl sm:text-3xl md:text-4xl tracking-wide letter font-bold text-center regular-letter" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
     ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
   </h1>
-  <h2 class="text-lg sm:text-xl mt-1 letter font-semibold text-center" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+  <h2 class="text-lg sm:text-xl mt-1 letter font-semibold text-center regular-letter" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
     ${wrapTextWithSpansBoldFirst('മർഗാവ്')}
   </h2>
 `;
