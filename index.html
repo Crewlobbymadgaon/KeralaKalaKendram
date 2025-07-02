@@ -1,321 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kerala Kala Kendram, Margao</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet" />
-<style>
-  body {
-    font-family: 'Noto Sans Malayalam', sans-serif;
-    scroll-behavior: smooth;
-  }
-  .regular-letter {
-    color: #713f12; /* Tailwind yellow-900 */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25); /* subtle dark shadow */
-  }
-  .header-container {
-    position: relative;
-    max-width: 700px;
-    margin: 0 auto;
-    height: 180px;
-  }
-  @media (max-width: 640px) {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kerala Kala Kendram, Margao</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Sans Malayalam', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .regular-letter {
+      color: #713f12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    }
     .header-container {
-      height: 220px;
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      height: auto;
+    }
+    .fade-text-wrapper {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      min-height: 120px;
     }
     .fade-text {
-      top: 100px !important;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      user-select: none;
     }
-  }
-  .fade-text {
-    position: absolute;
-    width: 100%;
-    top: 90px;
-    left: 0;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-    user-select: none;
-  }
-  .fade-text.active {
-    opacity: 1;
-  }
-  .letter span {
-    display: inline-block;
-    margin-right: 0.08em;
-    font-weight: normal;
-    transition: all 0.3s ease;
-  }
-  .word-space {
-    margin-right: 0.6em;
-  }
-  .bold-letter {
-  font-weight: 900;
-  font-size: 1.35em;
-  color: #facc15;
-  text-shadow:
-    1px 1px 2px rgba(0, 0, 0, 0.7); /* dark outline */
-  transform-origin: center bottom;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.bold-letter:hover {
-  color: #eab308;
-  transform: scale(1.15);
-}
-.header-gradient {
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
-}
-
-
-</style>
+    .fade-text.active {
+      opacity: 1;
+    }
+    .letter span {
+      display: inline;
+      margin-right: 0.05em;
+      font-weight: normal;
+      transition: all 0.3s ease;
+    }
+    .bold-letter {
+      font-weight: 900;
+      font-size: 1.35em;
+      color: #facc15;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      transform-origin: center bottom;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .bold-letter:hover {
+      color: #eab308;
+      transform: scale(1.15);
+    }
+    .header-gradient {
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      animation: marquee 13s linear infinite;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 <body class="bg-white text-gray-800">
-  <!-- Header -->
-  <div class="text-center">
- <header class="header-gradient text-white shadow-md border-b border-b-2 border-yellow-800">
-      <div class="container mx-auto px-4 py-2">
-        <div class="header-container relative" role="banner">
-          <img 
-            src="kkklogo.png" 
-            alt="Kerala Kala Kendram Logo" 
-            style="display:block; margin: 0 auto 10px auto; max-height: 80px; width: auto;"
-          />
+  <header class="header-gradient text-white shadow-md border-b border-yellow-800">
+    <div class="container mx-auto px-4 py-2">
+      <div class="header-container flex flex-col items-center justify-center text-center py-4 sm:py-6 md:py-8 space-y-4">
+        <img 
+          src="kkklogo.png" 
+          alt="Kerala Kala Kendram Logo" 
+          class="mx-auto max-h-20 sm:max-h-24"
+        />
+        <div class="fade-text-wrapper">
           <div id="englishText" class="fade-text active" aria-label="Kerala Kala Kendram Margao"></div>
           <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
         </div>
-   <div class="overflow-hidden whitespace-nowrap">
-  <p class="text-sm font-bold mt-0.5 sm:mt-2 inline-block animate-marquee text-yellow-900">
-    A Socio-Cultural Organisation of Keralites in Goa
-  </p>
-</div>
-
-<style>
-  @keyframes marquee {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-
- .animate-marquee {
-  animation: marquee 13s linear infinite;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-</style>
       </div>
-      </header>
-  </div>
-    
-      
-      <div class="w-full bg-yellow-100 border-b-2 border-yellow-800 py-2 relative overflow-hidden">
-  <!-- 📢 Sticky Emoji -->
-  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-900 text-xl sm:text-2xl font-bold z-20 pointer-events-none">
-    📢
-  </span>
-
-  <!-- Left mask to hide text behind emoji -->
-  <div class="absolute left-0 top-0 h-full w-10 sm:w-14 bg-yellow-900 z-10 pointer-events-none"></div>
-
-  <!-- Scrolling text wrapper -->
-  <div class="pl-12 sm:pl-16 overflow-hidden whitespace-nowrap relative">
-    <div class="flex animate-announcement min-w-max gap-12 text-base sm:text-lg text-yellow-900 font-semibold">
-      <!-- Messages (duplicated for seamless loop) -->
-      <span>Onam Celebration 2025 – Aug 30 at Margao Community Hall</span>
-      <span>Classical Dance Workshop – Sept 15–20, Open for all ages</span>
-      <span>Felicitation Ceremony – Oct 10, Honouring Achievers</span>
-      <span>🎉 Join Kerala Kala Kendram Today – Membership Open!</span>
-
-      <!-- Duplicate messages -->
-      <span>Onam Celebration 2025 – Aug 30 at Margao Community Hall</span>
-      <span>Classical Dance Workshop – Sept 15–20, Open for all ages</span>
-      <span>Felicitation Ceremony – Oct 10, Honouring Achievers</span>
-      <span>🎉 Join Kerala Kala Kendram Today – Membership Open!</span>
-    </div>
-  </div>
-</div>
-
-<style>
-  @keyframes announcement {
-    0%   { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .animate-announcement {
-    animation: announcement 25s linear infinite;
-  }
-</style>
-  
-      <!-- Navigation -->
-<nav class="relative w-full bg-transparent text-yellow-900 z-20">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex items-center justify-between h-12">
-
-
-      <!-- Desktop Menu -->
-      <ul class="hidden md:flex space-x-6 text-yellow-900 font-semibold text-sm sm:text-base">
-        <li><a href="#about" class="hover:text-yellow-600 transition">About Us</a></li>
-        <li><a href="#events" class="hover:text-yellow-600 transition">Events</a></li>
-        <li><a href="#gallery" class="hover:text-yellow-600 transition">Gallery</a></li>
-        <li><a href="#membership" class="hover:text-yellow-600 transition">Membership</a></li>
-        <li><a href="#contact" class="hover:text-yellow-600 transition">Contact</a></li>
-      </ul>
-
-      <!-- Mobile Button -->
-      <button id="menu-btn" class="md:hidden text-yellow-900 focus:outline-none" aria-label="Toggle menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <ul id="mobile-menu" class="hidden flex-col space-y-2 py-2 text-yellow-900 font-semibold md:hidden text-center">
-      <li><a href="#about" class="block px-4 py-2 hover:bg-yellow-100 rounded">About Us</a></li>
-      <li><a href="#events" class="block px-4 py-2 hover:bg-yellow-100 rounded">Events</a></li>
-      <li><a href="#gallery" class="block px-4 py-2 hover:bg-yellow-100 rounded">Gallery</a></li>
-      <li><a href="#membership" class="block px-4 py-2 hover:bg-yellow-100 rounded">Membership</a></li>
-      <li><a href="#contact" class="block px-4 py-2 hover:bg-yellow-100 rounded">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-  <!-- Content Sections -->
-<!-- Image Carousel (Auto Slide) -->
-<section class="max-w-4xl mx-auto mt-12">
-  <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Gallery Preview</h2>
-
-  <div 
-    x-data="{ currentSlide: 1, total: 3, init() { 
-        setInterval(() => { 
-          this.currentSlide = this.currentSlide === this.total ? 1 : this.currentSlide + 1 
-        }, 4000); 
-      } 
-    }" 
-    x-init="init" 
-    class="relative overflow-hidden rounded shadow"
-  >
-    <!-- Slides -->
-    <div class="flex transition-all duration-700" 
-         :style="`transform: translateX(-${(currentSlide - 1) * 100}%)`">
-      <div class="min-w-full">
-        <img src="gallery1.jpg" alt="Image 1" class="w-full h-64 object-cover" />
-      </div>
-      <div class="min-w-full">
-        <img src="gallery2.jpg" alt="Image 2" class="w-full h-64 object-cover" />
-      </div>
-      <div class="min-w-full">
-        <img src="gallery3.jpg" alt="Image 3" class="w-full h-64 object-cover" />
+      <div class="overflow-hidden whitespace-nowrap">
+        <p class="text-sm font-bold mt-0.5 sm:mt-2 inline-block animate-marquee text-yellow-900">
+          A Socio-Cultural Organisation of Keralites in Goa
+        </p>
       </div>
     </div>
+  </header>
 
-    <!-- Navigation Buttons -->
-    <button @click="currentSlide = currentSlide === 1 ? total : currentSlide - 1"
-      class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full">
-      ◀
-    </button>
-    <button @click="currentSlide = currentSlide === total ? 1 : currentSlide + 1"
-      class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full">
-      ▶
-    </button>
-
-    <!-- Dots -->
-    <div class="flex justify-center mt-4 space-x-2 absolute bottom-4 w-full">
-      <template x-for="i in total">
-        <button @click="currentSlide = i" 
-                :class="i === currentSlide ? 'bg-blue-700' : 'bg-gray-400'"
-                class="w-3 h-3 rounded-full focus:outline-none"></button>
-      </template>
-    </div>
-  </div>
-</section>
-
-    <!-- Contact Us -->
-    <section id="contact" class="max-w-4xl mx-auto my-12 mb-16">
-      <h2 class="text-3xl font-bold mb-4 text-center text-blue-700">Contact Us</h2>
-      <p class="text-gray-700 text-center">
-        <strong>Address:</strong> Kerala Kala Kendram, Near Margao Bus Stand, Margao, Goa<br />
-        <strong>Phone:</strong> +91 98765 43210<br />
-        <strong>Email:</strong> info@keralakendram.org<br />
-        <strong>Follow us on:</strong>
-      </p>
-      <div class="flex justify-center space-x-6 mt-4 text-blue-600">
-        <a href="#" aria-label="Facebook" class="hover:text-blue-800">Facebook</a>
-        <a href="#" aria-label="Instagram" class="hover:text-pink-600">Instagram</a>
-        <a href="#" aria-label="Twitter" class="hover:text-blue-400">Twitter</a>
-      </div>
-    </section>
-  </main>
-
-<script>
-  // Text animation code
-  function splitToGraphemes(str) {
-    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
-      const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-      return Array.from(segmenter.segment(str), s => s.segment);
+  <script>
+    function splitToGraphemes(str) {
+      if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+        const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+        return Array.from(segmenter.segment(str), s => s.segment);
+      }
+      return Array.from(str);
     }
-    return Array.from(str);
-  }
 
-  function wrapTextWithSpansBoldFirst(text) {
-    const words = text.split(' ');
-    return words.map(word => {
-      const graphemes = splitToGraphemes(word);
-      const letters = graphemes.map((g, i) => {
-        const cls = (i === 0) ? 'bold-letter' : 'regular-letter';
-        return `<span class="${cls}">${g}</span>`;
+    function wrapTextWithSpansBoldFirst(text) {
+      const words = text.split(' ');
+      return words.map((word, wordIndex) => {
+        const graphemes = splitToGraphemes(word);
+        const letters = graphemes.map((g, i) => {
+          const cls = (i === 0) ? 'bold-letter' : 'regular-letter';
+          return `<span class="${cls}">${g}</span>`;
+        }).join('');
+        return `<span class="inline-block mr-2">${letters}</span>`;
       }).join('');
-      return `<span class="word-space">${letters}</span>`;
-    }).join('');
-  }
-
-const englishTextContent = `
-  <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true">
-    ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
-  </h1>
-  <h2 class="text-lg sm:text-xl letter text-center font-semibold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-1" aria-hidden="true">
-    ${wrapTextWithSpansBoldFirst('Margao')}
-  </h2>
-`;
-
-const malayalamTextContent = `
-<h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true"
-   style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
-    ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
-  </h1>
-  <h2 class="text-lg sm:text-xl letter font-semibold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
-    ${wrapTextWithSpansBoldFirst('മർഗാവ്')}
-  </h2>
-`;
-  const englishDiv = document.getElementById('englishText');
-  const malayalamDiv = document.getElementById('malayalamText');
-
-  englishDiv.innerHTML = englishTextContent;
-  malayalamDiv.innerHTML = malayalamTextContent;
-
-  let showingEnglish = true;
-
-  function toggleFade() {
-    if (showingEnglish) {
-      englishDiv.classList.remove('active');
-      malayalamDiv.classList.add('active');
-    } else {
-      malayalamDiv.classList.remove('active');
-      englishDiv.classList.add('active');
     }
-    showingEnglish = !showingEnglish;
-  }
 
-  setInterval(toggleFade, 6000);
+    const englishTextContent = `
+      <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2 whitespace-nowrap" aria-hidden="true">
+        ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
+      </h1>
+      <h2 class="text-lg sm:text-xl letter text-center font-semibold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-1" aria-hidden="true">
+        ${wrapTextWithSpansBoldFirst('Margao')}
+      </h2>
+    `;
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+    const malayalamTextContent = `
+      <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true"
+         style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+          ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
+        </h1>
+        <h2 class="text-lg sm:text-xl letter font-semibold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+          ${wrapTextWithSpansBoldFirst('മർഗാവ്')}
+        </h2>
+    `;
 
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-</script>
+    const englishDiv = document.getElementById('englishText');
+    const malayalamDiv = document.getElementById('malayalamText');
+
+    englishDiv.innerHTML = englishTextContent;
+    malayalamDiv.innerHTML = malayalamTextContent;
+
+    let showingEnglish = true;
+    function toggleFade() {
+      if (showingEnglish) {
+        englishDiv.classList.remove('active');
+        malayalamDiv.classList.add('active');
+      } else {
+        malayalamDiv.classList.remove('active');
+        englishDiv.classList.add('active');
+      }
+      showingEnglish = !showingEnglish;
+    }
+    setInterval(toggleFade, 6000);
+  </script>
 </body>
 </html>
