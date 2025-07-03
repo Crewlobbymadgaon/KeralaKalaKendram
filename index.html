@@ -353,43 +353,7 @@ animateMessage(messages[index]);
 
   
 
-fetch("https://script.google.com/macros/s/AKfycbwM9aE3ih_aITs7k5ONHe-HaYAiDckVIfDfPazb_nng/exec?folder=Slideshow1")
-  .then(res => res.json())
-  .then(images => {
-    console.log("Fetched images:", images); // ✅ Check output
 
-    const carousel = document.getElementById('imageCarousel');
-    const carouselInner = document.getElementById('carouselInner');
-
-    if (!carouselInner || images.length === 0) {
-      console.warn("No images found or carousel element missing.");
-      return;
-    }
-
-    // Populate images
-    images.forEach(img => {
-      const el = document.createElement('img');
-      el.src = img.url;
-      el.alt = img.name;
-      el.className = 'object-cover w-full h-full';
-      el.style.minWidth = '100%'; // each image takes full width
-      el.style.flexShrink = '0';   // prevents shrinking
-      carouselInner.appendChild(el);
-    });
-
-    // Show carousel
-    carousel.classList.remove('hidden');
-
-    // Start sliding
-    let idx = 0;
-    setInterval(() => {
-      idx = (idx + 1) % images.length;
-      carouselInner.style.transform = `translateX(-${idx * 100}%)`;
-    }, 4000);
-  })
-  .catch(err => {
-    console.error("Error loading carousel images:", err);
-  });
 </script>
 
 
