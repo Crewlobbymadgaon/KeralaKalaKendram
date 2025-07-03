@@ -203,26 +203,32 @@ const messageEl = document.getElementById("scrollingMessage");
 let index = 0;
 
 function animateMessage(message) {
-  messageEl.innerText = message;
-  messageEl.classList.remove("animate-scroll");
-  messageEl.style.animation = "none";
-  void messageEl.offsetWidth;
-
   const isMobile = window.innerWidth < 640;
   const duration = isMobile
     ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.25, 14);
+    : Math.max(message.length * 0.20, 14);
 
+  // Set message text and reset styles
+  messageEl.innerText = message;
+  messageEl.style.animation = "none";
+  messageEl.style.opacity = "0";
+  messageEl.classList.remove("animate-scroll");
+
+  // Force reflow
+  void messageEl.offsetWidth;
+
+  // Now trigger the animation
+  messageEl.style.opacity = "1";
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
+  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-animateMessage(messages[index]);
 
 </script>
 
