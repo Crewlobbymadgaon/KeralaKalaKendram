@@ -192,6 +192,7 @@
     }
     setInterval(toggleFade, 6000);
 
+<script>
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -202,32 +203,37 @@ const messageEl = document.getElementById("scrollingMessage");
 let index = 0;
 
 function animateMessage(message) {
-  // Reset animation
-  messageEl.classList.remove("animate-scroll");
-  messageEl.style.animation = "none";
-  void messageEl.offsetWidth; // trigger reflow
-
-  // Set new message
+  // Set message text
   messageEl.innerText = message;
 
+  // Remove any existing animation
+  messageEl.classList.remove("animate-scroll");
+  messageEl.style.animation = "none";
+
+  // Force reflow to reset animation
+  void messageEl.offsetWidth;
+
+  // Calculate duration based on message length
   const isMobile = window.innerWidth < 640;
   const duration = isMobile
     ? Math.max(message.length * 0.15, 6)
     : Math.max(message.length * 0.08, 10);
 
-  // Apply animation
+  // Apply new animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-  // Wait for it to finish before showing next
+  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start
+// Start animation
 animateMessage(messages[index]);
+</script>
+
 </script>
 
 </body>
