@@ -212,30 +212,33 @@ let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
+
   const duration = isMobile
     ? Math.max(message.length * 0.13, 8)
     : Math.max(message.length * 0.14, 14);
 
+  // Reset styles
   messageEl.innerText = message;
   messageEl.style.animation = "none";
   messageEl.classList.remove("animate-scroll");
 
-  // Reset transform to start off-screen
-  messageEl.style.transform = "translateX(100%)";
+  // Force reflow to restart animation
+  void messageEl.offsetWidth;
 
-  void messageEl.offsetWidth; // Force reflow
-
+  // Apply animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
+  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
+// Start animation
 animateMessage(messages[index]);
-</script>
+ </script>
 
 
 </body>
