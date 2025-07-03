@@ -63,20 +63,24 @@
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
    
- @keyframes marqueeOnce {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+ 
+    .wave-text span {
+  display: inline-block;
+  animation: wave 1.5s infinite ease-in-out;
 }
 
-.marquee-once {
-  display: inline-block;
-  animation: marqueeOnce 12s linear infinite;
-  will-change: transform;
+.wave-text span:nth-child(odd) {
+  animation-delay: 0.1s;
 }
+.wave-text span:nth-child(even) {
+  animation-delay: 0.3s;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
 
   </style>
 </head>
@@ -94,11 +98,10 @@
           <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
         </div>
       </div>
-<div class="relative w-full overflow-hidden h-10 bg-white hidden md:block">
-  <div class="marquee-once whitespace-nowrap text-yellow-900 text-lg font-bold">
-    A Socio-Cultural Organisation of Keralites in Goa
-  </div>
-</div>
+<p class="wave-text text-yellow-900 text-lg font-bold hidden md:block text-center">
+  A Socio-Cultural Organisation of Keralites in Goa
+</p>
+
 
 
 
