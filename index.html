@@ -224,7 +224,7 @@ let index = 0;
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  messageEl.innerText = message;
+  messageEl.innerHTML = message; // ← allow HTML with images
   messageEl.style.transition = "none";
   messageEl.style.transform = "translateY(-50%)";
   messageEl.style.left = "100%"; // reset to right
@@ -232,23 +232,21 @@ function animateMessage(message) {
   // Force reflow
   void messageEl.offsetWidth;
 
-  // Calculate animation distance and time
   const messageWidth = messageEl.scrollWidth;
   const containerWidth = messageEl.parentElement.offsetWidth;
   const distance = messageWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.01 : 0.015;
+  const speedPerPixel = isMobile ? 0.01 : 0.012;
   const duration = distance * speedPerPixel;
 
-  // Animate leftward
   messageEl.style.transition = `left ${duration}s linear`;
   messageEl.style.left = `-${messageWidth}px`;
 
-  // Queue next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
+
 
 animateMessage(messages[index]);
 </script>
