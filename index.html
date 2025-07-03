@@ -23,25 +23,28 @@
       height: auto;
     }
     .fade-text-wrapper {
-      position: relative;
-      width: 100%;
-      text-align: center;
-      min-height: 120px;
-    }
-    .fade-text {
-      position: absolute;
-      width: 100%;
-      left: 0;
-      top: 0;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-      user-select: none;
-    }
-    .fade-text.active {
-      opacity: 1;
-    }
-    .letter span {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  min-height: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+.fade-text {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  pointer-events: none;
+}
+.fade-text.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+  .letter span {
       display: inline;
       margin-right: 0.05em;
       font-weight: normal;
@@ -56,9 +59,11 @@
       transition: transform 0.3s ease, color 0.3s ease;
     }
     .bold-letter:hover {
-      color: #eab308;
-      transform: scale(1.15);
-    }
+  color: inherit;
+  transform: none;
+  cursor: default;
+}
+
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
