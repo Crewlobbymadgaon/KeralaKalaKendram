@@ -62,18 +62,21 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
-    @keyframes singleMarquee {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+   @keyframes smoothMarquee {
+  0% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .animate-scroll {
   display: inline-block;
   will-change: transform;
   white-space: nowrap;
+  animation-timing-function: ease-in-out; /* smoother acceleration */
 }
-
-
 
   </style>
 </head>
@@ -203,28 +206,27 @@
   const messageEl = document.getElementById("scrollingMessage");
   let index = 0;
 
-  function animateMessage(message) {
-    messageEl.classList.remove("animate-scroll");
-    messageEl.style.animation = "none";
-    void messageEl.offsetWidth; // force reflow
+ function animateMessage(message) {
+  messageEl.classList.remove("animate-scroll");
+  messageEl.style.animation = "none";
+  void messageEl.offsetWidth; // trigger reflow
 
-    messageEl.innerText = message;
+  messageEl.innerText = message;
 
-    const isMobile = window.innerWidth < 640;
-    const duration = isMobile
-      ? Math.max(message.length * 0.15, 6)
-      : Math.max(message.length * 0.08, 10); // faster on desktop
+  const isMobile = window.innerWidth < 640;
+  const duration = isMobile
+    ? Math.max(message.length * 0.15, 6)
+    : Math.max(message.length * 0.08, 10); // slightly faster on desktop
 
-    messageEl.classList.add("animate-scroll");
-    messageEl.style.animation = `singleMarquee ${duration}s linear forwards`;
+  messageEl.classList.add("animate-scroll");
+  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-    setTimeout(() => {
-      index = (index + 1) % messages.length;
-      animateMessage(messages[index]);
-    }, duration * 1000);
-  }
+  setTimeout(() => {
+    index = (index + 1) % messages.length;
+    animateMessage(messages[index]);
+  }, duration * 1000);
+}
 
-  animateMessage(messages[index]);
 </script>
 
 </body>
