@@ -74,14 +74,10 @@
   }
 }
 
-.animate-scroll {
-  display: inline-block;
-  white-space: nowrap;
-  will-change: transform;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .animate-scroll {
@@ -90,8 +86,8 @@
   will-change: transform;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  /* ✅ Remove padding-left: 100% */
 }
+
 </style>
 
 
@@ -135,13 +131,15 @@
 <div class="bg-yellow-400 py-2 px-4">
   <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-10 sm:h-12 md:h-14">
     <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
-    <div class="overflow-hidden w-full h-full flex items-center relative">
+    <div class="marquee-container h-full flex items-center">
       <div id="scrollingMessage"
-           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl animate-scroll">
+        <!-- Message will be injected here -->
       </div>
     </div>
   </div>
 </div>
+
 
 
 
@@ -205,6 +203,7 @@
     }
     setInterval(toggleFade, 6000);
 
+
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -216,22 +215,27 @@ let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
-  const duration = isMobile
-    ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.25, 14);
 
+  // Measure actual text width after injection
   messageEl.innerText = message;
-  messageEl.style.animation = "none";
   messageEl.classList.remove("animate-scroll");
-
-  // Reset transform to start off-screen
+  messageEl.style.animation = "none";
   messageEl.style.transform = "translateX(100%)";
 
-  void messageEl.offsetWidth; // Force reflow
+  // Delay required to apply transform
+  void messageEl.offsetWidth;
+
+  const textWidth = messageEl.scrollWidth;
+  const containerWidth = messageEl.parentElement.offsetWidth;
+
+  const totalDistance = textWidth + containerWidth;
+  const speedPerPixel = isMobile ? 0.03 : 0.035; // lower = slower
+  const duration = totalDistance * speedPerPixel;
 
   messageEl.classList.add("animate-scroll");
-  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
+  messageEl.style.animation = `smoothMarquee ${duration}s linear`;
 
+  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
