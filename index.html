@@ -63,23 +63,27 @@
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
 
-  @keyframes smoothMarquee {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+ 
+@keyframes smoothMarquee {
+  0% {
+    transform: translateX(100%);
   }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
-  .animate-scroll {
-    display: inline-block;
-    white-space: nowrap;
-    will-change: transform;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-  }
+.animate-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  padding-left: 100%; /* Pushes start position far right */
+}
 </style>
+
+
 
 
 </head>
@@ -115,16 +119,17 @@
   </header>
 
 <div class="bg-yellow-400 py-2 px-4">
-  <div class="max-w-[1000px] mx-auto flex items-center space-x-2">
-    <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-20">📢</span>
-    <div class="overflow-hidden w-full relative">
+  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative">
+    <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
+    <div class="overflow-hidden w-full relative h-6 sm:h-7 md:h-8">
       <div id="scrollingMessage"
            class="text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20">
-        <!-- JS will inject message here -->
+        <!-- JS injects message -->
       </div>
     </div>
   </div>
 </div>
+
 
 
 
@@ -191,7 +196,8 @@
       showingEnglish = !showingEnglish;
     }
     setInterval(toggleFade, 6000);
-  
+
+    
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -202,28 +208,29 @@ const messageEl = document.getElementById("scrollingMessage");
 let index = 0;
 
 function animateMessage(message) {
-  messageEl.innerText = message;
+  messageEl.textContent = message;
+
+  // Reset styles
   messageEl.classList.remove("animate-scroll");
   messageEl.style.animation = "none";
+  messageEl.style.paddingLeft = "100%"; // Start far off-screen
 
-  // Force reflow
-  void messageEl.offsetWidth;
+  void messageEl.offsetWidth; // Force reflow
 
-  // Duration based on message length (longer message = longer time)
-  const duration = Math.max(message.length * 0.12, 8); // Adjust as needed
+  // Compute duration: longer message = longer animation
+  const duration = Math.max(message.length * 0.1, 8); // seconds
 
-  // Apply animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-  // Wait and show next message
+  // Schedule next message after this one finishes
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start first message
+// Start
 animateMessage(messages[index]);
 </script>
 
