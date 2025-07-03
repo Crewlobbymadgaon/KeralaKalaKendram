@@ -64,24 +64,7 @@
     }
    
  
-    .wave-text span {
-  display: inline-block;
-  animation: wave 1.5s infinite ease-in-out;
-}
-
-.wave-text span:nth-child(odd) {
-  animation-delay: 0.1s;
-}
-.wave-text span:nth-child(even) {
-  animation-delay: 0.3s;
-}
-
-@keyframes wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-
+    
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -98,16 +81,13 @@
           <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
         </div>
       </div>
-<p class="wave-text text-yellow-900 text-lg font-bold hidden md:block text-center">
-  A Socio-Cultural Organisation of Keralites in Goa
-</p>
-
-
-
-
-
-
-    </div>
+<!-- Static subtitle (no animation) -->
+<div class="w-full h-10 bg-white flex items-center justify-center">
+  <p class="text-yellow-900 text-sm sm:text-lg md:text-xl font-bold">
+    A Socio-Cultural Organisation of Keralites in Goa
+  </p>
+</div>
+ </div>
   </header>
 
   <script>
