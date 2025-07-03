@@ -62,17 +62,6 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
- @keyframes marquee {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-.animate-marquee {
-  display: inline-block;
-  animation: marquee 20s linear infinite;
-  will-change: transform;
-}
-
 
   </style>
 </head>
@@ -106,17 +95,16 @@
   </div>
  </div>
   </header>
- <!-- Fixed Emoji + Scrolling Text Bar -->
+<!-- Announcement Rotator -->
 <div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2 overflow-hidden">
   <span class="text-yellow-900 text-lg">📢</span>
-  <div class="relative w-full overflow-hidden">
-    <div class="animate-marquee whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base">
-      Onam 2025 Registration Open — Click Here! &nbsp;&nbsp;&nbsp;&nbsp;
-      🎉 Cultural Fest Auditions on 10th August &nbsp;&nbsp;&nbsp;&nbsp;
-      🏆 Congrats to Winners of Chess Tournament!
+  <div class="relative w-full h-6 sm:h-auto overflow-hidden">
+    <div id="announcementText" class="text-yellow-900 font-semibold text-sm sm:text-base transition-opacity duration-700 ease-in-out opacity-100">
+      <!-- Message will be injected here -->
     </div>
   </div>
 </div>
+
 
 
   <script>
@@ -177,6 +165,31 @@
       showingEnglish = !showingEnglish;
     }
     setInterval(toggleFade, 6000);
-  </script>
+
+  const messages = [
+    "Onam 2025 Registration Open — Click Here!",
+    "🎉 Cultural Fest Auditions on 10th August",
+    "🏆 Congrats to Winners of Chess Tournament!"
+  ];
+
+  let current = 0;
+  const textEl = document.getElementById("announcementText");
+
+  function showNextMessage() {
+    textEl.classList.remove("opacity-100");
+    textEl.classList.add("opacity-0");
+
+    setTimeout(() => {
+      textEl.innerText = messages[current];
+      textEl.classList.remove("opacity-0");
+      textEl.classList.add("opacity-100");
+      current = (current + 1) % messages.length;
+    }, 600); // match transition duration
+  }
+
+  textEl.innerText = messages[0]; // Show first immediately
+  setInterval(showNextMessage, 4000); // Change every 4 seconds
+</script>
+
 </body>
 </html>
