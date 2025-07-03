@@ -206,9 +206,9 @@
     </div>
   </div>
 </nav>
- <section class="relative max-w-4xl mx-auto px-4 mt-6">
+<section class="relative max-w-5xl mx-auto px-4 mt-6">
 
-  <!-- 🚨 Important Event -->
+  <!-- 🚨 Important Event (conditionally shown) -->
   <div id="importantEvent" class="hidden bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded shadow">
     <h2 class="text-lg font-semibold text-yellow-800">📢 Important Event</h2>
     <p class="text-sm mt-1 text-gray-800">
@@ -216,16 +216,21 @@
     </p>
   </div>
 
-  <!-- 📷 Image Carousel -->
-  <div id="imageCarousel" class="hidden mt-6 relative overflow-hidden rounded-lg shadow-lg w-full h-64 sm:h-72 md:h-80">
-    <div id="carouselInner" class="whitespace-nowrap transition-transform duration-700 ease-in-out h-full">
-      <img src="img1.jpg" class="inline-block w-full h-full object-cover" />
-      <img src="img2.jpg" class="inline-block w-full h-full object-cover" />
-      <img src="img3.jpg" class="inline-block w-full h-full object-cover" />
-    </div>
+  <div id="imageCarousel" class="hidden mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
+  <div id="carouselInner" class="whitespace-nowrap transition-transform duration-700 ease-in-out h-full">
+    <img src="https://drive.google.com/file/d/1-uwl149SFB5h17ryoTxkyNZJYRtocF1h/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-On31aWkaK9e-1zO5Rsmv0X8b9JkMXxO/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-68ClTxheAnfIyg8ykvvDz1Uo3kfDbmX/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-BEYa4IWiu3vtNJnJQVPkCuc2vKKvySD/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-6_ZbvDD2T8EOhpmwSZ47eb3xFnO1cd-/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-nFMpa_Vux65l_v-p5de4mkMwzuu_m5x/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
+    <img src="https://drive.google.com/file/d/1-l_utr_SsMkOB4Ct4el1tR8StCkQ5GB8/view?usp=drive_link" class="inline-block w-full h-full object-cover" />
   </div>
+</div>
+
 
 </section>
+
 
 
  <script>
@@ -330,7 +335,7 @@ function animateMessage(message) {
 animateMessage(messages[index]);
 
 
-  const hasImportantEvent = false; // ✅ Set true/false based on event presence
+  const hasImportantEvent = false; // ← Change to true when event is live
 
   const eventEl = document.getElementById("importantEvent");
   const carouselEl = document.getElementById("imageCarousel");
@@ -340,7 +345,6 @@ animateMessage(messages[index]);
   } else {
     carouselEl.classList.remove("hidden");
 
-    // Auto-slide logic
     const carouselInner = document.getElementById("carouselInner");
     const images = carouselInner.querySelectorAll("img");
     let index = 0;
@@ -348,9 +352,10 @@ animateMessage(messages[index]);
     setInterval(() => {
       index = (index + 1) % images.length;
       carouselInner.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000); // Change every 4 seconds
+    }, 4000); // auto-slide every 4s
   }
 </script>
+
 
 </body>
 </html>
