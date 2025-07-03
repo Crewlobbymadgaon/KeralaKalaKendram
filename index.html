@@ -62,9 +62,10 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
+
   @keyframes smoothMarquee {
     0% {
-      transform: translateX(120%);
+      transform: translateX(100%);
     }
     100% {
       transform: translateX(-100%);
@@ -73,11 +74,13 @@
 
   .animate-scroll {
     display: inline-block;
-    will-change: transform;
     white-space: nowrap;
-    animation-timing-function: ease-in-out;
+    will-change: transform;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
   }
 </style>
+
 
 </head>
 <body class="bg-white text-gray-800">
