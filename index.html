@@ -62,17 +62,20 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
-    @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  @keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
-.announcement-animated {
-  animation: fadeIn 1s ease-in;
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+  will-change: transform;
 }
 
-   
- 
-    
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -105,11 +108,12 @@
   </div>
  </div>
   </header>
-  <!-- Announcement Bar with Slide-Down Animation -->
-<div class="announcement-animated bg-yellow-400 text-yellow-900 font-semibold text-sm sm:text-base py-2 px-4 text-center">
-  📢 <a href="#" class="underline hover:text-yellow-700">Onam 2025 Registration Open — Click Here!</a>
+ <!-- Scrolling Announcement Bar -->
+<div class="overflow-hidden bg-yellow-400 py-2">
+  <div class="whitespace-nowrap animate-marquee text-yellow-900 font-semibold text-sm sm:text-base px-4">
+    📢 Onam 2025 Registration Open — Click Here! &nbsp;&nbsp;&nbsp;&nbsp; 🎉 Cultural Fest Auditions on 10th August &nbsp;&nbsp;&nbsp;&nbsp; 🏆 Congrats to Winners of Chess Tournament!
+  </div>
 </div>
-
 
   <script>
     function splitToGraphemes(str) {
