@@ -212,7 +212,7 @@
 
 
 const messages = [
-  "🌼 It is decided to celebrate ONAM 2025 🌼 ........Stay tuned for Updates....!",
+  " It is decided to celebrate ONAM 2025 🌼 ........Stay tuned for Updates....!",
   "മലയാളം മിഷൻ ക്ലാസ്സിൽ ചേരാൻ ആഗ്രഹിക്കുന്ന കുട്ടികൾ കേരള കലാ കേന്ദ്രം ഭാരവാഹികളുമായി ബന്ധപ്പെടേണ്ടതാണ് ......! ",
   "🌸 ഓണം 2025 വിപുലമായി ആഘോഷിക്കാൻ തീരുമാനിച്ചിരിക്കുന്നു 🌸. വിശദ വിവരങ്ങൾക്കായി കാത്തിരിക്കുക ........!!"
 ];
@@ -235,7 +235,7 @@ function animateMessage(message) {
   const messageWidth = messageEl.scrollWidth;
   const containerWidth = messageEl.parentElement.offsetWidth;
   const distance = messageWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.02 : 0.025;
+  const speedPerPixel = isMobile ? 0.01 : 0.015;
   const duration = distance * speedPerPixel;
 
   // Animate leftward
