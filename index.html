@@ -216,26 +216,39 @@ let index = 0;
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  // Measure actual text width after injection
-  messageEl.innerText = message;
-  messageEl.classList.remove("animate-scroll");
-  messageEl.style.animation = "none";
-  messageEl.style.transform = "translateX(100%)";
+  // Prepare a hidden clone for width calculation
+  const temp = document.createElement("span");
+  temp.innerText = message;
+  temp.style.visibility = "hidden";
+  temp.style.position = "absolute";
+  temp.style.whiteSpace = "nowrap";
+  document.body.appendChild(temp);
 
-  // Delay required to apply transform
-  void messageEl.offsetWidth;
-
-  const textWidth = messageEl.scrollWidth;
+  const textWidth = temp.offsetWidth;
   const containerWidth = messageEl.parentElement.offsetWidth;
-
   const totalDistance = textWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.03 : 0.035; // lower = slower
+  const speedPerPixel = isMobile ? 0.03 : 0.035;
   const duration = totalDistance * speedPerPixel;
 
-  messageEl.classList.add("animate-scroll");
-  messageEl.style.animation = `smoothMarquee ${duration}s linear`;
+  document.body.removeChild(temp);
 
-  // Schedule next message
+  // Reset before animation
+  messageEl.innerText = '';
+  messageEl.style.animation = 'none';
+  messageEl.classList.remove('animate-scroll');
+  messageEl.style.transform = `translateX(${containerWidth}px)`; // start offscreen
+
+  // Force reflow
+  void messageEl.offsetWidth;
+
+  // Set new text after setting initial position
+  messageEl.innerText = message;
+
+  // Start animation
+  messageEl.classList.add('animate-scroll');
+  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
+
+  // Queue next
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
