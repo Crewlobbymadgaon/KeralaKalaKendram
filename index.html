@@ -201,6 +201,7 @@
 
 
 
+<script>
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -208,37 +209,50 @@ const messages = [
 ];
 
 const messageEl = document.getElementById("scrollingMessage");
+const emojiEl = document.querySelector(".emoji-icon"); // Add this class to 📢
 let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  const duration = isMobile
-    ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.14, 14);
+  // Measure emoji and container widths
+  const emojiWidth = emojiEl.offsetWidth || 0;
+  const containerWidth = messageEl.parentElement.offsetWidth - emojiWidth;
 
-  // Reset styles
-  messageEl.innerText = message;
-  messageEl.style.animation = "none";
-  messageEl.classList.remove("animate-scroll");
+  // Measure actual text width
+  const temp = document.createElement("span");
+  temp.innerText = message;
+  temp.style.visibility = "hidden";
+  temp.style.whiteSpace = "nowrap";
+  document.body.appendChild(temp);
+  const textWidth = temp.offsetWidth;
+  document.body.removeChild(temp);
 
-  // Force reflow to restart animation
+  const totalDistance = textWidth + containerWidth;
+  const speedPerPixel = isMobile ? 0.03 : 0.04;
+  const duration = totalDistance * speedPerPixel;
+
+  // Reset transform
+  messageEl.style.transition = "none";
+  messageEl.style.transform = `translateX(${containerWidth}px)`;
+  messageEl.innerText = ""; // Clear first
+
+  // Force reflow
   void messageEl.offsetWidth;
 
-  // Apply animation
-  messageEl.classList.add("animate-scroll");
-  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
+  // Inject text and animate
+  messageEl.innerText = message;
+  messageEl.style.transition = `transform ${duration}s linear`;
+  messageEl.style.transform = `translateX(-${textWidth}px)`;
 
-  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start animation
 animateMessage(messages[index]);
- </script>
+</script>
 
 
 </body>
