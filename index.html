@@ -62,6 +62,11 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
+    @keyframes singleMarquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 
   </style>
 </head>
@@ -95,15 +100,16 @@
   </div>
  </div>
   </header>
-<!-- Announcement Rotator -->
+<!-- Scrolling Announcements, One at a Time -->
 <div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2 overflow-hidden">
-  <span class="text-yellow-900 text-lg">📢</span>
-  <div class="relative w-full h-6 sm:h-auto overflow-hidden">
-    <div id="announcementText" class="text-yellow-900 font-semibold text-sm sm:text-base transition-opacity duration-700 ease-in-out opacity-100">
-      <!-- Message will be injected here -->
+  <span class="text-yellow-900 text-lg shrink-0">📢</span>
+  <div class="relative w-full overflow-hidden h-6 sm:h-auto">
+    <div id="scrollingMessage" class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block">
+      <!-- Message goes here -->
     </div>
   </div>
 </div>
+
 
 
 
@@ -166,30 +172,35 @@
     }
     setInterval(toggleFade, 6000);
 
+
   const messages = [
-    "Onam 2025 Registration Open — Click Here!
-    🎉 Cultural Fest Auditions on 10th August",
-    "🏆 Congrats to Winners of Chess Tournament!"
+    "Onam 2025 Registration Open — Click Here!",
+    "🎉 Cultural Fest Auditions on 10th August at Margao Hall",
+    "🏆 Congrats to Winners of the Inter-State Chess Tournament!"
   ];
 
-  let current = 0;
-  const textEl = document.getElementById("announcementText");
+  const messageEl = document.getElementById("scrollingMessage");
+  let index = 0;
 
-  function showNextMessage() {
-    textEl.classList.remove("opacity-100");
-    textEl.classList.add("opacity-0");
+  function animateMessage(message) {
+    messageEl.style.animation = "none"; // Reset animation
+    void messageEl.offsetWidth; // Force reflow
+    messageEl.innerText = message;
+
+    // Estimate animation duration based on message length
+    const duration = Math.max(message.length * 0.15, 6); // min 6s
+    messageEl.style.animation = `singleMarquee ${duration}s linear forwards`;
 
     setTimeout(() => {
-      textEl.innerText = messages[current];
-      textEl.classList.remove("opacity-0");
-      textEl.classList.add("opacity-100");
-      current = (current + 1) % messages.length;
-    }, 600); // match transition duration
+      index = (index + 1) % messages.length;
+      animateMessage(messages[index]);
+    }, duration * 1000);
   }
 
-  textEl.innerText = messages[0]; // Show first immediately
-  setInterval(showNextMessage, 4000); // Change every 4 seconds
+  // Start
+  animateMessage(messages[index]);
 </script>
+
 
 </body>
 </html>
