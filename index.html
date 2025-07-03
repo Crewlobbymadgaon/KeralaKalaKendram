@@ -217,20 +217,12 @@
     </p>
   </div>
 
- <div id="imageCarousel" class="hidden mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
- <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full" style="width: 700%;">
-
-<img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-<img src="https://drive.google.com/uc?export=view&id=1-On31aWkaK9e-1zO5Rsmv0X8b9JkMXxO" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-<img src="https://drive.google.com/uc?export=view&id=1-68ClTxheAnfIyg8ykvvDz1Uo3kfDbmX" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-<img src="https://drive.google.com/uc?export=view&id=1-BEYa4IWiu3vtNJnJQVPkCuc2vKKvySD" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-
-<img src="https://drive.google.com/uc?export=view&id=1-nFMpa_Vux65l_v-p5de4mkMwzuu_m5x" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-<img src="https://drive.google.com/uc?export=view&id=1-l_utr_SsMkOB4Ct4el1tR8StCkQ5GB8" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-<img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug" class="w-full h-full object-cover flex-shrink-0" style="min-width: 100%;" alt="Slide 1" />
-
+<div id="imageCarousel" class="hidden mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
+  <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full" style="width: max-content;">
+    <!-- Images will be inserted dynamically -->
   </div>
 </div>
+
 
 
 </section>
@@ -359,8 +351,34 @@ animateMessage(messages[index]);
       carouselInner.style.transform = `translateX(-${index * 100}%)`;
     }, 4000); // auto-slide every 4s
   }
-</script>
 
+  
+fetch("https://script.google.com/macros/s/AKfycbwM9aE3ih_aITs7k5ONHe-HaYAiDckVIfDfPazb_nng/exec?folder=Slideshow1")
+  .then(res => res.json())
+  .then(images => {
+    const ci = document.getElementById('carouselInner');
+    if (!ci || images.length === 0) return;
+
+    images.forEach(img => {
+      const el = document.createElement('img');
+      el.src = img.url;
+      el.alt = img.name;
+      el.className = 'w-full h-full object-cover flex-shrink-0';
+      el.style.minWidth = '100%';
+      ci.appendChild(el);
+    });
+
+    document.getElementById('imageCarousel').classList.remove('hidden');
+
+    // Start sliding
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % images.length;
+      ci.style.transform = `translateX(-${idx * 100}%)`;
+    }, 4000);
+  })
+  .catch(err => console.error("Error loading carousel images:", err));
+</script>
 
 </body>
 </html>
