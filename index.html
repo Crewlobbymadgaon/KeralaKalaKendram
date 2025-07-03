@@ -62,19 +62,17 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
-  @keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+ @keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
+
 .animate-marquee {
   display: inline-block;
   animation: marquee 20s linear infinite;
   will-change: transform;
 }
+
 
   </style>
 </head>
@@ -108,12 +106,18 @@
   </div>
  </div>
   </header>
- <!-- Scrolling Announcement Bar -->
-<div class="overflow-hidden bg-yellow-400 py-2">
-  <div class="whitespace-nowrap animate-marquee text-yellow-900 font-semibold text-sm sm:text-base px-4">
-    📢 Onam 2025 Registration Open — Click Here! &nbsp;&nbsp;&nbsp;&nbsp; 🎉 Cultural Fest Auditions on 10th August &nbsp;&nbsp;&nbsp;&nbsp; 🏆 Congrats to Winners of Chess Tournament!
+ <!-- Fixed Emoji + Scrolling Text Bar -->
+<div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2 overflow-hidden">
+  <span class="text-yellow-900 text-lg">📢</span>
+  <div class="relative w-full overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base">
+      Onam 2025 Registration Open — Click Here! &nbsp;&nbsp;&nbsp;&nbsp;
+      🎉 Cultural Fest Auditions on 10th August &nbsp;&nbsp;&nbsp;&nbsp;
+      🏆 Congrats to Winners of Chess Tournament!
+    </div>
   </div>
 </div>
+
 
   <script>
     function splitToGraphemes(str) {
