@@ -74,11 +74,7 @@
   }
 }
 
-.marquee-container {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
+
 
 .animate-scroll {
   display: inline-block;
@@ -218,7 +214,7 @@ function animateMessage(message) {
 
   const duration = isMobile
     ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.15, 14);
+    : Math.max(message.length * 0.13, 8);
 
   // Reset styles
   messageEl.innerText = message;
