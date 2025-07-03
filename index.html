@@ -191,7 +191,7 @@
       showingEnglish = !showingEnglish;
     }
     setInterval(toggleFade, 6000);
-    
+  
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -205,24 +205,28 @@ function animateMessage(message) {
   messageEl.innerText = message;
   messageEl.classList.remove("animate-scroll");
   messageEl.style.animation = "none";
+
+  // Force reflow
   void messageEl.offsetWidth;
 
-  const isMobile = window.innerWidth < 640;
-  const duration = isMobile
-    ? Math.max(message.length * 0.15, 6)
-    : Math.max(message.length * 0.08, 10);
+  // Duration based on message length (longer message = longer time)
+  const duration = Math.max(message.length * 0.12, 8); // Adjust as needed
 
+  // Apply animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
+  // Wait and show next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
+// Start first message
 animateMessage(messages[index]);
 </script>
+
 
 
 </body>
