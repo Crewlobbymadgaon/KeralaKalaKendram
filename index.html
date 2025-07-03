@@ -63,19 +63,20 @@
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
    
-    @keyframes marqueeScroll {
+   @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
-.marquee-track {
-  display: inline-flex;
-  animation: marqueeScroll 25s linear infinite;
+.marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
   will-change: transform;
+  padding-left: 100%; /* Ensures it starts far off-screen to the right */
 }
 
 
@@ -98,14 +99,9 @@
         </div>
       </div>
      <!-- Marquee Section -->
-<div class="relative w-full overflow-hidden h-10 bg-white">
-  <div class="marquee-track whitespace-nowrap">
-    <span class="marquee-text text-yellow-900 text-sm sm:text-lg md:text-xl font-bold mr-12">
-      A Socio-Cultural Organisation of Keralites in Goa
-    </span>
-    <span class="marquee-text text-yellow-900 text-sm sm:text-lg md:text-xl font-bold">
-      A Socio-Cultural Organisation of Keralites in Goa
-    </span>
+<div class="relative w-full overflow-hidden h-10">
+  <div class="marquee whitespace-nowrap text-yellow-900 text-sm sm:text-lg md:text-xl font-bold">
+    A Socio-Cultural Organisation of Keralites in Goa
   </div>
 </div>
 
