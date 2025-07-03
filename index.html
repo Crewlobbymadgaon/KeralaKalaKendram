@@ -108,17 +108,20 @@
  </div>
   </header>
 <div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2">
-  <!-- Add left padding to emoji on desktop -->
+  <!-- Emoji padded on desktop -->
+  <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-20">📢</span>
   
-  <span class="text-yellow-900 text-lg shrink-0 pl-2 sm:pl-4 md:pl-15">📢</span>
-
-  <div class="relative overflow-hidden w-full">
-    <!-- Right side spacer using ::before pseudo-element via Tailwind padding -->
-    <div id="scrollingMessage" class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-8 sm:pr-16">
-      <!-- JavaScript injects message here -->
+  <!-- Scrolling message container -->
+  <div class="overflow-hidden w-full relative">
+    <div
+      id="scrollingMessage"
+      class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20"
+    >
+      <!-- JS injects message -->
     </div>
   </div>
 </div>
+
 
 
 
