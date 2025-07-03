@@ -200,6 +200,7 @@
     setInterval(toggleFade, 6000);
 
 
+<script>
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -212,32 +213,43 @@ let index = 0;
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  const duration = isMobile
-    ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.13, 8);
+  // Create a temporary span to measure the text width
+  const temp = document.createElement("span");
+  temp.innerText = message;
+  temp.style.visibility = "hidden";
+  temp.style.whiteSpace = "nowrap";
+  document.body.appendChild(temp);
 
-  // Reset styles
-  messageEl.innerText = message;
-  messageEl.style.animation = "none";
-  messageEl.classList.remove("animate-scroll");
+  const textWidth = temp.offsetWidth;
+  const containerWidth = messageEl.parentElement.offsetWidth;
+  const totalDistance = textWidth + containerWidth;
+  const speedPerPixel = isMobile ? 0.03 : 0.04;
+  const duration = totalDistance * speedPerPixel;
 
-  // Force reflow to restart animation
+  document.body.removeChild(temp);
+
+  // Reset: move message fully right, hide it briefly
+  messageEl.style.transition = "none";
+  messageEl.style.transform = `translateX(${containerWidth}px)`;
+  messageEl.innerText = ""; // hide text for frame sync
+
+  // Force reflow
   void messageEl.offsetWidth;
 
-  // Apply animation
-  messageEl.classList.add("animate-scroll");
-  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
+  // Inject message and scroll it
+  messageEl.innerText = message;
+  messageEl.style.transition = `transform ${duration}s linear`;
+  messageEl.style.transform = `translateX(-${textWidth}px)`;
 
-  // Schedule next message
+  // Schedule next
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start animation
+// Start scrolling
 animateMessage(messages[index]);
-
 </script>
 
 </body>
