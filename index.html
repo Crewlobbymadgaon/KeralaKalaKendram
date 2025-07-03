@@ -212,45 +212,31 @@ let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
+  const duration = isMobile
+    ? Math.max(message.length * 0.13, 8)
+    : Math.max(message.length * 0.14, 14);
 
-  // Create a temporary span to measure the text width
-  const temp = document.createElement("span");
-  temp.innerText = message;
-  temp.style.visibility = "hidden";
-  temp.style.whiteSpace = "nowrap";
-  document.body.appendChild(temp);
-
-  const textWidth = temp.offsetWidth;
-  const containerWidth = messageEl.parentElement.offsetWidth;
-  const totalDistance = textWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.03 : 0.04;
-  const duration = totalDistance * speedPerPixel;
-
-  document.body.removeChild(temp);
-
-  // Reset: move message fully right, hide it briefly
-  messageEl.style.transition = "none";
-  messageEl.style.transform = `translateX(${containerWidth}px)`;
-  messageEl.innerText = ""; // hide text for frame sync
-
-  // Force reflow
-  void messageEl.offsetWidth;
-
-  // Inject message and scroll it
   messageEl.innerText = message;
-  messageEl.style.transition = `transform ${duration}s linear`;
-  messageEl.style.transform = `translateX(-${textWidth}px)`;
+  messageEl.style.animation = "none";
+  messageEl.classList.remove("animate-scroll");
 
-  // Schedule next
+  // Reset transform to start off-screen
+  messageEl.style.transform = "translateX(100%)";
+
+  void messageEl.offsetWidth; // Force reflow
+
+  messageEl.classList.add("animate-scroll");
+  messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
+
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start scrolling
 animateMessage(messages[index]);
 </script>
+
 
 </body>
 </html>
