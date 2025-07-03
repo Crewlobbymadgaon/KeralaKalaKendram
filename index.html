@@ -212,9 +212,9 @@
 
 
 const messages = [
-  "🎉 Onam 2025 Celebration Registrations are Open!",
-  "🏆 Chess Tournament Winners Announced!",
-  "🎭 Cultural Fest on 10th August at Margao!"
+  "🎉 Onam 2025 Celebrattion - September 27 & 28 - Stay tuned for Updates.....!",
+  "മലയാളം മിഷൻ ക്ലാസ്സിൽ ചേരാൻ ആഗ്രഹിക്കുന്ന കുട്ടികൾ കേരള കലാ കേന്ദ്രം ഭാരവാഹികളുമായി ബന്ധപ്പെടേണ്ടതാണ് ......! ",
+  "ഓണാഘോഷം 2025 വിപുലമായി ആഘോഷിക്കാൻ തീരുമാനിച്ചിരിക്കുന്നു . വിശദ വിവരങ്ങൾക്കായി കാത്തിരിക്കുക ........!!"
 ];
 
 const messageEl = document.getElementById("scrollingMessage");
@@ -235,7 +235,7 @@ function animateMessage(message) {
   const messageWidth = messageEl.scrollWidth;
   const containerWidth = messageEl.parentElement.offsetWidth;
   const distance = messageWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.035 : 0.045;
+  const speedPerPixel = isMobile ? 0.025 : 0.03;
   const duration = distance * speedPerPixel;
 
   // Animate leftward
