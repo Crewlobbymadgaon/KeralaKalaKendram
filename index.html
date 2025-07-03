@@ -63,21 +63,21 @@
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
    
-   @keyframes marquee {
+  @keyframes marquee {
   0% {
-    transform: translateX(100%);
+    transform: translateX(100vw);  /* use full viewport width */
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-100%);  /* move all the way left */
   }
 }
 
 .marquee {
   display: inline-block;
-  animation: marquee 20s linear infinite;
+  animation: marquee 15s linear infinite;
   will-change: transform;
- 
 }
+
 
 
 
@@ -104,6 +104,7 @@
     A Socio-Cultural Organisation of Keralites in Goa
   </div>
 </div>
+
 
 
 
