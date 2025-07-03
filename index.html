@@ -64,6 +64,7 @@
     }
 
  
+
 @keyframes smoothMarquee {
   0% {
     transform: translateX(100%);
@@ -79,9 +80,11 @@
   will-change: transform;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  padding-left: 100%; /* Pushes start position far right */
+  /* ✅ Remove padding-left: 100% */
 }
 </style>
+
+
 
 
 
@@ -118,21 +121,17 @@
  </div>
   </header>
   
-
 <div class="bg-yellow-400 py-2 px-4">
   <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-8 sm:h-10 md:h-12">
-
- 
     <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
-    <div class="overflow-hidden w-full relative h-full flex items-center">
-  <div id="scrollingMessage"
-       class="text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20">
+    <div class="overflow-hidden w-full h-full flex items-center">
+      <div id="scrollingMessage"
+           class="text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20">
+      </div>
+    </div>
   </div>
 </div>
 
-        <!-- JS injects message -->
-      </div>
-    </div>
   
  <script>
     function splitToGraphemes(str) {
@@ -212,7 +211,7 @@ function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
   const duration = isMobile
     ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.20, 14);
+    : Math.max(message.length * 0.25, 14);
 
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
