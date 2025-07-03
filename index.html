@@ -67,6 +67,13 @@
   100% { transform: translateX(-100%); }
 }
 
+.animate-scroll {
+  display: inline-block;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+
 
   </style>
 </head>
@@ -100,15 +107,18 @@
   </div>
  </div>
   </header>
-<!-- Scrolling Announcements, One at a Time -->
-<div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2 overflow-hidden">
-  <span class="text-yellow-900 text-lg shrink-0">📢</span>
-  <div class="relative w-full overflow-hidden h-6 sm:h-auto">
-    <div id="scrollingMessage" class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block">
-      <!-- Message goes here -->
+<div class="bg-yellow-400 py-2 px-4 flex items-center space-x-2">
+  <!-- Add left padding to emoji on desktop -->
+  <span class="text-yellow-900 text-lg shrink-0 pl-2 sm:pl-4">📢</span>
+  
+  <div class="relative overflow-hidden w-full">
+    <!-- Right side spacer using ::before pseudo-element via Tailwind padding -->
+    <div id="scrollingMessage" class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-8 sm:pr-16">
+      <!-- JavaScript injects message here -->
     </div>
   </div>
 </div>
+
 
 
 
@@ -183,12 +193,18 @@
   let index = 0;
 
   function animateMessage(message) {
-    messageEl.style.animation = "none"; // Reset animation
-    void messageEl.offsetWidth; // Force reflow
+    messageEl.classList.remove("animate-scroll");
+    messageEl.style.animation = "none";
+    void messageEl.offsetWidth; // force reflow
+
     messageEl.innerText = message;
 
-    // Estimate animation duration based on message length
-    const duration = Math.max(message.length * 0.15, 6); // min 6s
+    const isMobile = window.innerWidth < 640;
+    const duration = isMobile
+      ? Math.max(message.length * 0.15, 6)
+      : Math.max(message.length * 0.08, 10); // faster on desktop
+
+    messageEl.classList.add("animate-scroll");
     messageEl.style.animation = `singleMarquee ${duration}s linear forwards`;
 
     setTimeout(() => {
@@ -197,10 +213,8 @@
     }, duration * 1000);
   }
 
-  // Start
   animateMessage(messages[index]);
 </script>
-
 
 </body>
 </html>
