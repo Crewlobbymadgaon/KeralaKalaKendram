@@ -83,6 +83,19 @@
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
+    .scroll-container {
+  position: relative;
+}
+
+#scrollingMessage {
+  white-space: nowrap;
+  position: absolute;
+  left: 100%; /* Start from just outside the right */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+    
 
 </style>
 
@@ -122,25 +135,20 @@
   </div>
  </div>
   </header>
-
-  
 <div class="bg-yellow-400 py-2 px-4">
-  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-10 sm:h-12 md:h-14">
-    <span class="emoji-icon text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
-
-    <div class="marquee-container h-full flex items-center">
+  <div class="max-w-[1000px] mx-auto flex items-center h-12 sm:h-14 md:h-16 relative">
+    <span class="emoji-icon text-yellow-900 text-xl sm:text-2xl md:text-2xl absolute left-4 sm:left-12 z-10">📢</span>
+    
+    <!-- This container controls the visible scrolling area -->
+    <div class="scroll-container overflow-hidden flex-1 ml-10 sm:ml-20 h-full relative">
       <div id="scrollingMessage"
-           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl animate-scroll">
-        <!-- Message will be injected here -->
+           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap absolute top-1/2 transform -translate-y-1/2">
+        <!-- JS inserts messages here -->
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-  
  <script>
     function splitToGraphemes(str) {
       if (typeof Intl !== 'undefined' && Intl.Segmenter) {
@@ -202,6 +210,7 @@
 
 
 
+
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -209,42 +218,31 @@ const messages = [
 ];
 
 const messageEl = document.getElementById("scrollingMessage");
-const emojiEl = document.querySelector(".emoji-icon"); // Add this class to 📢
 let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  // Measure emoji and container widths
-  const emojiWidth = emojiEl.offsetWidth || 0;
-  const containerWidth = messageEl.parentElement.offsetWidth - emojiWidth;
-
-  // Measure actual text width
-  const temp = document.createElement("span");
-  temp.innerText = message;
-  temp.style.visibility = "hidden";
-  temp.style.whiteSpace = "nowrap";
-  document.body.appendChild(temp);
-  const textWidth = temp.offsetWidth;
-  document.body.removeChild(temp);
-
-  const totalDistance = textWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.03 : 0.04;
-  const duration = totalDistance * speedPerPixel;
-
-  // Reset transform
+  messageEl.innerText = message;
   messageEl.style.transition = "none";
-  messageEl.style.transform = `translateX(${containerWidth}px)`;
-  messageEl.innerText = ""; // Clear first
+  messageEl.style.transform = "translateY(-50%)";
+  messageEl.style.left = "100%"; // reset to right
 
   // Force reflow
   void messageEl.offsetWidth;
 
-  // Inject text and animate
-  messageEl.innerText = message;
-  messageEl.style.transition = `transform ${duration}s linear`;
-  messageEl.style.transform = `translateX(-${textWidth}px)`;
+  // Calculate animation distance and time
+  const messageWidth = messageEl.scrollWidth;
+  const containerWidth = messageEl.parentElement.offsetWidth;
+  const distance = messageWidth + containerWidth;
+  const speedPerPixel = isMobile ? 0.035 : 0.045;
+  const duration = distance * speedPerPixel;
 
+  // Animate leftward
+  messageEl.style.transition = `left ${duration}s linear`;
+  messageEl.style.left = `-${messageWidth}px`;
+
+  // Queue next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
@@ -253,6 +251,7 @@ function animateMessage(message) {
 
 animateMessage(messages[index]);
 </script>
+
 
 
 </body>
