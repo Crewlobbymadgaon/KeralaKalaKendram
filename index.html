@@ -216,46 +216,32 @@ let index = 0;
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
 
-  // Prepare a hidden clone for width calculation
-  const temp = document.createElement("span");
-  temp.innerText = message;
-  temp.style.visibility = "hidden";
-  temp.style.position = "absolute";
-  temp.style.whiteSpace = "nowrap";
-  document.body.appendChild(temp);
+  const duration = isMobile
+    ? Math.max(message.length * 0.13, 8)
+    : Math.max(message.length * 0.15, 14);
 
-  const textWidth = temp.offsetWidth;
-  const containerWidth = messageEl.parentElement.offsetWidth;
-  const totalDistance = textWidth + containerWidth;
-  const speedPerPixel = isMobile ? 0.03 : 0.035;
-  const duration = totalDistance * speedPerPixel;
+  // Reset styles
+  messageEl.innerText = message;
+  messageEl.style.animation = "none";
+  messageEl.classList.remove("animate-scroll");
 
-  document.body.removeChild(temp);
-
-  // Reset before animation
-  messageEl.innerText = '';
-  messageEl.style.animation = 'none';
-  messageEl.classList.remove('animate-scroll');
-  messageEl.style.transform = `translateX(${containerWidth}px)`; // start offscreen
-
-  // Force reflow
+  // Force reflow to restart animation
   void messageEl.offsetWidth;
 
-  // Set new text after setting initial position
-  messageEl.innerText = message;
-
-  // Start animation
-  messageEl.classList.add('animate-scroll');
+  // Apply animation
+  messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-  // Queue next
+  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
+// Start animation
 animateMessage(messages[index]);
+
 </script>
 
 </body>
