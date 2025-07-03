@@ -62,7 +62,8 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
-   @keyframes smoothMarquee {
+  <style>
+@keyframes smoothMarquee {
   0% {
     transform: translateX(120%);
   }
@@ -75,8 +76,10 @@
   display: inline-block;
   will-change: transform;
   white-space: nowrap;
-  animation-timing-function: ease-in-out; /* smoother acceleration */
+  animation-timing-function: ease-in-out;
 }
+</style>
+
 
   </style>
 </head>
@@ -110,24 +113,17 @@
   </div>
  </div>
   </header>
-<!-- Full-width yellow background -->
-<div class="bg-yellow-400 py-2 px-4">
-  <!-- Centered container only on sm and up -->
-  <div class="max-w-screen-lg mx-auto flex items-center space-x-2">
-    
-    <!-- 📢 Emoji with padding on desktop -->
-    <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-20">📢</span>
 
-    <!-- Scrolling message -->
+<!-- Announcement Bar -->
+<div class="bg-yellow-400 py-2 px-4">
+  <div class="max-w-[1000px] mx-auto flex items-center space-x-2">
+    <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-20">📢</span>
     <div class="overflow-hidden w-full relative">
-      <div
-        id="scrollingMessage"
-        class="whitespace-nowrap text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20"
-      >
-        <!-- JS injects message -->
+      <div id="scrollingMessage"
+           class="text-yellow-900 font-semibold text-sm sm:text-base inline-block pr-4 md:pr-20">
+        <!-- JS will inject message here -->
       </div>
     </div>
-
   </div>
 </div>
 
@@ -196,37 +192,42 @@
     }
     setInterval(toggleFade, 6000);
 
+const messages = [
+  "🎉 Onam 2025 Celebration Registrations are Open!",
+  "🏆 Chess Tournament Winners Announced!",
+  "🎭 Cultural Fest on 10th August at Margao!"
+];
 
-  const messages = [
-    "Onam 2025 Registration Open — Click Here!",
-    "🎉 Cultural Fest Auditions on 10th August at Margao Hall",
-    "🏆 Congrats to Winners of the Inter-State Chess Tournament!"
-  ];
+const messageEl = document.getElementById("scrollingMessage");
+let index = 0;
 
-  const messageEl = document.getElementById("scrollingMessage");
-  let index = 0;
-
- function animateMessage(message) {
+function animateMessage(message) {
+  // Reset animation
   messageEl.classList.remove("animate-scroll");
   messageEl.style.animation = "none";
   void messageEl.offsetWidth; // trigger reflow
 
+  // Set new message
   messageEl.innerText = message;
 
   const isMobile = window.innerWidth < 640;
   const duration = isMobile
     ? Math.max(message.length * 0.15, 6)
-    : Math.max(message.length * 0.08, 10); // slightly faster on desktop
+    : Math.max(message.length * 0.08, 10);
 
+  // Apply animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
+  // Wait for it to finish before showing next
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
+// Start
+animateMessage(messages[index]);
 </script>
 
 </body>
