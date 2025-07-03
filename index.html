@@ -67,11 +67,21 @@
 
 @keyframes smoothMarquee {
   0% {
-    transform: translateX(100%); /* fully off-screen right */
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(-100%); /* fully off-screen left */
+    transform: translateX(-100%);
   }
+}
+
+.animate-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 }
 
 .animate-scroll {
@@ -122,20 +132,17 @@
   </header>
 
   
-  
 <div class="bg-yellow-400 py-2 px-4">
-  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-8 sm:h-10 md:h-12">
+  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-10 sm:h-12 md:h-14">
     <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
-    <div class="overflow-hidden w-full h-full flex items-center">
-      
-      <div
-  id="scrollingMessage"
-  class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap"
-></div>
-
+    <div class="overflow-hidden w-full h-full flex items-center relative">
+      <div id="scrollingMessage"
+           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+      </div>
     </div>
   </div>
 </div>
+
 
 
   
@@ -198,7 +205,6 @@
     }
     setInterval(toggleFade, 6000);
 
-    
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -210,38 +216,30 @@ let index = 0;
 
 function animateMessage(message) {
   const isMobile = window.innerWidth < 640;
-
   const duration = isMobile
     ? Math.max(message.length * 0.13, 8)
-    : Math.max(message.length * 0.18, 14);
+    : Math.max(message.length * 0.25, 14);
 
-  // Reset styles
   messageEl.innerText = message;
   messageEl.style.animation = "none";
   messageEl.classList.remove("animate-scroll");
 
-  // Force reflow to restart animation
-  void messageEl.offsetWidth;
+  // Reset transform to start off-screen
+  messageEl.style.transform = "translateX(100%)";
 
-  // Apply animation
+  void messageEl.offsetWidth; // Force reflow
+
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start animation
 animateMessage(messages[index]);
-
-
-
 </script>
-
-
 
 </body>
 </html>
