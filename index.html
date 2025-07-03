@@ -119,7 +119,9 @@
   </header>
 
 <div class="bg-yellow-400 py-2 px-4">
-  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative">
+  <div class="max-w-[1000px] mx-auto flex items-center space-x-2 relative h-8 sm:h-10 md:h-12">
+
+ 
     <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-[50px]">📢</span>
     <div class="overflow-hidden w-full relative h-6 sm:h-7 md:h-8">
       <div id="scrollingMessage"
@@ -218,7 +220,7 @@ function animateMessage(message) {
   void messageEl.offsetWidth; // Force reflow
 
   // Compute duration: longer message = longer animation
-  const duration = Math.max(message.length * 0.1, 8); // seconds
+  const duration = Math.max(message.length * 0.13, 10); // seconds
 
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
