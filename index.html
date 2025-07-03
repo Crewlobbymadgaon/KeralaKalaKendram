@@ -62,26 +62,23 @@
     .header-gradient {
       background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
     }
-  <style>
-@keyframes smoothMarquee {
-  0% {
-    transform: translateX(120%);
+  @keyframes smoothMarquee {
+    0% {
+      transform: translateX(120%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
-  100% {
-    transform: translateX(-100%);
-  }
-}
 
-.animate-scroll {
-  display: inline-block;
-  will-change: transform;
-  white-space: nowrap;
-  animation-timing-function: ease-in-out;
-}
+  .animate-scroll {
+    display: inline-block;
+    will-change: transform;
+    white-space: nowrap;
+    animation-timing-function: ease-in-out;
+  }
 </style>
 
-
-  </style>
 </head>
 <body class="bg-white text-gray-800">
   <header class="header-gradient text-white shadow-md border-b border-yellow-800">
@@ -114,7 +111,6 @@
  </div>
   </header>
 
-<!-- Announcement Bar -->
 <div class="bg-yellow-400 py-2 px-4">
   <div class="max-w-[1000px] mx-auto flex items-center space-x-2">
     <span class="text-yellow-900 text-lg shrink-0 pl-2 md:pl-20">📢</span>
@@ -126,6 +122,7 @@
     </div>
   </div>
 </div>
+
 
 
 
@@ -191,8 +188,7 @@
       showingEnglish = !showingEnglish;
     }
     setInterval(toggleFade, 6000);
-
-<script>
+    
 const messages = [
   "🎉 Onam 2025 Celebration Registrations are Open!",
   "🏆 Chess Tournament Winners Announced!",
@@ -203,38 +199,28 @@ const messageEl = document.getElementById("scrollingMessage");
 let index = 0;
 
 function animateMessage(message) {
-  // Set message text
   messageEl.innerText = message;
-
-  // Remove any existing animation
   messageEl.classList.remove("animate-scroll");
   messageEl.style.animation = "none";
-
-  // Force reflow to reset animation
   void messageEl.offsetWidth;
 
-  // Calculate duration based on message length
   const isMobile = window.innerWidth < 640;
   const duration = isMobile
     ? Math.max(message.length * 0.15, 6)
     : Math.max(message.length * 0.08, 10);
 
-  // Apply new animation
   messageEl.classList.add("animate-scroll");
   messageEl.style.animation = `smoothMarquee ${duration}s linear forwards`;
 
-  // Schedule next message
   setTimeout(() => {
     index = (index + 1) % messages.length;
     animateMessage(messages[index]);
   }, duration * 1000);
 }
 
-// Start animation
 animateMessage(messages[index]);
 </script>
 
-</script>
 
 </body>
 </html>
