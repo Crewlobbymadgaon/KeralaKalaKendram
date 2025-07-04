@@ -214,8 +214,8 @@
 </nav>
 
 <section class="relative max-w-5xl mx-auto px-4 mt-6">
-  <div id="imageCarousel" class="mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
-    <div id="carouselInner" class="flex h-full">
+  <div id="imageCarousel" class="relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
+    <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
       <!-- Images will be injected here -->
     </div>
   </div>
@@ -230,28 +230,25 @@ async function loadCarouselImages() {
     const carouselInner = document.getElementById("carouselInner");
     if (!carouselInner || !data.images || data.images.length === 0) return;
 
-    // Insert images
-    data.images.forEach((url) => {
-      const slide = document.createElement("div");
-      slide.className = "w-full flex-shrink-0 h-full";
-      slide.innerHTML = `<img src="${url}" alt="Slide" class="w-full h-full object-cover" loading="lazy" />`;
-      carouselInner.appendChild(slide);
-    });
+    // Inject images into the carousel
+    carouselInner.innerHTML = data.images.map(url => `
+      <div class="flex-shrink-0 w-full h-full">
+        <img src="${url}" class="w-full h-full object-cover" alt="Slide image" />
+      </div>
+    `).join("");
 
-    // Start auto-sliding
+    // Set up sliding
     let index = 0;
     setInterval(() => {
       index = (index + 1) % data.images.length;
       carouselInner.style.transform = `translateX(-${index * 100}%)`;
-      carouselInner.style.transition = 'transform 0.7s ease-in-out';
     }, 4000);
   } catch (err) {
-    console.error("Carousel load failed:", err);
+    console.error("Failed to load images:", err);
   }
 }
 
 loadCarouselImages();
-
 
 
 
