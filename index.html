@@ -214,44 +214,21 @@
 </nav>
 <section class="relative max-w-5xl mx-auto px-4 mt-6">
 
- <!-- 🔁 Image Carousel Section -->
-<div id="imageCarousel" class="mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
-  <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
-
-    <!-- Images will be dynamically injected here -->
+ <div id="imageCarousel" class="overflow-hidden w-full h-64 relative rounded-xl">
+  <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+    <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" class="w-full h-full object-cover" style="min-width: 100%;" />
+    <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug" class="w-full h-full object-cover" style="min-width: 100%;" />
   </div>
 </div>
-</section>
-
 
 <script>
+  const carouselInner = document.getElementById("carouselInner");
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % 2;
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  }, 3000);
 
-async function loadCarouselImages() {
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
-      const data = await res.json();
-
-      const carouselInner = document.getElementById("carouselInner");
-      if (!carouselInner || !data.images || data.images.length === 0) return;
-
-      // Inject images
-      carouselInner.innerHTML = data.images.map(url =>
-        `<img src="${url}" class="inline-block w-full h-full object-cover" style="min-width: 100%;" />`
-      ).join("");
-
-      // Slide carousel
-      let index = 0;
-      setInterval(() => {
-        index = (index + 1) % data.images.length;
-        carouselInner.style.transform = `translateX(-${index * 100}%)`;
-      }, 4000);
-    } catch (err) {
-      console.error("Carousel load failed:", err);
-    }
-  }
-
-  // Ensure DOM is ready before running
-  document.addEventListener("DOMContentLoaded", loadCarouselImages);
 
 
 
