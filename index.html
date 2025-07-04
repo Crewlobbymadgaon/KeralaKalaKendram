@@ -221,19 +221,39 @@
   </div>
 </section>
 
-
-
 <script>
-  const carouselInner = document.getElementById("carouselInner");
-  let index = 0;
-  const totalSlides = carouselInner.children.length;
+async function loadCarouselImages() {
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
+    const data = await res.json(); // Expected format: { images: [url1, url2, ...] }
 
-  setInterval(() => {
-    index = (index + 1) % totalSlides;
-    carouselInner.style.transform = `translateX(-${index * 100}%)`;
-  }, 3000);
+    const carouselInner = document.getElementById("carouselInner");
+    if (!carouselInner || !data.images || data.images.length === 0) return;
 
+    // Set width for the flex container
+    carouselInner.style.width = `${data.images.length * 100}%`;
 
+    // Inject images
+    carouselInner.innerHTML = data.images.map(url => `
+      <div class="w-full h-full flex-shrink-0">
+        <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
+      </div>
+    `).join("");
+
+    // Slide images
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % data.images.length;
+      const offset = -(index * 100);
+      carouselInner.style.transform = `translateX(${offset}%)`;
+    }, 4000); // Change image every 4 seconds
+
+  } catch (err) {
+    console.error("Failed to load images:", err);
+  }
+}
+
+loadCarouselImages();
 
 
 
