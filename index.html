@@ -222,27 +222,40 @@
 </section>
 
 <script>
-  const imageUrls = [
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/cm.jpg",
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm1.jpg",
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/danceclass.jpg"
-  ];
 
-  const carouselInner = document.getElementById("carouselInner");
+  document.addEventListener("DOMContentLoaded", () => {
+    const imageUrls = [
+      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/cm.jpg",
+      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm1.jpg",
+      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/danceclass.jpg"
+    ];
 
-  // Inject images
-  carouselInner.innerHTML = imageUrls.map(url => `
-    <div class="flex-shrink-0 w-full h-full">
-      <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
-    </div>
-  `).join("");
+    const carouselInner = document.getElementById("carouselInner");
 
-  // Slide logic
-  let index = 0;
-  setInterval(() => {
-    index = (index + 1) % imageUrls.length;
-    carouselInner.style.transform = `translateX(-${index * 100}%)`;
-  }, 4000);
+    if (!carouselInner) return;
+
+    // Inject images
+    imageUrls.forEach((url) => {
+      const slide = document.createElement("div");
+      slide.className = "flex-shrink-0 w-full h-full";
+      slide.innerHTML = `<img src="${url}" alt="Slide" class="w-full h-full object-cover" />`;
+      carouselInner.appendChild(slide);
+    });
+
+    // Handle slide transition
+    let index = 0;
+    const totalSlides = imageUrls.length;
+
+    function slideNext() {
+      index = (index + 1) % totalSlides;
+      carouselInner.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    // Use requestAnimationFrame + setTimeout for smoothness
+    setInterval(slideNext, 4000);
+  });
+
+
 
 
 
