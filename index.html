@@ -332,22 +332,14 @@ animateMessage(messages[index]);
   const hasImportantEvent = false; // ← Change to true when event is live
 
   const eventEl = document.getElementById("importantEvent");
-  const carouselEl = document.getElementById("imageCarousel");
+const carouselEl = document.getElementById("imageCarousel");
 
-  if (hasImportantEvent) {
-    eventEl.classList.remove("hidden");
-  } else {
-    carouselEl.classList.remove("hidden");
-
-    const carouselInner = document.getElementById("carouselInner");
-    const images = carouselInner.querySelectorAll("img");
-    let index = 0;
-
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      carouselInner.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000); // auto-slide every 4s
-  }
+if (hasImportantEvent) {
+  eventEl.classList.remove("hidden");
+} else {
+  carouselEl.classList.remove("hidden");
+  loadCarouselImages(); // Only load if no important event
+}
 
 
   const API_URL = "https://script.google.com/macros/s/AKfycbwM9aE3ih_aITs7k5ONHe-HaYAiDckVIfDfPazb_nng/dev";
