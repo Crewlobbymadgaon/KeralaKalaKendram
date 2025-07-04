@@ -227,32 +227,31 @@
 <script>
 
 async function loadCarouselImages() {
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
-    const data = await res.json(); // { images: [...] }
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
+      const data = await res.json();
 
-    const carouselInner = document.getElementById("carouselInner");
-    if (!carouselInner || !data.images || data.images.length === 0) return;
+      const carouselInner = document.getElementById("carouselInner");
+      if (!carouselInner || !data.images || data.images.length === 0) return;
 
-    // Inject images
-    carouselInner.innerHTML = data.images.map(url =>
-      `<img src="${url}" class="inline-block w-full h-full object-cover" style="min-width: 100%;" />`
-    ).join("");
+      // Inject images
+      carouselInner.innerHTML = data.images.map(url =>
+        `<img src="${url}" class="inline-block w-full h-full object-cover" style="min-width: 100%;" />`
+      ).join("");
 
-    // Auto-slide
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % data.images.length;
-      carouselInner.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000);
-  } catch (err) {
-    console.error("Carousel load failed:", err);
+      // Slide carousel
+      let index = 0;
+      setInterval(() => {
+        index = (index + 1) % data.images.length;
+        carouselInner.style.transform = `translateX(-${index * 100}%)`;
+      }, 4000);
+    } catch (err) {
+      console.error("Carousel load failed:", err);
+    }
   }
-}
-document.addEventListener("DOMContentLoaded", function () {
-  loadCarouselImages();
-});
 
+  // Ensure DOM is ready before running
+  document.addEventListener("DOMContentLoaded", loadCarouselImages);
 
 
 
