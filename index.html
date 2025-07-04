@@ -214,52 +214,30 @@
 </nav>
 
 <section class="relative max-w-5xl mx-auto px-4 mt-6">
-  <div id="imageCarousel" class="mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
-    <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
-      <!-- Images will be injected here -->
+  <div id="imageCarousel" class="overflow-hidden w-full h-64 relative rounded-xl shadow-md">
+    <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+      <div class="w-full h-full flex-shrink-0">
+        <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" 
+             alt="Slide 1" 
+             class="w-full h-full object-cover" />
+      </div>
+      <div class="w-full h-full flex-shrink-0">
+        <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug" 
+             alt="Slide 2" 
+             class="w-full h-full object-cover" />
+      </div>
     </div>
   </div>
 </section>
- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Fronalpstock_big.jpg/640px-Fronalpstock_big.jpg"
-     class="w-full h-64 object-cover"
-     alt="Slide Test" />
-
-
 
 <script>
-async function loadCarouselImages() {
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
-    const data = await res.json(); // Expected format: { images: [url1, url2, ...] }
+  const carouselInner = document.getElementById("carouselInner");
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % 2;
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  }, 4000);
 
-    const carouselInner = document.getElementById("carouselInner");
-    if (!carouselInner || !data.images || data.images.length === 0) return;
-
-    // Set width for the flex container
-    carouselInner.style.width = `${data.images.length * 100}%`;
-
-    // Inject images
-   carouselInner.innerHTML = data.images.map(url => `
-  <div class="flex-shrink-0 w-full h-full flex">
-    <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
-  </div>
-`).join("");
-
-
-    // Slide images
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % data.images.length;
-      const offset = -(index * 100);
-      carouselInner.style.transform = `translateX(${offset}%)`;
-    }, 4000); // Change image every 4 seconds
-
-  } catch (err) {
-    console.error("Failed to load images:", err);
-  }
-}
-
-loadCarouselImages();
 
 
 
