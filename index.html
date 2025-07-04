@@ -356,34 +356,7 @@ animateMessage(messages[index]);
   
 
 
-  const API_URL = "https://script.google.com/macros/s/AKfycbwM9aE3ih_aITs7k5ONHe-HaYAiDckVIfDfPazb_nng/dev";
-
-  async function loadCarouselImages() {
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json(); // { images: [url1, url2, ...] }
-
-      const carouselInner = document.getElementById("carouselInner");
-      if (!carouselInner || !data.images || data.images.length === 0) return;
-
-      // Insert images
-      carouselInner.innerHTML = data.images.map(url =>
-        `<img src="${url}" class="inline-block w-full h-full object-cover" style="min-width:100%;" />`
-      ).join("");
-
-      // Start sliding
-      let index = 0;
-      setInterval(() => {
-        index = (index + 1) % data.images.length;
-        carouselInner.style.transform = `translateX(-${index * 100}%)`;
-      }, 4000); // Slide every 4 seconds
-
-    } catch (err) {
-      console.error("Failed to load images from API:", err);
-    }
-  }
-
-  loadCarouselImages();
+  
 </script>
 
 
