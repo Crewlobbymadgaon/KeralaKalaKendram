@@ -214,7 +214,7 @@
 </nav>
 
 <section class="relative max-w-5xl mx-auto px-4 mt-6">
-  <div id="imageCarousel" class="relative overflow-hidden rounded-xl shadow-md w-full h-64">
+  <div id="imageCarousel" class="mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
     <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
       <!-- Images will be injected here -->
     </div>
@@ -222,30 +222,32 @@
 </section>
 
 <script>
-async function loadCarouselImages() {
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbzUtOM_aAp7isxKpaIP3t2I4trfKWazLlLBSBaVDEbuxEDQ-TiCKTb1Fyw-J7UAeV7N/exec");
-    const data = await res.json();
+  const imageUrls = [
+	"https://i.ibb.co/s9GJSRsT/agm1.jpg",
+	"https://i.ibb.co/HLG2QhZN/agm2.jpg",
+	"https://i.ibb.co/35rnSZbP/agm3.jpg",
+	"https://i.ibb.co/7N2m7Qq3/agm4.jpg",
+	"https://i.ibb.co/JwX92VRL/cm.jpg",
+	"https://i.ibb.co/GvfBGgzL/danceclass.jpg",
+	"https://i.ibb.co/8n8t9TrQ/IMG-20250623-WA0012.jpg"
+  ];
 
-    const carouselInner = document.getElementById("carouselInner");
-    if (!carouselInner || !data.images || data.images.length === 0) return;
+  const carouselInner = document.getElementById("carouselInner");
 
-    carouselInner.innerHTML = data.images.map(url => `
-      <img src="${url}" class="w-full h-full object-cover flex-shrink-0" style="min-width:100%;" alt="Slide">
-    `).join("");
+  // Inject images
+  carouselInner.innerHTML = imageUrls.map(url => `
+    <div class="flex-shrink-0 w-full h-full">
+      <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
+    </div>
+  `).join("");
 
-    // Auto-slide logic
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % data.images.length;
-      carouselInner.style.transform = `translateX(-${index * 100}%)`;
-    }, 3000);
-  } catch (err) {
-    console.error("Failed to load images:", err);
-  }
-}
+  // Slide logic
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % imageUrls.length;
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  }, 4000);
 
-loadCarouselImages();
 
 
 
