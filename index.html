@@ -212,14 +212,19 @@
     </div>
   </div>
 </nav>
-<section class="relative max-w-5xl mx-auto px-4 mt-6">
 
- <div id="imageCarousel" class="overflow-hidden w-full h-64 relative rounded-xl">
+
+ <div id="imageCarousel" class="overflow-hidden w-full h-64 relative rounded-xl bg-blue-100 border border-blue-500">
   <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
-    <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" class="w-full h-full object-cover" style="min-width: 100%;" />
-    <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug" class="w-full h-full object-cover" style="min-width: 100%;" />
+    <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h"
+         class="w-full h-full object-contain border border-red-500 bg-white"
+         style="min-width: 100%;" />
+    <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug"
+         class="w-full h-full object-contain border border-green-500 bg-white"
+         style="min-width: 100%;" />
   </div>
 </div>
+
 
 <script>
   const carouselInner = document.getElementById("carouselInner");
