@@ -222,36 +222,44 @@
   </div>
 </div>
 </section>
+  <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
+  <div class="w-full h-full flex-shrink-0">
+    <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" class="w-full h-full object-cover" />
+  </div>
+</div>
+
 <script>
- async function loadCarouselImages() {
+
+async function loadCarouselImages() {
   try {
     const res = await fetch("https://script.google.com/macros/s/AKfycbzt8D2hZm579OXHidNnfdyJWImrOBPA8X_qNXpD_1aVe0GVj5FDMJ5yvQmmyhKJtCKJ/exec");
-    const data = await res.json(); // should return { images: [...] }
+    const data = await res.json(); // Expected { images: [...] }
 
     const carouselInner = document.getElementById("carouselInner");
     if (!carouselInner || !data.images || data.images.length === 0) return;
 
-    // Insert images into carousel
+    // Set carouselInner width to accommodate all images side-by-side
+    carouselInner.style.width = `${data.images.length * 100}%`;
+
+    // Insert images
     carouselInner.innerHTML = data.images.map(url =>
-      `<img src="${url}" class="inline-block w-full h-full object-cover" style="min-width: 100%;" />`
+      `<div class="w-full h-full flex-shrink-0">
+         <img src="${url}" class="w-full h-full object-cover" />
+       </div>`
     ).join("");
 
-    // Carousel slide logic
+    // Slide logic
     let index = 0;
     setInterval(() => {
       index = (index + 1) % data.images.length;
-      carouselInner.style.transform = `translateX(-${index * 100}%)`;
+      carouselInner.style.transform = `translateX(-${index * (100 / data.images.length)}%)`;
     }, 4000);
   } catch (err) {
-    console.error("Carousel load failed:", err);
+    console.error("Failed to load carousel images:", err);
   }
 }
 
 loadCarouselImages();
-
-
-
-
 
 
 
