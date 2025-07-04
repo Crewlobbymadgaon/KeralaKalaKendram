@@ -214,18 +214,16 @@
 </nav>
 
 <section class="relative max-w-5xl mx-auto px-4 mt-6">
-  <div id="imageCarousel" class="overflow-hidden w-full h-64 relative rounded-xl shadow-md">
+  <div class="overflow-hidden w-full h-64 relative rounded-xl shadow-md">
     <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out w-full h-full">
-      <div class="w-full h-full flex-shrink-0">
-        <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h" 
-             alt="Slide 1" 
-             class="w-full h-full object-cover" />
-      </div>
-      <div class="w-full h-full flex-shrink-0">
-        <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug" 
-             alt="Slide 2" 
-             class="w-full h-full object-cover" />
-      </div>
+      <img src="https://drive.google.com/uc?export=view&id=1-uwl149SFB5h17ryoTxkyNZJYRtocF1h"
+           alt="Slide 1"
+           class="w-full h-full object-cover flex-shrink-0"
+           style="min-width: 100%;" />
+      <img src="https://drive.google.com/uc?export=view&id=1-MwezLzuGFWR26jIuf7ntYMdov_WNFug"
+           alt="Slide 2"
+           class="w-full h-full object-cover flex-shrink-0"
+           style="min-width: 100%;" />
     </div>
   </div>
 </section>
@@ -234,9 +232,10 @@
   const carouselInner = document.getElementById("carouselInner");
   let index = 0;
   setInterval(() => {
-    index = (index + 1) % 2;
+    index = (index + 1) % 2; // only 2 images here
     carouselInner.style.transform = `translateX(-${index * 100}%)`;
-  }, 4000);
+  }, 3000);
+
 
 
 
