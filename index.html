@@ -234,11 +234,12 @@ async function loadCarouselImages() {
     carouselInner.style.width = `${data.images.length * 100}%`;
 
     // Inject images
-    carouselInner.innerHTML = data.images.map(url => `
-      <div class="w-full h-full flex-shrink-0">
-        <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
-      </div>
-    `).join("");
+   carouselInner.innerHTML = data.images.map(url => `
+  <div class="flex-shrink-0 w-full h-full flex">
+    <img src="${url}" alt="Slide" class="w-full h-full object-cover" />
+  </div>
+`).join("");
+
 
     // Slide images
     let index = 0;
