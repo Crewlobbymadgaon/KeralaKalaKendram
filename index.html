@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kerala Kala Kendram, Margao</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet" />
-  <style>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kerala Kala Kendram, Margao</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet" />
+    
+    
+    <style>
     body {
       font-family: 'Noto Sans Malayalam', sans-serif;
       scroll-behavior: smooth;
@@ -100,8 +102,25 @@
   height: 100%;
 }
 
+@keyframes fadeSwitch {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
 
-    
+@keyframes fadeSwitchReverse {
+  0%, 45% { opacity: 0; }
+  50%, 95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fade-language {
+  animation: fadeSwitch 6s infinite ease-in-out;
+}
+
+.fade-language-reverse {
+  animation: fadeSwitchReverse 6s infinite ease-in-out;
+}
 
 </style>
 
@@ -111,7 +130,7 @@
 
 
 </head>
-<body class="bg-white text-gray-800">
+<body class="flex flex-col min-h-screen bg-white text-gray-800">
   <header class="header-gradient text-white shadow-md border-b border-yellow-800">
     <div class="container mx-auto px-4 py-2">
       
@@ -141,20 +160,55 @@
   </div>
  </div>
   </header>
-<div class="bg-yellow-400 py-2 px-4">
-  <div class="max-w-[1000px] mx-auto flex items-center h-12 sm:h-14 md:h-16 relative">
-    <span class="emoji-icon text-yellow-900 text-xl sm:text-2xl md:text-2xl absolute left-4 sm:left-12 z-10">📢</span>
-    
-    <!-- This container controls the visible scrolling area -->
-    <div class="scroll-container overflow-hidden flex-1 ml-10 sm:ml-20 h-full relative">
+<div class="bg-yellow-400 py-2 px-4" x-data="{ open: false }">
+  <div class="max-w-[1000px] mx-auto flex items-center justify-between h-12 sm:h-14 md:h-16 relative">
+
+    <!-- 🍔 Hamburger Button -->
+<!-- 🍔 Refined Hamburger Button -->
+<button @click="open = !open"
+  class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 border-2 border-yellow-800 text-yellow-900 shadow-lg transition-all duration-300 hover:scale-105 active:scale-95">
+  <template x-if="!open">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </template>
+  <template x-if="open">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </template>
+</button>
+
+    <!-- 🔁 Scrolling Message -->
+    <div class="scroll-container overflow-hidden flex-1 px-2 h-full relative">
       <div id="scrollingMessage"
-           class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap absolute top-1/2 transform -translate-y-1/2">
+        class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap absolute top-1/2 transform -translate-y-1/2">
         <!-- JS inserts messages here -->
       </div>
     </div>
+
+    <!-- 📢 Emoji flipped (Right Side) -->
+    <span class="emoji-icon text-yellow-900 text-xl sm:text-2xl md:text-2xl transform scale-x-[-1]">
+      📢
+    </span>
+  </div>
+
+  <!-- 📱 Dropdown Menu below bar -->
+  <div x-show="open" x-transition class="md:hidden mt-2 bg-white border border-yellow-300 rounded-xl shadow-xl px-6 py-4 space-y-2 text-center text-yellow-900 font-medium w-[90%] max-w-xs mx-auto">
+    <a href="#about" class="block hover:text-yellow-700 transition">About Us</a>
+    <a href="#committee" class="block hover:text-yellow-700 transition">Managing Committee</a>
+    <a href="#events" class="block hover:text-yellow-700 transition">Events & Programs</a>
+    <a href="#gallery" class="block hover:text-yellow-700 transition">Gallery</a>
+    <a href="#contact" class="block hover:text-yellow-700 transition">Contact Us</a>
   </div>
 </div>
-<nav x-data="{ open: false }" class="bg-white sticky top-0 z-50 md:shadow-md md:border-b md:border-yellow-300">
+<nav x-data="{ open: false }" class="hidden md:block bg-white sticky top-0 z-50 md:shadow-md md:border-b md:border-yellow-300">
+          
+
   <div class="w-full px-4 h-16 flex items-center justify-between md:justify-center">
 
     <!-- 🌐 Desktop Menu -->
@@ -181,84 +235,153 @@
       </a>
     </div>
 
-    <!-- 🍔 Hamburger Icon (Mobile) -->
-    <div class="md:hidden ml-auto">
-      <button @click="open = !open"
-              class="w-10 h-10 flex items-center justify-center rounded-full border border-yellow-600 text-yellow-800 hover:bg-yellow-100 transition duration-200 focus:outline-none">
-        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg"
-             class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
-             class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
+ 
   </div>
 
-  <!-- 📱 Mobile Dropdown Menu -->
-  <div x-show="open" class="md:hidden flex justify-center mt-2">
-    <div class="bg-white border border-yellow-300 rounded-xl shadow-xl px-6 py-4 space-y-2 text-center w-[90%] max-w-xs font-medium text-yellow-900">
-      <a href="#about" class="block hover:text-yellow-700 transition">About Us</a>
-      <a href="#committee" class="block hover:text-yellow-700 transition">Managing Committee</a>
-      <a href="#events" class="block hover:text-yellow-700 transition">Events & Programs</a>
-      <a href="#gallery" class="block hover:text-yellow-700 transition">Gallery</a>
-      <a href="#contact" class="block hover:text-yellow-700 transition">Contact Us</a>
-    </div>
-  </div>
+ 
 </nav>
 
-<section class="relative max-w-5xl mx-auto px-4 mt-6">
-  <div id="imageCarousel" class="mt-6 relative overflow-hidden rounded-xl shadow-md w-full h-56 sm:h-64 md:h-72 lg:h-80">
-    <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
-      <!-- Images will be injected here -->
-    </div>
+<!-- 🌟 Refined Animated Bilingual Onaghosham Block -->
+<div class="relative text-center my-6 h-40 sm:h-44">
+  <!-- English Version -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center fade-language">
+    <h2 class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-300 via-pink-400 to-green-300 
+               text-transparent bg-clip-text drop-shadow-[1px_1px_2px_black]">
+      Onaghosham
+    </h2>
+    <h3 class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-yellow-300 via-pink-400 to-green-300 
+               text-transparent bg-clip-text drop-shadow-[1px_1px_2px_black] mt-1">
+      2025
+    </h3>
+    <p class="mt-1 text-sm sm:text-base font-semibold text-yellow-900 drop-shadow-[1px_1px_1px_black]">
+      September 27 & 28
+    </p>
+    <a href="#onamEvent" class="mt-2 inline-block px-4 py-1.5 text-white text-sm sm:text-base font-bold rounded-full
+       bg-gradient-to-r from-yellow-400 via-pink-400 to-green-400 shadow-md hover:scale-105 transition">
+      Click Here for Details
+    </a>
   </div>
+
+  <!-- Malayalam Version -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center fade-language-reverse"
+       style="font-family: 'Noto Sans Malayalam', sans-serif;">
+    <h2 class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-300 via-pink-400 to-green-300 
+               text-transparent bg-clip-text drop-shadow-[1px_1px_2px_black]">
+      ഓണാഘോഷം
+    </h2>
+    <h3 class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-yellow-300 via-pink-400 to-green-300 
+               text-transparent bg-clip-text drop-shadow-[1px_1px_2px_black] mt-1">
+      2025
+    </h3>
+    <p class="mt-1 text-sm sm:text-base font-semibold text-yellow-900 drop-shadow-[1px_1px_1px_black]">
+      സെപ്റ്റംബർ 27 & 28
+    </p>
+    <a href="#onamEvent" class="mt-2 inline-block px-4 py-1.5 text-white text-sm sm:text-base font-bold rounded-full
+       bg-gradient-to-r from-yellow-400 via-pink-400 to-green-400 shadow-md hover:scale-105 transition">
+      കൂടുതൽ വിവരങ്ങൾക്ക് ക്ലിക്ക് ചെയ്യുക
+    </a>
+  </div>
+</div>
+
+
+<section class="relative max-w-5xl mx-auto px-4 mt-6 space-y-4">
+  <!-- Important Event will appear above carousel if visible -->
+
+<!-- 🚨 Important Event (conditionally shown) -->
+<div id="importantEvent" class="hidden bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded shadow mb-4">
+  <h2 class="text-lg font-semibold text-yellow-800 mb-1">📣 Important Event</h2>
+  <p class="text-gray-800">
+    Onam Celebration 2025 will be held on <strong>September 27 & 28, 2025</strong> Stay tuned
+  </p>
+</div>
+<div id="imageCarousel" class="mt-4 sm:mt-6 mb-4 sm:mb-6 relative overflow-hidden rounded-xl shadow-md w-full 
+  h-56 sm:h-64 md:h-80 lg:h-[30rem] xl:h-[36rem]">
+
+  <!-- ⬅️ Previous Button -->
+  <button id="prevBtn"
+    class="absolute left-3 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-yellow-800 rounded-full shadow-lg p-2 transition duration-300">
+    <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <!-- ➡️ Next Button -->
+  <button id="nextBtn"
+    class="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-yellow-800 rounded-full shadow-lg p-2 transition duration-300">
+    <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- 🔄 Carousel Inner (unchanged) -->
+  <div id="carouselInner" class="flex transition-transform duration-700 ease-in-out h-full">
+    <!-- Images will be injected here -->
+  </div>
+</div>
 </section>
 
 <script>
 
   document.addEventListener("DOMContentLoaded", () => {
-    const imageUrls = [
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/cm.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm1.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/danceclass.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm2.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm3.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm4.jpg",
-      "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/relief.jpg",
-    ];
+  const imageUrls = [
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/cm.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm1.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/danceclass.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm2.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm3.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/agm4.jpg",
+    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/slide1/relief.jpg",
+  ];
 
-    const carouselInner = document.getElementById("carouselInner");
+  const carouselInner = document.getElementById("carouselInner");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-    if (!carouselInner) return;
+  let index = 0;
+  const totalSlides = imageUrls.length;
 
-    // Inject images
-    imageUrls.forEach((url) => {
-      const slide = document.createElement("div");
-      slide.className = "flex-shrink-0 w-full h-full";
-      slide.innerHTML = `<img src="${url}" alt="Slide" class="w-full h-full object-cover" />`;
-      carouselInner.appendChild(slide);
-    });
-
-    // Handle slide transition
-    let index = 0;
-    const totalSlides = imageUrls.length;
-
-    function slideNext() {
-      index = (index + 1) % totalSlides;
-      carouselInner.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    // Use requestAnimationFrame + setTimeout for smoothness
-    setInterval(slideNext, 4000);
+  // Inject images
+  imageUrls.forEach((url) => {
+    const slide = document.createElement("div");
+    slide.className = "flex-shrink-0 w-full h-full";
+    slide.innerHTML = `<img src="${url}" alt="Slide" class="w-full h-full object-cover lg:object-contain object-center" />`;
+    carouselInner.appendChild(slide);
   });
 
+  function updateCarousel() {
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function slideNext() {
+    index = (index + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function slidePrev() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  let interval = setInterval(slideNext, 4000);
+
+  // Manual Controls
+  nextBtn.addEventListener("click", () => {
+    slideNext();
+    resetInterval();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    slidePrev();
+    resetInterval();
+  });
+
+  function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(slideNext, 4000);
+  }
+});
 
 
 
@@ -371,6 +494,64 @@ animateMessage(messages[index]);
 </script>
 
 
+
+<!-- 📦 Stylish & Compact Contact Us Section -->
+<section id="contact" class="py-10 sm:py-14 bg-white px-4">
+  <div class="max-w-4xl mx-auto bg-gradient-to-br from-yellow-100 via-pink-100 to-green-100 border-2 border-yellow-300 rounded-3xl shadow-xl p-6 sm:p-10">
+    
+    <!-- Header Title (Smaller) -->
+    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-900 text-center mb-3 drop-shadow-sm tracking-wide">
+      📞 Contact Us
+    </h2>
+
+    <!-- Contact Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-yellow-900 font-medium text-sm sm:text-base">
+      
+      <!-- 📍 Address -->
+      <div class="bg-white/80 rounded-xl shadow-md p-4 border border-yellow-200 text-center">
+        <h3 class="text-base font-semibold mb-1">📍 Address</h3>
+        <p>
+          Kerala Kala Kendram<br>
+          Regd No : 53/Goa/81<br>
+          Regd Off : Phoenix Estate, Flat No : S4 & S5, Gogol,
+          Margao, Goa 403601
+        </p>
+      </div>
+
+      <!-- 📞 Phone -->
+      <div class="bg-white/80 rounded-xl shadow-md p-4 border border-yellow-200 text-center">
+        <h3 class="text-base font-semibold mb-1">📞 Phone</h3>
+        <p>
+          +91 98765 43210<br>
+          +91 91234 56789
+        </p>
+      </div>
+
+      <!-- ✉️ Email -->
+      <div class="bg-white/80 rounded-xl shadow-md p-4 border border-yellow-200 text-center">
+        <h3 class="text-base font-semibold mb-1">✉️ Email</h3>
+        <p>
+          keralakalakendram@gmail.com
+        </p>
+      </div>
+    </div>
+
+    <!-- 📩 Email Button -->
+    <div class="text-center mt-6">
+      <a href="mailto:keralakendram@gmail.com"
+         class="inline-block px-5 py-2.5 text-sm sm:text-base bg-yellow-400 text-white font-semibold rounded-full shadow-md hover:scale-105 hover:bg-yellow-500 transition duration-300 ease-in-out tracking-wide">
+        ✉️ Send us an Email
+      </a>
+    </div>
+    
+  </div>
+</section>
+
+<footer class="w-full mt-auto text-center text-yellow-900 text-xs sm:text-sm md:text-base font-medium py-3 border-t border-yellow-300">
+  <div class="max-w-5xl mx-auto px-4">
+    © 2025 Kerala Kala Kendram — All Rights Reserved
+  </div>
+</footer>
 
 
 </body>
