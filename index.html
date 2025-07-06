@@ -14,6 +14,15 @@
       font-family: 'Noto Sans Malayalam', sans-serif;
       scroll-behavior: smooth;
     }
+    
+  .letter span {
+    display: inline;
+    margin-right: 0.05em;
+    font-weight: 700;
+    font-size: 1em; /* Uniform size */
+    color: #facc15;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
     .regular-letter {
       color: #713f12;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
@@ -121,7 +130,31 @@
 .fade-language-reverse {
   animation: fadeSwitchReverse 6s infinite ease-in-out;
 }
+.uniform-letter {
+  display: inline;
+  margin-right: 0.05em;
+  font-weight: 800;
+  font-size: 1em;
+  color: #facc15;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+.first-letter {
+  font-weight: 800;
+  font-size: 1em;
+  color: #facc15; /* Yellow */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
 
+.rest-letter {
+  font-weight: 800;
+  font-size: 1em;
+  color: #713f12; /* Brown */
+  text-shadow: 1px 1px 2px rgba(250, 204, 21, 0.8); /* yellow glow */
+}
+
+.space {
+  margin-right: 0; /* reduce spacing */
+}
 </style>
 
 
@@ -394,37 +427,35 @@
       return Array.from(str);
     }
 
-    function wrapTextWithSpansBoldFirst(text) {
-      const words = text.split(' ');
-      return words.map((word, wordIndex) => {
-        const graphemes = splitToGraphemes(word);
-        const letters = graphemes.map((g, i) => {
-          const cls = (i === 0) ? 'bold-letter' : 'regular-letter';
-          return `<span class="${cls}">${g}</span>`;
-        }).join('');
-        return `<span class="inline-block mr-2">${letters}</span>`;
-      }).join('');
-    }
+    function wrapTextWithYellowFirstLetter(text) {
+  const words = text.split(' ');
+  return words.map(word => {
+    const letters = splitToGraphemes(word);
+    return [
+      `<span class="first-letter">${letters[0]}</span>`,
+      ...letters.slice(1).map(l => `<span class="rest-letter">${l}</span>`)
+    ].join('');
+  }).join(' <span class="space">&nbsp;</span>');
+}
+ const englishTextContent = `
+  <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight text-center font-bold mt-0.5 mb-1 sm:mt-1 sm:mb-2 whitespace-nowrap">
+    ${wrapTextWithYellowFirstLetter('Kerala Kala Kendram')}
+  </h1>
+  <h2 class="text-lg sm:text-xl text-center font-semibold mt-0.5 mb-1 sm:mt-1 sm:mb-1">
+    ${wrapTextWithYellowFirstLetter('Margao')}
+  </h2>
+`;
 
-    const englishTextContent = `
-      <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2 whitespace-nowrap" aria-hidden="true">
-        ${wrapTextWithSpansBoldFirst('Kerala Kala Kendram')}
-      </h1>
-      <h2 class="text-lg sm:text-xl letter text-center font-semibold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-1" aria-hidden="true">
-        ${wrapTextWithSpansBoldFirst('Margao')}
-      </h2>
-    `;
-
-    const malayalamTextContent = `
-      <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight letter text-center font-bold regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true"
-         style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
-          ${wrapTextWithSpansBoldFirst('കേരള കലാ കേന്ദ്രം')}
-        </h1>
-        <h2 class="text-lg sm:text-xl letter font-semibold text-center regular-letter mt-0.5 mb-1 sm:mt-1 sm:mb-2" aria-hidden="true" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
-          ${wrapTextWithSpansBoldFirst('മർഗാവ്')}
-        </h2>
-    `;
-
+const malayalamTextContent = `
+  <h1 class="text-[1.75rem] sm:text-4xl md:text-6xl tracking-wide leading-tight text-center font-bold mt-0.5 mb-1 sm:mt-1 sm:mb-2"
+     style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+      ${wrapTextWithYellowFirstLetter('കേരള കലാ കേന്ദ്രം')}
+    </h1>
+    <h2 class="text-lg sm:text-xl font-semibold text-center mt-0.5 mb-1 sm:mt-1 sm:mb-2"
+       style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;">
+      ${wrapTextWithYellowFirstLetter('മർഗാവ്')}
+    </h2>
+`;
     const englishDiv = document.getElementById('englishText');
     const malayalamDiv = document.getElementById('malayalamText');
 
@@ -549,10 +580,4 @@ animateMessage(messages[index]);
 
 <footer class="w-full mt-auto text-center text-yellow-900 text-xs sm:text-sm md:text-base font-medium py-3 border-t border-yellow-300">
   <div class="max-w-5xl mx-auto px-4">
-    © 2025 Kerala Kala Kendram — All Rights Reserved
-  </div>
-</footer>
-
-
-</body>
-</html>
+    © 2025 Kerala Kala Kendram — 
