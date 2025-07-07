@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Managing Committee – Kerala Kala Kendram</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Noto Sans Malayalam', sans-serif;
+    }
+    .header-gradient {
+      background: linear-gradient(to right, #1e293b, #334155, #1e3a8a);
+    }
+    .fade-text-wrapper h1, .fade-text-wrapper h2 {
+      color: white;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800" x-data="{ lang: 'en' }">
+
+<!-- 🔷 Sticky Header from your design -->
+<header class="relative header-gradient text-white shadow-md border-b border-yellow-800 sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-4 flex flex-col items-center space-y-2 sm:space-y-4 relative">
+
+    <!-- Logo -->
+    <a href="about.html" title="About Us">
+      <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+           class="max-h-20 sm:max-h-24 rounded-full transition hover:scale-105" />
+    </a>
+
+    <!-- Heading -->
+    <div class="fade-text-wrapper text-center">
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-wide">Kerala Kala Kendram</h1>
+      <h2 class="text-xl sm:text-2xl font-semibold mt-1">Margao</h2>
+    </div>
+
+    <!-- Home Button -->
+    <a href="index.html" title="Home"
+       class="absolute bottom-2 left-2 text-white text-xl hover:scale-110 transition duration-200 z-50">
+      <i class="fas fa-home"></i>
+    </a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto py-12 px-4">
+  <!-- 🌟 Stylish Heading -->
+  <h2 class="text-4xl sm:text-5xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 mb-12">
+    <span class="inline-block border-b-4 border-yellow-500 pb-2 px-4 shadow-sm">Managing Committee</span>
+  </h2>
+
+  <!-- 👥 Grid of Members -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+    <!-- 🔶 Patron -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Patron"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Name of Patron</h3>
+      <p class="text-yellow-700 font-medium">Patron</p>
+    </div>
+
+    <!-- 🔶 Chairman -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Chairman"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Name of Chairman</h3>
+      <p class="text-yellow-700 font-medium">Chairman</p>
+    </div>
+
+    <!-- 🔶 Secretary -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Secretary"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Name of Secretary</h3>
+      <p class="text-yellow-700 font-medium">Secretary</p>
+    </div>
+
+    <!-- 🔶 Treasurer -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Treasurer"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Name of Treasurer</h3>
+      <p class="text-yellow-700 font-medium">Treasurer</p>
+    </div>
+
+    <!-- 🔶 Executive Member 1 -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Member"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Member One</h3>
+      <p class="text-yellow-700 font-medium">Executive Member</p>
+    </div>
+
+    <!-- 🔶 Executive Member 2 -->
+    <div class="bg-white border border-yellow-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <img src="https://via.placeholder.com/120" alt="Member"
+             class="rounded-full border-4 border-yellow-400 shadow-md ring-4 ring-yellow-300 ring-offset-2 ring-offset-white transition-transform hover:scale-105 duration-300" />
+      </div>
+      <h3 class="text-xl font-bold">Member Two</h3>
+      <p class="text-yellow-700 font-medium">Executive Member</p>
+    </div>
+
+    <!-- ➕ Add more members as needed -->
+
+  </div>
+</main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 text-brown-900 border-t-4 border-brown-700 rounded-t-2xl shadow-lg mt-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+      <div class="text-center md:text-left">
+        <h3 class="text-lg font-bold">Kerala Kala Kendram, Margao</h3>
+        <p class="text-sm font-medium mt-1">&copy; 2025 All rights reserved</p>
+      </div>
+      <div class="flex justify-center md:justify-end space-x-4">
+        <a href="#" target="_blank" class="w-10 h-10 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transition">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" target="_blank" class="w-10 h-10 flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white rounded-full shadow-md transition">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" target="_blank" class="w-10 h-10 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full shadow-md transition">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="#" target="_blank" class="w-10 h-10 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transition">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
