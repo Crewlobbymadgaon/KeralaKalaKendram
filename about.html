@@ -26,39 +26,48 @@
 <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
 
   <!-- Sticky Header -->
-  <header class="relative header-gradient text-white shadow-md border-b border-yellow-800 sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex flex-col items-center space-y-2 sm:space-y-4 relative">
-      <!-- Logo -->
-      <a href="about.html" title="Go to About Us">
-  <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
-       class="max-h-20 sm:max-h-24 rounded-full shadow-[0_0_25px_rgba(255,255,255,0.8)] transition hover:scale-105" />
-</a>
-      <!-- Heading -->
-      <div class="fade-text-wrapper text-center">
-        <h1 class="text-3xl sm:text-5xl font-bold tracking-wide">Kerala Kala Kendram</h1>
-        <h2 class="text-xl sm:text-2xl font-semibold mt-1">Margao</h2>
-      </div>
-      <!-- Home Button Bottom Left -->
-      <a href="index.html" class="absolute bottom-2 left-4 text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-full shadow text-lg">
-        <i class="fas fa-home"></i>
-      </a>
-    </div>
-  </header>
+<!-- Sticky Header -->
+<header class="relative header-gradient text-white shadow-md border-b border-yellow-800 sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-4 flex flex-col items-center space-y-2 sm:space-y-4 relative">
+    
+    <!-- Logo -->
+    <a href="about.html" title="Go to About Us">
+      <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+           class="max-h-20 sm:max-h-24 rounded-full transition hover:scale-105" />
+    </a>
 
-  <!-- Language Switch -->
-  <div class="max-w-6xl mx-auto w-full flex justify-end items-center px-4 mt-4">
-    <div class="flex space-x-2">
-      <button @click="lang = 'en'"
-        class="px-4 py-1.5 rounded-full w-28 text-center bg-blue-600 text-white hover:bg-blue-700 text-sm shadow transition-all">
-        English
-      </button>
-      <button @click="lang = 'ml'"
-        class="px-4 py-1.5 rounded-full w-28 text-center bg-green-600 text-white hover:bg-green-700 text-sm shadow transition-all">
-        മലയാളം
-      </button>
+    <!-- Heading -->
+    <div class="fade-text-wrapper text-center">
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-wide">Kerala Kala Kendram</h1>
+      <h2 class="text-xl sm:text-2xl font-semibold mt-1">Margao</h2>
     </div>
+
+    <!-- Home Button: bottom-left -->
+    <a href="index.html" title="Home"
+       class="absolute bottom-2 left-2 text-white text-2xl hover:scale-110 transition duration-200 z-50">
+      <i class="fas fa-home"></i>
+    </a>
+
+
+
   </div>
-
+</header>
+<!-- Language Switch Buttons (Short & Styled) -->
+<div class="w-full flex justify-end px-4 py-2 bg-white shadow-sm z-40 sticky top-[5.5rem]">
+  <div class="flex space-x-2">
+    <!-- English Button -->
+    <button @click="lang = 'en'"
+      class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-600 text-white text-base font-bold hover:bg-blue-700 transition-all shadow">
+      EN
+    </button>
+    <!-- Malayalam Button -->
+    <button @click="lang = 'ml'"
+      class="w-10 h-10 rounded-full flex items-center justify-center bg-green-600 text-white text-xl font-bold hover:bg-green-700 transition-all shadow"
+      style="font-family: 'Noto Sans Malayalam', sans-serif;">
+      മ
+    </button>
+  </div>
+</div>
   <!-- About Content -->
   <main class="flex-grow max-w-3xl mx-auto px-4 py-6 text-justify text-base leading-relaxed space-y-5">
 
