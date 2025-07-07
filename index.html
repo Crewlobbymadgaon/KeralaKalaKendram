@@ -180,9 +180,7 @@
   text-shadow: 1px 1px 2px rgba(250, 204, 21, 0.8); /* yellow glow */
 }
 
-.space {
-  margin-right: 0; /* reduce spacing */
-}
+
 </style>
 
 
@@ -443,7 +441,7 @@
       `<span class="first-letter">${letters[0]}</span>`,
       ...letters.slice(1).map(l => `<span class="rest-letter">${l}</span>`)
     ].join('');
-  }).join(' <span class="space">&nbsp;</span>');
+  }).join(' '); // Use normal space
 }
  const englishTextContent = `
   <h1 class="text-[2rem] sm:text-4xl md:text-6xl tracking-wide leading-tight text-center font-bold mt-0.5 mb-1 sm:mt-1 sm:mb-2 whitespace-nowrap">
