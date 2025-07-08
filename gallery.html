@@ -24,20 +24,14 @@
 <!-- Sticky Header -->
 <header class="relative header-gradient text-white shadow-md border-b border-yellow-800 sticky top-0 z-50">
   <div class="container mx-auto px-4 py-4 flex flex-col items-center space-y-2 sm:space-y-4 relative">
-    
-    <!-- Logo -->
     <a href="about.html" title="Go to About Us">
       <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
            class="max-h-20 sm:max-h-24 rounded-full transition hover:scale-105" />
     </a>
-
-    <!-- Heading -->
     <div class="text-center">
       <h1 class="text-3xl sm:text-5xl font-bold tracking-wide">Kerala Kala Kendram</h1>
       <h2 class="text-xl sm:text-2xl font-semibold mt-1">Margao</h2>
     </div>
-
-    <!-- Home Button -->
     <a href="index.html" title="Home"
        class="absolute bottom-2 left-2 text-white text-xl hover:scale-110 transition duration-200 z-50">
       <i class="fas fa-home"></i>
@@ -50,16 +44,18 @@
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-10">📸 Photo Gallery</h2>
 
-    <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
-      <img src="https://drive.google.com/uc?export=view&id=1-18pv3mNXCSHTubj8qOC9X6R_j8aijmy" alt="Image" />
-
- 
-       class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
-</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
-        <img src="images/gallery3.jpg" alt="Event 3" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
+        <img src="https://drive.google.com/uc?export=view&id=1-18pv3mNXCSHTubj8qOC9X6R_j8aijmy" 
+             alt="Event 1" 
+             class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300" loading="lazy">
       </div>
-      <!-- Add more images -->
+      <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
+        <img src="images/gallery3.jpg" 
+             alt="Event 2" 
+             class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300" loading="lazy">
+      </div>
+      <!-- 🔽 Add more images here as needed -->
     </div>
   </div>
 </section>
@@ -70,17 +66,19 @@
     <h2 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-10">🎥 Video Gallery</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <!-- Video Item -->
       <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
-        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
+        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_1" 
+                title="Video 1" frameborder="0" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
-        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
+        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_2" 
+                title="Video 2" frameborder="0" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition">
-        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
+        <iframe class="w-full h-60" src="https://www.youtube.com/embed/VIDEO_ID_3" 
+                title="Video 3" frameborder="0" allowfullscreen loading="lazy"></iframe>
       </div>
-      <!-- Add more videos -->
+      <!-- 🔽 Add more videos if needed -->
     </div>
   </div>
 </section>
