@@ -96,47 +96,47 @@
   </div>
 </header>
 
-<!-- Photo Section -->
 <section class="py-10 px-4 bg-white">
   <h1 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-10 text-center">📸 Photos</h1>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-    <!-- Women's Day 2024 -->
-<div class="flex flex-col items-center space-y-4">
-  <h2 class="text-xl sm:text-2xl font-bold text-yellow-800 text-center">📸 Women's Day 2024</h2>
+    <!-- 🔹 Event 1: Women's Day -->
+    <div class="flex flex-col items-center space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-yellow-800 text-center">📸 Women's Day 2024</h2>
+      <div id="gallery-womens-day" class="cursor-pointer">
+        <a data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp" data-lg-size="1600-1200">
+          <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp" class="rounded-xl shadow-lg w-full max-w-sm hover:scale-105 transition duration-300" />
+        </a>
+        <a data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp" data-lg-size="1600-1200">
+          <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp" class="hidden" />
+        </a>
+        <a data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp" data-lg-size="1600-1200">
+          <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp" class="hidden" />
+        </a>
+      </div>
+    </div>
 
-  <div id="lightgallery-women" class="cursor-pointer">
-    <!-- Main Thumbnail (Visible) -->
-    <a 
-      data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp" 
-      data-lg-size="1600-1200">
-      <img 
-        src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
-        class="rounded-xl shadow-lg w-full max-w-sm hover:scale-105 transition duration-300"
-        alt="Women's Day Thumbnail" />
-    </a>
+    <!-- 🔹 Event 2: Onaghosham -->
+    <div class="flex flex-col items-center space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-yellow-800 text-center">🌾 Onaghosham 2024</h2>
+      <div id="gallery-onaghosham" class="cursor-pointer">
+        <a data-src="https://.../onam1.webp" data-lg-size="1600-1200">
+          <img src="https://.../onam1.webp" class="rounded-xl shadow-lg w-full max-w-sm hover:scale-105 transition duration-300" />
+        </a>
+        <a data-src="https://.../onam2.webp" data-lg-size="1600-1200">
+          <img src="https://.../onam2.webp" class="hidden" />
+        </a>
+        <a data-src="https://.../onam3.webp" data-lg-size="1600-1200">
+          <img src="https://.../onam3.webp" class="hidden" />
+        </a>
+      </div>
+    </div>
 
-    <!-- Hidden Images (used in slideshow) -->
-    <a 
-      data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp" 
-      data-lg-size="1600-1200"></a>
-
-    <a 
-      data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp" 
-      data-lg-size="1600-1200"></a>
-
-    <a 
-      data-src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082589074.webp" 
-      data-lg-size="1600-1200"></a>
-  </div>
-</div>
-
-
-    <!-- Add More Events Similarly -->
+    <!-- 🔹 Add More Events the Same Way -->
+    
   </div>
 </section>
-
 
   <!-- Video Section -->
   <section class="max-w-5xl mx-auto mt-12 px-4">
@@ -196,17 +196,21 @@
 
 
   <script>
-  lightGallery(document.getElementById('lightgallery-women'), {
-    plugins: [lgThumbnail, lgPager],
-    speed: 500,
-    thumbnail: true,
-    pager: true,
-    controls: true,
-    download: false,
-    actualSize: false,
-    hideBarsDelay: 3000
+  const galleries = ['gallery-womens-day', 'gallery-onaghosham'];
+  galleries.forEach(id => {
+    lightGallery(document.getElementById(id), {
+      plugins: [lgThumbnail, lgPager],
+      speed: 500,
+      thumbnail: true,
+      pager: true,
+      controls: true,
+      download: false,
+      actualSize: false,
+      hideBarsDelay: 3000
+    });
   });
 </script>
+
 
 
 
