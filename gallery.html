@@ -52,18 +52,28 @@
     opacity: 1;
   }
  @media (max-width: 768px) {
-  .gslide-prev, .gslide-next {
+  .lg-prev,
+  .lg-next,
+  .lg-close {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     font-size: 2rem !important;
     z-index: 9999 !important;
+    color: white !important;
+  }
+
+  .lg-close {
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 9999px;
+    padding: 5px;
   }
 }
 
 </style>
 
-  
 </head>
 
 <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
