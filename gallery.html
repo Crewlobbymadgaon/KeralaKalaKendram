@@ -47,7 +47,16 @@
   .tooltip:hover::after {
     opacity: 1;
   }
+  
+  @media (max-width: 768px) {
+    .gslide-prev, .gslide-next {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
 </style>
+
   
 </head>
 
@@ -115,12 +124,34 @@
 
 <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp"
    class="glightbox hidden" data-gallery="womens_day" data-title="Women's Day 2024"></a>
+</div>
+   
 
+ 
 
+  <!-- 🔸 Event 2: Onaghosham 2024 -->
+  <div class="flex flex-col items-center space-y-6">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-800 text-center">
+      🌾 Onaghosham 2024
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <a href="https://raw.githubusercontent.com/.../onam1.webp"
+         class="glightbox" data-gallery="onaghosham" data-title="Onaghosham 2024">
+        <img src="https://raw.githubusercontent.com/.../onam1.webp"
+             alt="Onaghosham"
+             class="w-full rounded-xl shadow-lg hover:scale-105 transition duration-300" />
+      </a>
+    </div>
+
+    <!-- Hidden slideshow images -->
+    <a href="https://raw.githubusercontent.com/.../onam2.webp"
+       class="glightbox hidden" data-gallery="onaghosham" data-title="Onaghosham 2024"></a>
+    <a href="https://raw.githubusercontent.com/.../onam3.webp"
+       class="glightbox hidden" data-gallery="onaghosham" data-title="Onaghosham 2024"></a>
   </div>
+
 </section>
-
-
 
   <!-- Video Section -->
   <section class="max-w-5xl mx-auto mt-12 px-4">
@@ -181,17 +212,26 @@
 
 <!-- GLightbox JS -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const lightbox = GLightbox({
-      selector: '.glightbox',
-      loop: true,
-      touchNavigation: true,
-      keyboardNavigation: true,
-      closeButton: true
-    });
+
+
+  <script>
+  const lightbox = GLightbox({
+    selector: '.glightbox',
+    loop: true,
+    touchNavigation: true,
+    keyboardNavigation: true,
+    closeButton: true,
+    zoomable: true,
+    slideEffect: 'fade',
+    moreText: 'See More',
+    draggable: true,
+    plyr: {
+      css: '',
+      js: ''
+    }
   });
 </script>
+
 
 
 </body>
