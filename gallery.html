@@ -6,10 +6,10 @@
   <title>About Us – Kerala Kala Kendram</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <!-- GLightbox JS -->
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <!-- GLightbox CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/pager/lg-pager.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -96,50 +96,32 @@
   </div>
 </header>
 
+<!-- Photo Section -->
 <section class="py-10 px-4 bg-white">
   <h1 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-10 text-center">📸 Photos</h1>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-    <!-- 📍 Event 1: Women's Day -->
+    <!-- Women's Day 2024 -->
     <div class="flex flex-col items-center space-y-4">
       <h2 class="text-xl sm:text-2xl font-bold text-yellow-800 text-center">📸 Women's Day 2024</h2>
 
-      <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
-         class="glightbox" data-gallery="womens_day" data-title="Women's Day 2024">
-        <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
-             alt="Women's Day"
-             class="w-full max-w-sm rounded-xl shadow-lg hover:scale-105 transition duration-300" />
-      </a>
+      <!-- Thumbnail -->
+      <div id="lightgallery-women" class="cursor-pointer">
+        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp">
+          <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
+               class="rounded-xl shadow-lg w-full max-w-sm hover:scale-105 transition duration-300"
+               alt="Women's Day" />
+        </a>
 
-      <!-- Hidden Images -->
-      <div class="hidden">
-        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082589074.webp" class="glightbox" data-gallery="womens_day"></a>
-        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp" class="glightbox" data-gallery="womens_day"></a>
-        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp" class="glightbox" data-gallery="womens_day"></a>
+        <!-- Hidden images -->
+        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp"></a>
+        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp"></a>
+        <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082589074.webp"></a>
       </div>
     </div>
 
-    <!-- 📍 Event 2: Onaghosham -->
-    <div class="flex flex-col items-center space-y-4">
-      <h2 class="text-xl sm:text-2xl font-bold text-yellow-800 text-center">🌾 Onaghosham 2024</h2>
-
-      <a href="https://raw.githubusercontent.com/.../onam1.webp"
-         class="glightbox" data-gallery="onaghosham" data-title="Onaghosham 2024">
-        <img src="https://raw.githubusercontent.com/.../onam1.webp"
-             alt="Onaghosham"
-             class="w-full max-w-sm rounded-xl shadow-lg hover:scale-105 transition duration-300" />
-      </a>
-
-      <!-- Hidden Images -->
-      <div class="hidden">
-        <a href="https://raw.githubusercontent.com/.../onam2.webp" class="glightbox" data-gallery="onaghosham"></a>
-        <a href="https://raw.githubusercontent.com/.../onam3.webp" class="glightbox" data-gallery="onaghosham"></a>
-      </div>
-    </div>
-
-    <!-- ➕ Add More Events Here -->
-    
+    <!-- Add More Events Similarly -->
   </div>
 </section>
 
@@ -202,20 +184,15 @@
 
 
   <script>
-  const lightbox = GLightbox({
-    selector: '.glightbox',
-    loop: true,
-    touchNavigation: true,
-    keyboardNavigation: true,
-    closeButton: true,
-    zoomable: true,
-    slideEffect: 'fade',
-    moreText: 'See More',
-    draggable: true,
-    plyr: {
-      css: '',
-      js: ''
-    }
+  lightGallery(document.getElementById('lightgallery-women'), {
+    plugins: [lgThumbnail, lgPager],
+    speed: 500,
+    thumbnail: true,
+    pager: true,
+    controls: true,
+    download: false,
+    actualSize: false,
+    hideBarsDelay: 3000
   });
 </script>
 
