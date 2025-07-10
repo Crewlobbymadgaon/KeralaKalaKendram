@@ -48,22 +48,6 @@
     opacity: 1;
   }
 </style>
-  <!-- GLightbox CSS -->
-<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-<!-- GLightbox JS -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const lightbox = GLightbox({
-      selector: '.glightbox',
-      loop: true,
-      touchNavigation: true,
-      keyboardNavigation: true,
-      closeButton: true
-    });
-  });
-</script>
-
   
 </head>
 
@@ -102,7 +86,8 @@
   <!-- Heading -->
   <section class="text-center py-8">
     <h1 class="text-2xl font-bold mb-2">📸 Photos</h1>
-    </header>
+    </section>
+  
 
 <section class="py-10 px-4 bg-white">
   <div class="flex flex-col items-center space-y-6">
@@ -199,6 +184,23 @@
       </div>
     </div>
   </footer>
+    <!-- GLightbox CSS -->
+<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+      loop: true,
+      touchNavigation: true,
+      keyboardNavigation: true,
+      closeButton: true
+    });
+  });
+</script>
+
 
 </body>
 </html>
