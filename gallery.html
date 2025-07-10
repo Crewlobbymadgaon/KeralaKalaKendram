@@ -6,6 +6,10 @@
   <title>About Us – Kerala Kala Kendram</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <!-- GLightbox CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -93,49 +97,45 @@
 </header>
 
 <section class="py-10 px-4 bg-white">
-  <!-- Main Photo Gallery Heading -->
+  <!-- Main Gallery Heading -->
   <h1 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-10 text-center">📸 Photos</h1>
 
-  <!-- Event 1: Women's Day -->
+  <!-- Women's Day 2024 Gallery -->
   <div class="mb-12">
     <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-800 mb-6 text-center">📸 Women's Day 2024</h2>
-    <div class="flex justify-center">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+
+      <!-- Visible Thumbnails -->
       <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
          class="glightbox" data-gallery="womens_day" data-title="Women's Day 2024">
         <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082558791.webp"
-             alt="Women's Day"
-             class="w-full max-w-sm rounded-xl shadow-lg hover:scale-105 transition duration-300" />
+             class="w-full rounded-xl shadow-md hover:scale-105 transition duration-300" alt="Women's Day" />
       </a>
-    </div>
 
-    <!-- Hidden Images for Slideshow -->
-    <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_175208259841 (1).webp"
-       class="glightbox hidden" data-gallery="womens_day" data-title="Women's Day 2024"></a>
-    <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp"
-       class="glightbox hidden" data-gallery="womens_day" data-title="Women's Day 2024"></a>
-    <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp"
-       class="glightbox hidden" data-gallery="womens_day" data-title="Women's Day 2024"></a>
+      <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082589074.webp"
+         class="glightbox" data-gallery="womens_day" data-title="Women's Day 2024">
+        <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082589074.webp"
+             class="w-full rounded-xl shadow-md hover:scale-105 transition duration-300" alt="Women's Day" />
+      </a>
+
+      <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp"
+         class="glightbox" data-gallery="womens_day" data-title="Women's Day 2024">
+        <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082573152.webp"
+             class="w-full rounded-xl shadow-md hover:scale-105 transition duration-300" alt="Women's Day" />
+      </a>
+
+      <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp"
+         class="glightbox" data-gallery="womens_day" data-title="Women's Day 2024">
+        <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Muthukad/FB_IMG_1752082576893.webp"
+             class="w-full rounded-xl shadow-md hover:scale-105 transition duration-300" alt="Women's Day" />
+      </a>
+
+    </div>
   </div>
 
-  <!-- Event 2: Onaghosham -->
-  <div class="mb-12">
-    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-800 mb-6 text-center">🌾 Onaghosham 2024</h2>
-    <div class="flex justify-center">
-      <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Onam/onam1.webp"
-         class="glightbox" data-gallery="onaghosham" data-title="Onaghosham 2024">
-        <img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Onam/onam1.webp"
-             alt="Onaghosham"
-             class="w-full max-w-sm rounded-xl shadow-lg hover:scale-105 transition duration-300" />
-      </a>
-    </div>
-
-    <!-- Hidden Images -->
-    <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Onam/onam2.webp"
-       class="glightbox hidden" data-gallery="onaghosham" data-title="Onaghosham 2024"></a>
-    <a href="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/Photos/Onam/onam3.webp"
-       class="glightbox hidden" data-gallery="onaghosham" data-title="Onaghosham 2024"></a>
-  </div>
+  <!-- Add more events in same format -->
 </section>
+
 
 
   <!-- Video Section -->
@@ -192,11 +192,7 @@
       </div>
     </div>
   </footer>
-    <!-- GLightbox CSS -->
-<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-
-<!-- GLightbox JS -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    
 
 
   <script>
