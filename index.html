@@ -449,7 +449,24 @@
     interval = setInterval(slideNext, 4000);
   }
 });
+// Pause and resume on hover (desktop) and touch (mobile)
+const carouselContainer = document.getElementById("imageCarousel");
 
+function pauseAutoSlide() {
+  clearInterval(interval);
+}
+
+function resumeAutoSlide() {
+  interval = setInterval(slideNext, 4000);
+}
+
+// Desktop hover
+carouselContainer.addEventListener("mouseenter", pauseAutoSlide);
+carouselContainer.addEventListener("mouseleave", resumeAutoSlide);
+
+// Mobile touch
+carouselContainer.addEventListener("touchstart", pauseAutoSlide, { passive: true });
+carouselContainer.addEventListener("touchend", resumeAutoSlide, { passive: true });
 
 
 
