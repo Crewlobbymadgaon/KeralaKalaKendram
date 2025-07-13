@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/pager/lg-pager.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
@@ -265,29 +266,29 @@
     </div>
   </footer>
     
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    lightGallery(document.getElementById('gallery-womens-day'), {
+      selector: 'a',
+      download: false,
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      thumbnail: true,
+      zoomFromOrigin: true
+    });
 
-
- <script>
-  // Initialize gallery with zoom and thumbnail plugins
-  lightGallery(document.getElementById('gallery-womens-day'), {
-    selector: 'a',
-    download: false,
-    plugins: [lgZoom, lgThumbnail],
-    speed: 500,
-    thumbnail: true,
-    zoomFromOrigin: true
-  });
-
-  lightGallery(document.getElementById('gallery-onaghosham'), {
-    selector: 'a',
-    download: false,
-    plugins: [lgZoom, lgThumbnail],
-    speed: 500,
-    thumbnail: true,
-    zoomFromOrigin: true
+    lightGallery(document.getElementById('gallery-onaghosham'), {
+      selector: 'a',
+      download: false,
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      thumbnail: true,
+      zoomFromOrigin: true
+    });
   });
 </script>
 
+ 
 
 
 
