@@ -261,19 +261,8 @@
 
 
   <script>
-  const galleries = ['gallery-womens-day', 'gallery-onaghosham'];
-  galleries.forEach(id => {
-    lightGallery(document.getElementById(id), {
-      plugins: [lgThumbnail, lgPager],
-      speed: 500,
-      thumbnail: true,
-      pager: true,
-      controls: true,
-      download: false,
-      actualSize: false,
-      hideBarsDelay: 3000
-    });
-  });
+  lightGallery(document.getElementById('gallery-womens-day'), { selector: 'a', download: false });
+  lightGallery(document.getElementById('gallery-onaghosham'), { selector: 'a', download: false });
 </script>
 
 
