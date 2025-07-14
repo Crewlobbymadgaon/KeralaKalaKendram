@@ -91,19 +91,17 @@
 </style>
 
 </head>
+  <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
 
-<body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
-
+<!-- Sticky Header (top) -->
 <header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400">
-  <div class="container mx-auto px-4 py-5 flex flex-col items-center space-y-3 relative">
-
-    <!-- Logo -->
-    <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
-         class="max-h-20 sm:max-h-24 rounded-full shadow-xl" />
-  </div>
-
-  <!-- Heading (same style as about.html) -->
-  <div class="fade-text-wrapper text-center leading-tight relative h-[6.5rem] sm:h-[7.5rem]">
+<div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
+  <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+       class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
+</div>
+<!-- Heading (same style as about.html) -->
+<div class="fade-text-wrapper text-center leading-tight relative h-[5.2rem] sm:h-[7.5rem]">
+  
     <div class="absolute inset-0 flex flex-col justify-center items-center">
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-white" style="font-family: 'Manjari', sans-serif;">
         Kerala Kala Kendram
