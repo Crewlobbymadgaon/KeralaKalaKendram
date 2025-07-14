@@ -364,4 +364,35 @@
   function toggleGallery() {
     const photos = document.getElementById("photos");
     const videos = document.getElementById("videos");
-    const btn = document.getElementById("t
+    const btn = document.getElementById("toggleGalleryBtn");
+
+    showingPhotos = !showingPhotos;
+
+    if (showingPhotos) {
+      photos.style.display = "block";
+      videos.style.display = "none";
+      btn.innerHTML = '<i class="fas fa-video"></i><span> Videos</span>';
+      btn.classList.remove("bg-green-600", "hover:bg-green-700");
+      btn.classList.add("bg-blue-600", "hover:bg-blue-700");
+    } else {
+      photos.style.display = "none";
+      videos.style.display = "block";
+      btn.innerHTML = '<i class="fas fa-camera"></i><span> Photos</span>';
+      btn.classList.remove("bg-blue-600", "hover:bg-blue-700");
+      btn.classList.add("bg-green-600", "hover:bg-green-700");
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("photos").style.display = "block";
+    document.getElementById("videos").style.display = "none";
+
+    const btn = document.getElementById("toggleGalleryBtn");
+    btn.innerHTML = '<i class="fas fa-video"></i><span> Videos</span>';
+    btn.classList.add("bg-blue-600", "hover:bg-blue-700");
+  });
+</script>
+
+
+</body>
+</html>
