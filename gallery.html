@@ -115,20 +115,23 @@
 <!-- Buttons Row -->
   <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
 
-  <!-- Home Button (Left Aligned) -->
-  <a href="index.html"
-   class="flex-1 max-w-xs px-4 py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm sm:text-base font-semibold flex items-center justify-center gap-2 shadow transition text-center">
-  <i class="fas fa-home text-lg sm:text-xl"></i>
-  <span>Home</span>
-</a>
+  <!-- Home Button -->
+  <a href="index.html" title="Home"
+     class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
+    <i class="fas fa-home text-white text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
+    <span class="leading-[1]">Home</span>
+  </a>
 
-<!-- Photos / Videos Toggle -->
-<button id="toggleGalleryBtn" onclick="toggleGallery()"
-   class="flex-1 max-w-xs px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-semibold flex items-center justify-center gap-2 shadow transition text-center">
-  <i class="fas fa-photo-video text-lg sm:text-xl"></i>
-  <span>Photos / Videos</span>
-</button>
-  </div>
+  <!-- Photos / Videos Toggle -->
+  <button
+    id="toggleGalleryBtn"
+    onclick="toggleGallery()"
+    class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
+    <i class="fas fa-photo-video text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
+    <span class="leading-[1]">Photos / Videos</span>
+  </button>
+
+</div>
 
 </header>
 <main class="flex-grow max-w-3xl mx-auto px-4 py-6 text-justify text-base leading-relaxed space-y-5">
