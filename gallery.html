@@ -52,6 +52,12 @@
   .tooltip:hover::after {
     opacity: 1;
   }
+  
+  .gallery-toggle-btn i {
+    margin-right: 0.4rem;
+  }
+
+
 
 @media (max-width: 768px) {
   .lg-next,
@@ -129,34 +135,36 @@
           <a href="contact.html" class="hover:text-yellow-400 transition whitespace-nowrap">Contact Us</a>
         </div>
 
-        <!-- Photos / Videos Button (Right) -->
-        <div>
-          <button
-            id="toggleGalleryBtn"
-            onclick="toggleGallery()"
-            class="min-w-[130px] px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold inline-flex items-center justify-center gap-2 shadow transition">
-            <i class="fas fa-photo-video text-[1.3rem]"></i>
-            <span>Photos / Videos</span>
-          </button>
-        </div>
-      </div>
+        <!-- Desktop Photos / Videos Button (Right) -->
+<div>
+  <button
+    id="toggleGalleryBtnDesktop"
+    onclick="toggleGallery('desktop')"
+    class="gallery-toggle-btn min-w-[130px] px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold inline-flex items-center justify-center gap-2 shadow transition"
+  >
+    <i class="fas fa-photo-video text-[1.3rem]"></i>
+    <span>Photos / Videos</span>
+  </button>
+</div>
 
-      <!-- Mobile Top Bar -->
-      <div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800">
-        <!-- Hamburger -->
-        <button @click="menuOpen = !menuOpen" class="text-yellow-400 text-xl focus:outline-none">
-          <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
-        </button>
+<!-- Mobile Top Bar -->
+<div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800">
+  <!-- Hamburger -->
+  <button @click="menuOpen = !menuOpen" class="text-yellow-400 text-xl focus:outline-none">
+    <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+  </button>
 
-        <!-- Photos / Videos Button -->
-        <button
-          id="toggleGalleryBtn"
-          onclick="toggleGallery()"
-          class="min-w-[120px] px-3 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition">
-          <i class="fas fa-photo-video text-[1.1rem]"></i>
-          <span>Photos / Videos</span>
-        </button>
-      </div>
+  <!-- Mobile Photos / Videos Button -->
+  <button
+    id="toggleGalleryBtnMobile"
+    onclick="toggleGallery('mobile')"
+    class="gallery-toggle-btn min-w-[120px] px-3 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
+  >
+    <i class="fas fa-photo-video text-[1.1rem]"></i>
+    <span>Photos / Videos</span>
+  </button>
+</div>
+
 
       <!-- Mobile Menu -->
       <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-3 text-white font-semibold">
@@ -396,39 +404,45 @@
   });
   
   
-  
-  let showingPhotos = true;
+ let showingPhotos = true;
 
-  function toggleGallery() {
-    const photos = document.getElementById("photos");
-    const videos = document.getElementById("videos");
-    const btn = document.getElementById("toggleGalleryBtn");
+function toggleGallery(target) {
+  const photos = document.getElementById("photos");
+  const videos = document.getElementById("videos");
 
-    showingPhotos = !showingPhotos;
+  const desktopBtn = document.getElementById("toggleGalleryBtnDesktop");
+  const mobileBtn = document.getElementById("toggleGalleryBtnMobile");
 
-    if (showingPhotos) {
-      photos.style.display = "block";
-      videos.style.display = "none";
-      btn.innerHTML = '<i class="fas fa-video"></i><span> Videos</span>';
-      btn.classList.remove("bg-green-600", "hover:bg-green-700");
-      btn.classList.add("bg-blue-600", "hover:bg-blue-700");
-    } else {
-      photos.style.display = "none";
-      videos.style.display = "block";
-      btn.innerHTML = '<i class="fas fa-camera"></i><span> Photos</span>';
-      btn.classList.remove("bg-blue-600", "hover:bg-blue-700");
-      btn.classList.add("bg-green-600", "hover:bg-green-700");
-    }
+  showingPhotos = !showingPhotos;
+
+  if (showingPhotos) {
+    photos.style.display = "block";
+    videos.style.display = "none";
+
+    updateButton(desktopBtn, "Videos", "fas fa-video", "bg-blue-600", "hover:bg-blue-700");
+    updateButton(mobileBtn, "Videos", "fas fa-video", "bg-blue-600", "hover:bg-blue-700");
+  } else {
+    photos.style.display = "none";
+    videos.style.display = "block";
+
+    updateButton(desktopBtn, "Photos", "fas fa-camera", "bg-green-600", "hover:bg-green-700");
+    updateButton(mobileBtn, "Photos", "fas fa-camera", "bg-green-600", "hover:bg-green-700");
   }
+}
 
-  window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("photos").style.display = "block";
-    document.getElementById("videos").style.display = "none";
+function updateButton(btn, text, iconClass, bgClass, hoverClass) {
+  if (!btn) return;
+  btn.innerHTML = `<i class="${iconClass}"></i><span> ${text}</span>`;
+  btn.className = `gallery-toggle-btn min-w-[120px] px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition ${bgClass} ${hoverClass}`;
+}
 
-    const btn = document.getElementById("toggleGalleryBtn");
-    btn.innerHTML = '<i class="fas fa-video"></i><span> Videos</span>';
-    btn.classList.add("bg-blue-600", "hover:bg-blue-700");
-  });
+window.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("photos").style.display = "block";
+  document.getElementById("videos").style.display = "none";
+
+  toggleGallery(); // ensure consistent button state
+});
+
 </script>
 
 
