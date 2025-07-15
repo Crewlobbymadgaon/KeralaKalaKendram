@@ -23,9 +23,9 @@
   </style>
 </head>
 
-<body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
 
-<header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400" x-data="{ menuOpen: false, lang: 'en' }">
+<body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en', menuOpen: false }">
+<header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400">
 
   <!-- Logo Section -->
   <div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
@@ -62,33 +62,36 @@
 
   </div>
 
-  <!-- Mobile Top Bar: Hamburger (left) + Language Toggle (right) -->
-
- <div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800"> 
-  <!-- Hamburger Menu Button -->
+<!-- Mobile Top Bar: Hamburger (left) + Language Toggle (right) -->
+<div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800">
+  <!-- Hamburger -->
   <button @click="menuOpen = !menuOpen" class="text-yellow-400 text-xl focus:outline-none">
     <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
   </button>
 
-  <!-- Language Toggle Button (right side) -->
+  <!-- Language Toggle -->
   <button
     @click="lang = (lang === 'en' ? 'ml' : 'en')"
-    :class="lang === 'en'
-      ? 'bg-green-600 hover:bg-green-700'
-      : 'bg-blue-600 hover:bg-blue-700'"
+    :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
     class="px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
     style="font-family: 'Noto Sans Malayalam', sans-serif;"
   >
-    <template x-if="lang === 'en'">
-      <span class="leading-[1]">🇮🇳 മലയാളം</span>
-    </template>
-    <template x-if="lang === 'ml'">
-      <span class="leading-[1]">🇬🇧 English</span>
-    </template>
+    <template x-if="lang === 'en'"><span>🇮🇳 മലയാളം</span></template>
+    <template x-if="lang === 'ml'"><span>🇬🇧 English</span></template>
   </button>
-
 </div>
-
+<!-- Desktop Language Toggle Button - Positioned at bottom-right corner of header -->
+<div class="hidden md:block absolute right-4 bottom-2">
+  <button
+    @click="lang = (lang === 'en' ? 'ml' : 'en')"
+    :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
+    class="px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
+    style="font-family: 'Noto Sans Malayalam', sans-serif;"
+  >
+    <template x-if="lang === 'en'"><span>🇮🇳 മലയാളം</span></template>
+    <template x-if="lang === 'ml'"><span>🇬🇧 English</span></template>
+  </button>
+</div>
 
   <!-- ✅ Responsive Menu -->
   <nav class="border-t border-yellow-400 bg-slate-800">
