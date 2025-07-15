@@ -68,12 +68,13 @@
 <!-- Sticky Bar: Home (left) + Language Toggle (right) -->
 <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
 
-  <!-- Home Button (Extreme Left) with larger font on desktop -->
+ <!-- Home Button with icon-text alignment fixed -->
 <a href="index.html" title="Home"
-   class="min-w-[120px] px-3 py-1.5 text-center rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm md:text-lg font-semibold flex items-center justify-center space-x-2 shadow transition">
-  <i class="fas fa-home"></i>
-  <span>Home</span>
+   class="min-w-[120px] px-3 py-1.5 text-center rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm md:text-base font-semibold flex items-center justify-center gap-2 shadow transition">
+  <i class="fas fa-home text-base md:text-lg leading-none"></i>
+  <span class="leading-none">Home</span>
 </a>
+
 
     <!-- Language Toggle Button (Extreme Right, Fixed Width) -->
   <button
