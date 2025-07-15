@@ -68,12 +68,19 @@
 <!-- Sticky Bar: Home (left) + Language Toggle (right) -->
 <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
 
-<!-- Home Button with white Font Awesome home icon -->
+<!-- Home Button with Font Awesome icon and aligned text -->
 <a href="index.html" title="Home"
-   class="min-w-[120px] px-4 py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm md:text-base font-semibold flex items-center justify-center gap-2 shadow transition">
-  <i class="fas fa-home text-white text-lg md:text-xl leading-none"></i>
+   class="min-w-[120px] px-4 py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm md:text-lg font-semibold flex items-center justify-center gap-2 shadow transition">
+  
+  <!-- Icon wrapper to align vertically -->
+  <span class="flex items-center">
+    <i class="fas fa-home text-white text-[1.1rem] md:text-[1.2rem] leading-none"></i>
+  </span>
+
+  <!-- Text wrapper to match alignment -->
   <span class="leading-none flex items-center">Home</span>
 </a>
+
 
     <!-- Language Toggle Button (Extreme Right, Fixed Width) -->
   <button
