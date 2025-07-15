@@ -68,13 +68,14 @@
 <!-- Sticky Bar: Home (left) + Language Toggle (right) -->
 <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
 
-  <!-- Home Button (Extreme Left) -->
-  <a href="index.html" title="Home"
-     class="min-w-[120px] px-3 py-1.5 text-center rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold flex items-center justify-center space-x-2 shadow transition">
-    <i class="fas fa-home"></i><span>Home</span>
-  </a>
+  <!-- Home Button (Extreme Left) with larger font on desktop -->
+<a href="index.html" title="Home"
+   class="min-w-[120px] px-3 py-1.5 text-center rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm md:text-lg font-semibold flex items-center justify-center space-x-2 shadow transition">
+  <i class="fas fa-home"></i>
+  <span>Home</span>
+</a>
 
-  <!-- Language Toggle Button (Extreme Right, Fixed Width) -->
+    <!-- Language Toggle Button (Extreme Right, Fixed Width) -->
   <button
     @click="lang = (lang === 'en' ? 'ml' : 'en')"
     :class="lang === 'en'
