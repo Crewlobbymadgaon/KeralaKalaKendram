@@ -103,11 +103,7 @@
         <a href="contact.html" class="hover:text-yellow-400 transition">Contact</a>
       </div>
 
-      <!-- Hamburger Toggle Button -->
-      <button @click="menuOpen = !menuOpen" class="md:hidden text-yellow-400 text-xl focus:outline-none">
-        <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
-      </button>
-    </div>
+      
 
     <!-- Mobile Menu -->
     <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-2 text-white font-semibold">
