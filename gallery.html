@@ -91,36 +91,49 @@
 </style>
 
 </head>
-  <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
+ 
+  <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en', menuOpen: false }">
+<header class="relative z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400">
 
-<!-- Sticky Header (top) -->
-<header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400">
-<div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
-  <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
-       class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
-</div>
-<!-- Heading (same style as about.html) -->
-<div class="fade-text-wrapper text-center leading-tight relative h-[5.2rem] sm:h-[7.5rem]">
-  
-    <div class="absolute inset-0 flex flex-col justify-center items-center">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-white" style="font-family: 'Manjari', sans-serif;">
+  <!-- Logo Section -->
+  <div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1">
+    <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+         class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
+  </div>
+
+    <!-- English -->
+    <div x-show="lang === 'en'" x-transition.opacity x-cloak
+         class="absolute inset-0 flex flex-col justify-center items-center">
+      <h1 class="whitespace-nowrap text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-white"
+          style="font-family: 'Manjari', sans-serif;">
         Kerala Kala Kendram
       </h1>
       <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-200 mt-1 tracking-wide">
         Margao
       </h2>
     </div>
-  </div>
 
-<!-- Buttons Row -->
-  <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
+<!-- Responsive Menu -->
+<nav class="border-t border-yellow-400 bg-slate-800">
+  <div class="max-w-6xl mx-auto px-4 py-2 hidden md:flex items-center justify-between">
 
-  <!-- Home Button -->
-  <a href="index.html" title="Home"
-     class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
-    <i class="fas fa-home text-white text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
-    <span class="leading-[1]">Home</span>
-  </a>
+    <!-- Full Flex Container for Left Menu + Center Menu + Right Language Toggle -->
+    <div class="flex items-center justify-between w-full">
+
+      <!-- Left Spacer (to push center menu truly center) -->
+      <div class="w-[130px]"></div>
+
+      <!-- Centered Menu Links -->
+      <div class="flex gap-6 text-white font-semibold text-lg md:text-xl justify-center flex-1">
+        <a href="index.html" class="hover:text-yellow-400 transition whitespace-nowrap">Home</a>
+        <a href="committee.html" class="hover:text-yellow-400 transition whitespace-nowrap">Managing Committee</a>
+        <a href="events.html" class="hover:text-yellow-400 transition whitespace-nowrap">Events</a>
+        <a href="gallery.html" class="hover:text-yellow-400 transition whitespace-nowrap">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-400 transition whitespace-nowrap">Contact Us</a>
+      </div>
+
+      <!-- Language Toggle Button -->
+      <div class="w-[130px] flex justify-end">
 
   <!-- Photos / Videos Toggle -->
   <button
@@ -131,7 +144,33 @@
     <span class="leading-[1]">Photos / Videos</span>
   </button>
 
-</div>
+</div></div></div>
+
+  <!-- ✅ Mobile Top Bar -->
+  <div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800">
+    <!-- Hamburger -->
+    <button @click="menuOpen = !menuOpen" class="text-yellow-400 text-xl focus:outline-none">
+      <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+    </button>
+
+     <button
+    id="toggleGalleryBtn"
+    onclick="toggleGallery()"
+    class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
+    <i class="fas fa-photo-video text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
+    <span class="leading-[1]">Photos / Videos</span>
+  </button>
+  </div>
+  <!-- ✅ Mobile Menu Items -->
+  <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-3 text-white font-semibold">
+    <a href="index.html" class="block hover:text-yellow-400">Home</a>
+    <a href="committee.html" class="block hover:text-yellow-400">Managing Committee</a>
+    <a href="events.html" class="block hover:text-yellow-400">Events</a>
+    <a href="gallery.html" class="block hover:text-yellow-400">Gallery</a>
+    <a href="contact.html" class="block hover:text-yellow-400">Contact Us</a>
+  </div>
+</nav>
+
 
 </header>
 <main class="flex-grow max-w-3xl mx-auto px-4 py-6 text-justify text-base leading-relaxed space-y-5">
