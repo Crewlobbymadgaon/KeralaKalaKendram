@@ -97,33 +97,48 @@
     </button>
   </div>
 
+<!-- Responsive Menu -->
+<nav class="border-t border-yellow-400 bg-slate-800">
+  <div class="max-w-6xl mx-auto px-4 py-2 flex items-center md:justify-between">
 
+    <!-- Desktop Links -->
+    <div class="hidden md:flex items-center w-full gap-6 text-white font-semibold text-lg md:text-xl">
+      <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+      <a href="gallery.html" class="hover:text-yellow-400 transition">Gallery</a>
+      <a href="events.html" class="hover:text-yellow-400 transition">Events</a>
+      <a href="about.html" class="hover:text-yellow-400 transition">About</a>
+      <a href="contact.html" class="hover:text-yellow-400 transition">Contact</a>
 
-
-  <!-- ✅ Responsive Menu -->
-  <nav class="border-t border-yellow-400 bg-slate-800">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center md:justify-center">
-      
-      <!-- Desktop Links -->
-      <div class="hidden md:flex gap-6 text-white font-semibold text-base">
-        <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
-        <a href="gallery.html" class="hover:text-yellow-400 transition">Gallery</a>
-        <a href="events.html" class="hover:text-yellow-400 transition">Events</a>
-        <a href="about.html" class="hover:text-yellow-400 transition">About</a>
-        <a href="contact.html" class="hover:text-yellow-400 transition">Contact</a>
+      <!-- Desktop Language Button (Right Aligned) -->
+      <div class="ml-auto">
+        <button
+          @click="lang = (lang === 'en' ? 'ml' : 'en')"
+          :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
+          class="px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
+          style="font-family: 'Noto Sans Malayalam', sans-serif;"
+        >
+          <template x-if="lang === 'en'"><span>🇮🇳 മലയാളം</span></template>
+          <template x-if="lang === 'ml'"><span>🇬🇧 English</span></template>
+        </button>
       </div>
-
-      
-
-    <!-- Mobile Menu -->
-    <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-2 text-white font-semibold">
-      <a href="index.html" class="block hover:text-yellow-400">Home</a>
-      <a href="gallery.html" class="block hover:text-yellow-400">Gallery</a>
-      <a href="events.html" class="block hover:text-yellow-400">Events</a>
-      <a href="about.html" class="block hover:text-yellow-400">About</a>
-      <a href="contact.html" class="block hover:text-yellow-400">Contact</a>
     </div>
-  </nav>
+
+    <!-- Mobile Hamburger -->
+    <div class="md:hidden flex justify-between w-full">
+      <!-- Hamburger Button (already done above) -->
+    </div>
+  </div>
+
+  <!-- Mobile Menu Items -->
+  <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-3 text-white font-semibold">
+    <a href="index.html" class="block hover:text-yellow-400">Home</a>
+    <a href="gallery.html" class="block hover:text-yellow-400">Gallery</a>
+    <a href="events.html" class="block hover:text-yellow-400">Events</a>
+    <a href="about.html" class="block hover:text-yellow-400">About</a>
+    <a href="contact.html" class="block hover:text-yellow-400">Contact</a>
+  </div>
+</nav>
+
 </header>
 
 
