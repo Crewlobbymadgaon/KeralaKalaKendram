@@ -63,33 +63,42 @@
 
   
 <!-- Responsive Menu -->
+<!-- Responsive Menu -->
 <nav class="border-t border-yellow-400 bg-slate-800">
-  <div class="max-w-6xl mx-auto px-4 py-2 relative hidden md:flex items-center">
+  <div class="max-w-6xl mx-auto px-4 py-2 hidden md:flex items-center justify-between">
 
-    <!-- Centered Menu Links -->
-    <div class="absolute left-1/2 transform -translate-x-1/2 flex gap-6 text-white font-semibold text-lg md:text-xl">
-      <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
-      <a href="committee.html" class="hover:text-yellow-400 transition">Managing Committee</a>
-      <a href="events.html" class="hover:text-yellow-400 transition">Events</a>
-      <a href="gallery.html" class="hover:text-yellow-400 transition">Gallery</a>
-      <a href="contact.html" class="hover:text-yellow-400 transition">Contact Us</a>
-    </div>
+    <!-- Full Flex Container for Left Menu + Center Menu + Right Language Toggle -->
+    <div class="flex items-center justify-between w-full">
 
-    <!-- Language Button aligned extreme right -->
-    <div class="ml-auto">
-      <button
-        @click="lang = (lang === 'en' ? 'ml' : 'en')"
-        :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
-        class="px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
-        style="font-family: 'Noto Sans Malayalam', sans-serif;"
-      >
-        <template x-if="lang === 'en'"><span>🇮🇳 മലയാളം</span></template>
-        <template x-if="lang === 'ml'"><span>🇬🇧 English</span></template>
-      </button>
+      <!-- Left Spacer (to push center menu truly center) -->
+      <div class="w-[130px]"></div>
+
+      <!-- Centered Menu Links -->
+      <div class="flex gap-6 text-white font-semibold text-lg md:text-xl justify-center flex-1">
+        <a href="index.html" class="hover:text-yellow-400 transition whitespace-nowrap">Home</a>
+        <a href="committee.html" class="hover:text-yellow-400 transition whitespace-nowrap">Managing Committee</a>
+        <a href="events.html" class="hover:text-yellow-400 transition whitespace-nowrap">Events</a>
+        <a href="gallery.html" class="hover:text-yellow-400 transition whitespace-nowrap">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-400 transition whitespace-nowrap">Contact Us</a>
+      </div>
+
+      <!-- Language Toggle Button -->
+      <div class="w-[130px] flex justify-end">
+        <button
+          @click="lang = (lang === 'en' ? 'ml' : 'en')"
+          :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
+          class="w-[130px] px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
+          style="font-family: 'Noto Sans Malayalam', sans-serif;"
+        >
+          <template x-if="lang === 'en'"><span class="w-full text-center">🇮🇳 മലയാളം</span></template>
+          <template x-if="lang === 'ml'"><span class="w-full text-center">🇬🇧 English</span></template>
+        </button>
+      </div>
+
     </div>
   </div>
 
-  <!-- Mobile Hamburger and Language Button (already set above) -->
+  <!-- ✅ Mobile Top Bar -->
   <div class="md:hidden flex justify-between items-center px-4 py-2 bg-slate-800">
     <!-- Hamburger -->
     <button @click="menuOpen = !menuOpen" class="text-yellow-400 text-xl focus:outline-none">
@@ -97,26 +106,18 @@
     </button>
 
     <!-- Language Toggle -->
-   <!-- Language Toggle Button -->
-<button
-  @click="lang = (lang === 'en' ? 'ml' : 'en')"
-  :class="lang === 'en'
-    ? 'bg-green-600 hover:bg-green-700'
-    : 'bg-blue-600 hover:bg-blue-700'"
-  class="w-[130px] px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
-  style="font-family: 'Noto Sans Malayalam', sans-serif;"
->
-  <template x-if="lang === 'en'">
-    <span class="leading-[1] block text-center w-full">🇮🇳 മലയാളം</span>
-  </template>
-  <template x-if="lang === 'ml'">
-    <span class="leading-[1] block text-center w-full">🇬🇧 English</span>
-  </template>
-</button>
-
+    <button
+      @click="lang = (lang === 'en' ? 'ml' : 'en')"
+      :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
+      class="w-[130px] px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
+      style="font-family: 'Noto Sans Malayalam', sans-serif;"
+    >
+      <template x-if="lang === 'en'"><span class="w-full text-center">🇮🇳 മലയാളം</span></template>
+      <template x-if="lang === 'ml'"><span class="w-full text-center">🇬🇧 English</span></template>
+    </button>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- ✅ Mobile Menu Items -->
   <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-3 text-white font-semibold">
     <a href="index.html" class="block hover:text-yellow-400">Home</a>
     <a href="committee.html" class="block hover:text-yellow-400">Managing Committee</a>
@@ -125,6 +126,7 @@
     <a href="contact.html" class="block hover:text-yellow-400">Contact Us</a>
   </div>
 </nav>
+
 
 </header>
 
