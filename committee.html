@@ -45,20 +45,18 @@
 
     <!-- ✅ Desktop Nav -->
     <nav class="border-t border-yellow-400 bg-slate-800">
-      <div class="max-w-6xl mx-auto px-4 py-2 hidden md:flex items-center justify-between">
-        <div class="flex items-center justify-between w-full">
+  <div class="max-w-6xl mx-auto px-4 py-2 hidden md:flex items-center justify-center">
+    <div class="flex gap-6 text-white font-semibold text-lg md:text-xl">
+      <a href="index.html" class="hover:text-yellow-400 transition whitespace-nowrap">Home</a>
+      <a href="committee.html" class="hover:text-yellow-400 transition whitespace-nowrap">Managing Committee</a>
+      <a href="events.html" class="hover:text-yellow-400 transition whitespace-nowrap">Events</a>
+      <a href="gallery.html" class="hover:text-yellow-400 transition whitespace-nowrap">Gallery</a>
+      <a href="contact.html" class="hover:text-yellow-400 transition whitespace-nowrap">Contact Us</a>
+    </div>
+  </div>
 
-          <!-- Left Spacer -->
-          <div class="w-[130px]"></div>
 
-          <!-- Centered Menu -->
-          <div class="flex gap-6 text-white font-semibold text-lg md:text-xl justify-center flex-1">
-            <a href="index.html" class="hover:text-yellow-400 transition whitespace-nowrap">Home</a>
-            <a href="committee.html" class="hover:text-yellow-400 transition whitespace-nowrap">Managing Committee</a>
-            <a href="events.html" class="hover:text-yellow-400 transition whitespace-nowrap">Events</a>
-            <a href="gallery.html" class="hover:text-yellow-400 transition whitespace-nowrap">Gallery</a>
-            <a href="contact.html" class="hover:text-yellow-400 transition whitespace-nowrap">Contact Us</a>
-          </div>
+
 
          
         </div>
@@ -71,16 +69,7 @@
           <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
         </button>
 
-        <!-- Language Toggle -->
-        <button
-          @click="lang = (lang === 'en' ? 'ml' : 'en')"
-          :class="lang === 'en' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'"
-          class="w-[130px] px-3 py-1.5 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2 shadow transition"
-          style="font-family: 'Noto Sans Malayalam', sans-serif;"
-        >
-          <template x-if="lang === 'en'"><span class="w-full text-center">🇮🇳 മലയാളം</span></template>
-          <template x-if="lang === 'ml'"><span class="w-full text-center">🇬🇧 English</span></template>
-        </button>
+       
       </div>
 
       <!-- Mobile Menu Items -->
