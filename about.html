@@ -25,74 +25,99 @@
 
 <body class="flex flex-col min-h-screen bg-white text-gray-800" x-data="{ lang: 'en' }">
 
-<!-- Sticky Header (top) -->
-<header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400">
-<div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
-  <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
-       class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
-</div>
+<header class="z-50 sticky top-0 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-900 text-white shadow-lg border-b-4 border-yellow-400" x-data="{ menuOpen: false, lang: 'en' }">
 
-<!-- Language Reactive Heading (no shake, clean fade) -->
-<div class="fade-text-wrapper text-center leading-tight relative h-[5.2rem] sm:h-[7.5rem]">
-
-  <!-- English Heading -->
-  <div x-show="lang === 'en'"
-       x-transition.opacity
-       x-cloak
-       class="absolute inset-0 flex flex-col justify-center items-center">
-    <h1 class="whitespace-nowrap text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-white"
-        style="font-family: 'Manjari', sans-serif;">
-      Kerala Kala Kendram
-    </h1>
-    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-200 mt-1 tracking-wide">
-      Margao
-    </h2>
+  <!-- Logo Section -->
+  <div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
+    <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+         class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
   </div>
 
-  <!-- Malayalam Heading -->
-  <div x-show="lang === 'ml'"
-       x-transition.opacity
-       x-cloak
-       class="absolute inset-0 flex flex-col justify-center items-center"
-       style="font-family: 'Noto Sans Malayalam', sans-serif;">
-    <h1 class="whitespace-nowrap text-[1.9rem] sm:text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-wide text-white">
-      കേരള കലാ കേന്ദ്രം
-    </h1>
-    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-200 mt-1 tracking-wide">
-      മർഗാവ്
-    </h2>
+  <!-- Language-Switching Title -->
+  <div class="fade-text-wrapper text-center leading-tight relative h-[5.2rem] sm:h-[7.5rem]">
+
+    <!-- English -->
+    <div x-show="lang === 'en'" x-transition.opacity x-cloak
+         class="absolute inset-0 flex flex-col justify-center items-center">
+      <h1 class="whitespace-nowrap text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-white"
+          style="font-family: 'Manjari', sans-serif;">
+        Kerala Kala Kendram
+      </h1>
+      <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-200 mt-1 tracking-wide">
+        Margao
+      </h2>
+    </div>
+
+    <!-- Malayalam -->
+    <div x-show="lang === 'ml'" x-transition.opacity x-cloak
+         class="absolute inset-0 flex flex-col justify-center items-center"
+         style="font-family: 'Noto Sans Malayalam', sans-serif;">
+      <h1 class="whitespace-nowrap text-[1.9rem] sm:text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-wide text-white">
+        കേരള കലാ കേന്ദ്രം
+      </h1>
+      <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-200 mt-1 tracking-wide">
+        മർഗാവ്
+      </h2>
+    </div>
+
   </div>
 
-</div>
+  <!-- Home + Language Buttons -->
+  <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
 
- <div class="sticky top-[6.2rem] z-40 backdrop-blur-sm px-4 py-2 w-full flex justify-between items-center">
+    <!-- Home Button -->
+    <a href="index.html" title="Home"
+       class="min-w-[140px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
+      <i class="fas fa-home text-white text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
+      <span class="leading-[1]">Home</span>
+    </a>
 
-  <!-- Home Button (Left Aligned) -->
-  <a href="index.html" title="Home"
-     class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition">
-    <i class="fas fa-home text-white text-[1.1rem] md:text-[1.4rem] leading-[1] relative top-[1px]"></i>
-    <span class="leading-[1]">Home</span>
-  </a>
+    <!-- Language Toggle -->
+    <button
+      @click="lang = (lang === 'en' ? 'ml' : 'en')"
+      :class="lang === 'en'
+        ? 'bg-green-600 hover:bg-green-700'
+        : 'bg-blue-600 hover:bg-blue-700'"
+      class="min-w-[140px] px-3 py-1.5 md:px-4 md:py-2 rounded-full text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition"
+      style="font-family: 'Noto Sans Malayalam', sans-serif;"
+    >
+      <template x-if="lang === 'en'">
+        <span class="leading-[1]">🇮🇳 മലയാളം</span>
+      </template>
+      <template x-if="lang === 'ml'">
+        <span class="leading-[1]">🇬🇧 English</span>
+      </template>
+    </button>
+  </div>
 
-  <!-- Language Toggle Button (Right Aligned) -->
-  <button
-    @click="lang = (lang === 'en' ? 'ml' : 'en')"
-    :class="lang === 'en'
-      ? 'bg-green-600 hover:bg-green-700'
-      : 'bg-blue-600 hover:bg-blue-700'"
-    class="min-w-[120px] px-3 py-1.5 md:px-4 md:py-2 rounded-full text-white text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2 shadow transition"
-    style="font-family: 'Noto Sans Malayalam', sans-serif;"
-  >
-    <template x-if="lang === 'en'">
-      <span class="leading-[1]">🇮🇳 മലയാളം</span>
-    </template>
-    <template x-if="lang === 'ml'">
-      <span class="leading-[1]">🇬🇧 English</span>
-    </template>
-  </button>
+  <!-- ✅ Responsive Menu -->
+  <nav class="border-t border-yellow-400 bg-slate-800">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center md:justify-center">
+      
+      <!-- Desktop Links -->
+      <div class="hidden md:flex gap-6 text-white font-semibold text-base">
+        <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+        <a href="gallery.html" class="hover:text-yellow-400 transition">Gallery</a>
+        <a href="events.html" class="hover:text-yellow-400 transition">Events</a>
+        <a href="about.html" class="hover:text-yellow-400 transition">About</a>
+        <a href="contact.html" class="hover:text-yellow-400 transition">Contact</a>
+      </div>
 
-</div>
+      <!-- Hamburger Toggle Button -->
+      <button @click="menuOpen = !menuOpen" class="md:hidden text-yellow-400 text-xl focus:outline-none">
+        <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+      </button>
+    </div>
 
+    <!-- Mobile Menu -->
+    <div x-show="menuOpen" x-transition.duration.300ms x-cloak class="md:hidden px-4 pb-4 space-y-2 text-white font-semibold">
+      <a href="index.html" class="block hover:text-yellow-400">Home</a>
+      <a href="gallery.html" class="block hover:text-yellow-400">Gallery</a>
+      <a href="events.html" class="block hover:text-yellow-400">Events</a>
+      <a href="about.html" class="block hover:text-yellow-400">About</a>
+      <a href="contact.html" class="block hover:text-yellow-400">Contact</a>
+    </div>
+  </nav>
 </header>
 
 
