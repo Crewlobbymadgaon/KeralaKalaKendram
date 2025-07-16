@@ -74,10 +74,10 @@
       transition: transform 0.3s ease, color 0.3s ease;
     }
    
-    .header-gradient {
-      background: linear-gradient(to top, rgba(255, 255, 255, 0.2), #1e40af);
-    }
 
+   .header-gradient {
+      background: linear-gradient(to right, #1e293b, #334155, #1e3a8a);
+    }
  
 
 @keyframes smoothMarquee {
@@ -170,16 +170,21 @@
   font-weight: 800;
   font-size: 1em;
   color: #facc15; /* Yellow */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    2px 2px 4px rgba(0, 0, 0, 0.6),
+    3px 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .rest-letter {
   font-weight: 800;
   font-size: 1em;
-  color: #713f12; /* Brown */
-  text-shadow: 1px 1px 2px rgba(250, 204, 21, 0.8); /* yellow glow */
+  color: #ffffff;
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    2px 2px 4px rgba(0, 0, 0, 0.6),
+    3px 3px 6px rgba(0, 0, 0, 0.4);
 }
-
   [x-cloak] { display: none !important; }
 </style>
 
@@ -187,40 +192,32 @@
 
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-800">
-  <header class="header-gradient text-white shadow-md border-b border-yellow-800">
-    <div class="container mx-auto px-4 py-2">
-      
-        <!-- before: space-y-4 -->
-<div class="header-container flex flex-col items-center justify-center text-center
-            py-0.5 sm:py-3 md:py-4
-            space-y-0.5 sm:space-y-2">
+<header class="z-50 sticky top-0 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-800 text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]">
+<div class="container mx-auto px-3 pt-2 pb-1 flex flex-col items-center space-y-1 relative">
+  <img src="kkklogo.png" alt="Kerala Kala Kendram Logo"
+       class="max-h-16 sm:max-h-24 rounded-full shadow-xl" />
+</div>
 
-
-        <img 
-          src="kkklogo.png" 
-          alt="Kerala Kala Kendram Logo" 
-          class="mx-auto max-h-20 sm:max-h-24"
-        />
         <div class="fade-text-wrapper">
           <div id="englishText" class="fade-text active" aria-label="Kerala Kala Kendram Margao"></div>
           <div id="malayalamText" class="fade-text" aria-label="കേരള കലാ കേന്ദ്രം മർഗാവ്" style="font-family: 'Noto Sans Malayalam', Arial, sans-serif;"></div>
         </div>
     
 <div class="w-full flex items-center justify-center mt-0.5 sm:mt-2">
-  <p class="text-yellow-900 text-sm sm:text-lg md:text-xl font-bold">
+  <p class="text-white text-sm sm:text-lg md:text-xl font-bold">
     A Socio-Cultural Organisation of Keralites in Goa
   </p>
 </div>
   </div>
- </div>
-  </header>
-<div class="bg-yellow-400 py-2 px-4" x-data="{ open: false }">
+ 
+
+ 
+<div class="bg-white py-2 px-4 border-t-4 border-yellow-400" x-data="{ open: false }">
   <div class="max-w-[1000px] mx-auto flex items-center justify-between h-12 sm:h-14 md:h-16 relative">
 
     <!-- 🍔 Hamburger Button -->
-<!-- 🍔 Refined Hamburger Button -->
 <button @click="open = !open"
-  class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 border-2 border-yellow-800 text-yellow-900 shadow-lg transition-all duration-300 hover:scale-105 active:scale-95">
+  class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white text-blue-900 shadow-[0_0_10px_3px_rgba(59,130,246,0.5)] hover:shadow-[0_0_12px_4px_rgba(59,130,246,0.6)] transition-all duration-300 hover:scale-105 active:scale-95">
   <template x-if="!open">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -240,7 +237,7 @@
     <!-- 🔁 Scrolling Message -->
     <div class="scroll-container overflow-hidden flex-1 px-2 h-full relative">
       <div id="scrollingMessage"
-        class="text-yellow-900 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap absolute top-1/2 transform -translate-y-1/2">
+        class="text-red-800 font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap absolute top-1/2 transform -translate-y-1/2">
         <!-- JS inserts messages here -->
       </div>
     </div>
@@ -250,74 +247,84 @@
       📢
     </span>
   </div>
-
-  <!-- 📱 Dropdown Menu below bar -->
   
-  
-  <div x-show="open" x-cloak x-transition
-  class="md:hidden mt-2 bg-white border border-yellow-300 rounded-xl shadow-xl px-6 py-4 space-y-3 w-[90%] max-w-xs mx-auto text-center">
+<!-- 📱 Mobile Dropdown Menu (Uniform Pill Width) -->
+<div x-show="open" x-transition
+  class="md:hidden mt-2 bg-white rounded-xl px-4 py-3 space-y-2 w-[90%] max-w-xs mx-auto text-center">
 
-  <a href="about.html" @click="open = false"
-    class="block w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-yellow-900 font-semibold py-2 rounded-lg shadow transition duration-200">
-    About Us
-  </a>
-
-  <a href="committee.html" @click="open = false"
-    class="block w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-yellow-900 font-semibold py-2 rounded-lg shadow transition duration-200">
-    Managing Committee
-  </a>
-
-  <a href="events.html" @click="open = false"
-    class="block w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-yellow-900 font-semibold py-2 rounded-lg shadow transition duration-200">
-    Events & Programs
-  </a>
-
-  <a href="gallery.html" @click="open = false"
-    class="block w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-yellow-900 font-semibold py-2 rounded-lg shadow transition duration-200">
-    Gallery
-  </a>
-
-  <a href="contact.html" @click="open = false"
-    class="block w-full bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-yellow-900 font-semibold py-2 rounded-lg shadow transition duration-200">
-    Contact Us
-  </a>
-</div>
-</div>
-<nav x-data="{ open: false }" class="hidden md:block bg-white sticky top-0 z-50 md:shadow-md md:border-b md:border-yellow-300">
-          
-
-  <div class="w-full px-4 h-16 flex items-center justify-between md:justify-center">
-
-    <!-- 🌐 Desktop Menu -->
-    <div class="hidden md:flex space-x-8 text-yellow-900 font-semibold text-lg tracking-wide">
-      <a href="about.html" class="relative group">
-        <span class="hover:text-yellow-700">About Us</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-600 transition-all duration-300 group-hover:w-full"></span>
-      </a>
-      <a href="committee.html" class="relative group">
-        <span class="hover:text-yellow-700">Managing Committee</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-600 transition-all duration-300 group-hover:w-full"></span>
-      </a>
-      <a href="events.html" class="relative group">
-        <span class="hover:text-yellow-700">Events & Programs</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-600 transition-all duration-300 group-hover:w-full"></span>
-      </a>
-      <a href="gallery.html" class="relative group">
-        <span class="hover:text-yellow-700">Gallery</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-600 transition-all duration-300 group-hover:w-full"></span>
-      </a>
-      <a href="contact.html" class="relative group">
-        <span class="hover:text-yellow-700">Contact Us</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-600 transition-all duration-300 group-hover:w-full"></span>
-      </a>
-    </div>
-
- 
+  <div class="inline-flex w-full justify-center">
+    <a href="about.html" @click="open = false"
+      class="w-[14rem] text-blue-900 bg-gradient-to-t from-blue-100 via-white to-white border-[2px] border-blue-700 font-semibold text-xs px-4 py-1.5 rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.1),_inset_0_1px_0_rgba(255,255,255,0.8)] transition transform active:scale-95 active:bg-blue-700 active:text-white active:shadow-inner active:from-transparent active:via-transparent active:to-transparent">
+      About Us
+    </a>
   </div>
 
- 
-</nav>
+  <div class="inline-flex w-full justify-center">
+    <a href="committee.html" @click="open = false"
+      class="w-[14rem] text-blue-900 bg-gradient-to-t from-blue-100 via-white to-white border-[2px] border-blue-700 font-semibold text-xs px-4 py-1.5 rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.1),_inset_0_1px_0_rgba(255,255,255,0.8)] transition transform active:scale-95 active:bg-blue-700 active:text-white active:shadow-inner active:from-transparent active:via-transparent active:to-transparent">
+      Managing Committee
+    </a>
+  </div>
 
+  <div class="inline-flex w-full justify-center">
+    <a href="events.html" @click="open = false"
+      class="w-[14rem] text-blue-900 bg-gradient-to-t from-blue-100 via-white to-white border-[2px] border-blue-700 font-semibold text-xs px-4 py-1.5 rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.1),_inset_0_1px_0_rgba(255,255,255,0.8)] transition transform active:scale-95 active:bg-blue-700 active:text-white active:shadow-inner active:from-transparent active:via-transparent active:to-transparent">
+      Events & Programs
+    </a>
+  </div>
+
+  <div class="inline-flex w-full justify-center">
+    <a href="gallery.html" @click="open = false"
+      class="w-[14rem] text-blue-900 bg-gradient-to-t from-blue-100 via-white to-white border-[2px] border-blue-700 font-semibold text-xs px-4 py-1.5 rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.1),_inset_0_1px_0_rgba(255,255,255,0.8)] transition transform active:scale-95 active:bg-blue-700 active:text-white active:shadow-inner active:from-transparent active:via-transparent active:to-transparent">
+      Gallery
+    </a>
+  </div>
+
+  <div class="inline-flex w-full justify-center">
+    <a href="contact.html" @click="open = false"
+      class="w-[14rem] text-blue-900 bg-gradient-to-t from-blue-100 via-white to-white border-[2px] border-blue-700 font-semibold text-xs px-4 py-1.5 rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.1),_inset_0_1px_0_rgba(255,255,255,0.8)] transition transform active:scale-95 active:bg-blue-700 active:text-white active:shadow-inner active:from-transparent active:via-transparent active:to-transparent">
+      Contact Us
+    </a>
+  </div>
+</div>
+</header>
+
+<nav x-data="{ open: false }"
+  class="hidden md:flex sticky top-0 z-40 bg-transparent shadow-[0_2px_6px_rgba(0,0,0,0.15)] backdrop-blur-md">
+
+  <div class="w-full px-4 h-16 flex items-center justify-center">
+    
+    <!-- 🌐 Desktop Menu Links -->
+    <div class="flex space-x-8 font-semibold text-base md:text-lg tracking-wide">
+
+      <a href="about.html" class="relative group">
+        <span class="text-blue-800 hover:text-blue-600" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">About Us</span>
+        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-800 transition-all duration-300 group-hover:w-full"></span>
+      </a>
+
+      <a href="committee.html" class="relative group">
+        <span class="text-blue-800 hover:text-blue-600" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Managing Committee</span>
+        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-800 transition-all duration-300 group-hover:w-full"></span>
+      </a>
+
+      <a href="events.html" class="relative group">
+        <span class="text-blue-800 hover:text-blue-600" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Events & Programs</span>
+        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-800 transition-all duration-300 group-hover:w-full"></span>
+      </a>
+
+      <a href="gallery.html" class="relative group">
+        <span class="text-blue-800 hover:text-blue-600" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Gallery</span>
+        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-800 transition-all duration-300 group-hover:w-full"></span>
+      </a>
+
+      <a href="contact.html" class="relative group">
+        <span class="text-blue-800 hover:text-blue-600" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Contact Us</span>
+        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-800 transition-all duration-300 group-hover:w-full"></span>
+      </a>
+
+    </div>
+  </div>
+</nav>
 
 <main class="flex-grow max-w-3xl mx-auto px-4 py-6 text-justify text-base leading-relaxed space-y-5">
   
@@ -535,7 +542,7 @@ const malayalamTextContent = `
 
 const messages = [
   '<img src="pookalam1.png" alt="Pookalam" class="inline w-9 h-9 mr-2" />ONAGHOSHAM 2025...... Stay tuned for updates…...!',
-  '<img src="mm.png" alt="Book" class="inline w-9 h-9 mr-2" /> മലയാളം മിഷൻ ക്ലാസ്സിൽ ചേരാൻ ആഗ്രഹിക്കുന്ന കുട്ടികൾ കേരള കലാ കേന്ദ്രം ഭാരവാഹികളുമായി ബന്ധപ്പെടേണ്ടതാണ്.',
+  '<img src="mm.png" alt="Book" class="inline w-9 h-9 mr-2" /> മലയാളം മിഷൻ ഗോവ ചാപ്റ്ററിൻ്റെ ഈ വർഷത്തെപ്പ പ്രവേശനോത്സവവും സുഗതാഞ്ജലി കവിതാലാപന മത്സരവും 2025 ജൂലൈ 27 ഞായറാഴ്ച പോണ്ട ശ്രീനാരായണ ഗുരു മിഷൻ സൊസൈറ്റി ഹാളിൽ വെച്ച് നടത്തപ്പെടുന്നതാണ് ',
   '<img src="maveli.png" alt="Flower" class="inline w-9 h-9 mr-2" /> ഓണാഘോഷം 2025...... വിശദ വിവരങ്ങൾക്കായി കാത്തിരിക്കുക….....!'
 ];
 
