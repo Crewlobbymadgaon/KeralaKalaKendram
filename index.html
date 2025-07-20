@@ -453,7 +453,9 @@
   
  imageUrls.forEach((url) => {
   const slide = document.createElement("div");
-  slide.className = "flex-shrink-0 w-full h-full";
+  
+   slide.className = "flex-shrink-0 w-full h-full aspect-[16/9]";
+
   slide.innerHTML = `<img src="${url}" alt="Slide" class="w-full h-full object-cover object-center" />`;
   carouselInner.appendChild(slide);
 });
