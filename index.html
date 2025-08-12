@@ -1,53 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Onam Brochure Flipbook</title>
-  <style>
-    body { text-align: center; background: #f8f4e7; font-family: sans-serif; }
-    #flipbook { width: 90%; max-width: 900px; height: 600px; margin: auto; }
-    #flipbook img { width: 100%; height: auto; }
-  </style>
+<meta charset="utf-8">
+<title>Onam 2025 Brochure</title>
+<style>
+  body { text-align: center; background: #f8f4e7; font-family: sans-serif; }
+  #flipbook { width: 90%; max-width: 900px; height: 600px; margin: auto; }
+  #flipbook .page { background: white; }
+  canvas { width: 100%; height: auto; }
+</style>
 </head>
 <body>
-  <h1>Onam 2025 Brochure</h1>
-  <div id="flipbook"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-  <script>
-    const url = 'https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/a260edbd1bafd353c8509ca9696720cf7cbff6ff/brochure.pdf';
+<h1>Onam 2025 Brochure</h1>
+<div id="flipbook"></div>
 
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-      const flipbook = $('#flipbook');
-      const renderPromises = [];
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 
-      for (let i = 1; i <= pdf.numPages; i++) {
-        renderPromises.push(
-          pdf.getPage(i).then(page => {
+<script>
+const url = 'brochure.pdf'; // change if different location
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+    const flipbook = $('#flipbook');
+
+    // Create empty pages in flipbook
+    for (let i = 1; i <= pdf.numPages; i++) {
+        flipbook.append(`<div class="page" data-page="${i}"></div>`);
+    }
+
+    // Start flipbook immediately
+    flipbook.turn({
+        width: 900,
+        height: 600,
+        autoCenter: true,
+        when: {
+            turning: function(event, page) {
+                loadPage(page);
+            },
+            turned: function(event, page) {
+                loadPage(page + 1);
+                loadPage(page - 1);
+            }
+        }
+    });
+
+    // Load first page right away
+    loadPage(1);
+
+    function loadPage(pageNum) {
+        const pageDiv = $(`.page[data-page=${pageNum}]`);
+        if (pageDiv.data('rendered')) return; // already loaded
+
+        pdf.getPage(pageNum).then(page => {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             const viewport = page.getViewport({ scale: 1.5 });
-            canvas.width = viewport.width;
             canvas.height = viewport.height;
-            return page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-              const img = document.createElement('img');
-              img.src = canvas.toDataURL();
-              flipbook.append(img);
-            });
-          })
-        );
-      }
+            canvas.width = viewport.width;
 
-      Promise.all(renderPromises).then(() => {
-        flipbook.turn({
-          width: 900,
-          height: 600,
-          autoCenter: true
+            page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+                pageDiv.html('').append(canvas);
+                pageDiv.data('rendered', true);
+            });
         });
-      });
-    });
-  </script>
+    }
+});
+</script>
+
 </body>
 </html>
