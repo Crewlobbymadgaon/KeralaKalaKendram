@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Onam 2025 Brochure</title>
+<style>
+  body { text-align: center; background: #f8f4e7; font-family: sans-serif; }
+  #flipbook { width: 90%; max-width: 900px; height: 600px; margin: auto; }
+  #flipbook img { width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<h1>Onam 2025 Brochure</h1>
+<div id="flipbook"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+
+<script>
+const url = 'brochure.pdf';
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+    const flipbook = $('#flipbook');
+    let pagePromises = [];
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+        pagePromises.push(
+            pdf.getPage(i).then(page => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                return page.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL();
+                    flipbook.append(img);
+                });
+            })
+        );
+    }
+
+    Promise.all(pagePromises).then(() => {
+        flipbook.turn({
+            width: 900,
+            height: 600,
+            autoCenter: true
+        });
+    });
+});
+</script>
+
+</body>
+</html>
