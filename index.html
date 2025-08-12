@@ -1,74 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Onam 2025 Brochure</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flipbook - Kerala Kala Kendram</title>
 <style>
-  body { text-align: center; background: #f8f4e7; font-family: sans-serif; margin: 0; }
-  #flipbook { width: 90%; max-width: 900px; height: 600px; margin: auto; }
-  #flipbook .page { background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-  canvas { width: 100%; height: auto; display: block; }
+    body {
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #flipbook {
+        width: 90%;
+        height: 90vh;
+    }
+    canvas {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
 </style>
+<!-- jQuery & Turn.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
 </head>
 <body>
 
-<h1>Onam 2025 Brochure</h1>
 <div id="flipbook"></div>
 
-<!-- jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- Working Turn.js v3 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-
 <script>
-const url = 'https://github.com/Crewlobbymadgaon/KeralaKalaKendram/raw/652ece621c730acaf450416807edb544e6fb7c97/kkkonam2025_comp.pdf';
+const totalPages = 48; // 🔹 Change to your actual number of pages
+const pdfFolder = "pdf/";
 
-pdfjsLib.getDocument(url).promise.then(pdf => {
-    const flipbook = $('#flipbook');
-
-    // Create empty page containers
-    for (let i = 1; i <= pdf.numPages; i++) {
-        flipbook.append(`<div class="page" data-page="${i}"></div>`);
-    }
-
-    // Initialize flipbook AFTER creating page placeholders
-    flipbook.turn({
-        width: 900,
-        height: 600,
-        autoCenter: true
-    });
-
-    // Load page into flipbook
-    function loadPage(pageNum) {
-        const pageDiv = $(`.page[data-page=${pageNum}]`);
-        if (pageDiv.data('rendered')) return;
-
-        pdf.getPage(pageNum).then(page => {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const viewport = page.getViewport({ scale: 1.5 });
-            canvas.height = viewport.height;
+function renderPDFtoCanvas(pdfUrl) {
+    return pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+        return pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 2 });
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
             canvas.width = viewport.width;
-
-            page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-                pageDiv.html('').append(canvas);
-                pageDiv.data('rendered', true);
-            });
+            canvas.height = viewport.height;
+            return page.render({ canvasContext: context, viewport: viewport }).promise.then(() => canvas);
         });
+    });
+}
+
+async function loadFlipbook() {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        const pagePath = `${pdfFolder}p${i}.pdf`;
+        const canvas = await renderPDFtoCanvas(pagePath);
+        const pageDiv = document.createElement("div");
+        pageDiv.appendChild(canvas);
+        pages.push(pageDiv);
     }
 
-    // Load first 2 pages
-    loadPage(1);
-    loadPage(2);
-
-    // Load more pages when turning
-    flipbook.bind('turning', (e, page) => {
-        loadPage(page);
-        loadPage(page + 1);
+    $("#flipbook").html(pages);
+    $("#flipbook").turn({
+        width: "100%",
+        height: "100%",
+        autoCenter: true,
+        responsive: true
     });
-});
+}
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js";
+loadFlipbook();
 </script>
 
 </body>
