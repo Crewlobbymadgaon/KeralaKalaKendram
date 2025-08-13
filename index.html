@@ -11,7 +11,6 @@
 
 <style>
   :root {
-    --book-bg: #f4f4f4;
     --bar-bg: rgba(0,0,0,.65);
     --bar-fg: #fff;
     --btn-bg: rgba(255,255,255,.15);
@@ -19,28 +18,23 @@
   }
 
   html, body {
-    height: 100%;
-  }
-  body {
     margin: 0;
-    background: var(--book-bg);
+    height: 100%;
+    background: #f4f4f4;
     font-family: sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) calc(56px + env(safe-area-inset-bottom)) env(safe-area-inset-left);
   }
 
-  /* Flipbook container */
+  /* Flipbook wrapper */
   #book-wrap {
     width: min(100vw, 500px);
     height: min(92vh, 700px);
+    margin: auto;
     background: #e9e9e9;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.2);
   }
 
-  /* Turn.js flipbook */
+  /* Turn.js container */
   #flipbook {
     width: 100%;
     height: 100%;
@@ -49,10 +43,10 @@
   /* Page style */
   #flipbook .page {
     background: #fff;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   #flipbook img {
@@ -101,28 +95,24 @@
 </head>
 <body>
 
-  <div id="book-wrap">
-    <div id="flipbook"></div>
-  </div>
+<div id="book-wrap">
+  <div id="flipbook"></div>
+</div>
 
-  <div class="control-bar">
-    <button id="prevBtn" class="btn">◀ Prev</button>
-    <div id="pageIndicator" class="page-indicator">Page 1 / 3</div>
-    <button id="nextBtn" class="btn">Next ▶</button>
-  </div>
+<div class="control-bar">
+  <button id="prevBtn" class="btn">◀ Prev</button>
+  <div id="pageIndicator" class="page-indicator">Page 1 / 3</div>
+  <button id="nextBtn" class="btn">Next ▶</button>
+</div>
 
 <script>
-  // Pages to display
   const imageFolder = "pdf/";
   const pages = ["p1.webp", "p10.webp", "p11.webp"];
 
-  // Build flipbook HTML
   function buildPages() {
-    return pages.map((file, i) => `
-      <div class="page" data-page="${i+1}">
-        <img src="${imageFolder}${file}" alt="Page ${i+1}">
-      </div>
-    `).join("");
+    return pages.map((file, i) =>
+      `<div class="page"><img src="${imageFolder}${file}" alt="Page ${i+1}"></div>`
+    ).join("");
   }
 
   function initFlipbook() {
@@ -131,12 +121,12 @@
     $("#flipbook").turn({
       width: $("#book-wrap").width(),
       height: $("#book-wrap").height(),
-      display: "single",       // single page mode
+      display: "single",     // only one page visible
       autoCenter: true,
-      elevation: 50,           // curl lift
-      gradients: true,         // page gradient for 3D feel
-      acceleration: true,      // CSS acceleration
-      duration: 600,           // flip speed
+      elevation: 50,         // lift for curl effect
+      gradients: true,       // smooth shading
+      acceleration: true,    // smoother on mobile
+      duration: 800,         // flip speed
       when: {
         turned: function(e, page) {
           updateIndicator();
@@ -147,32 +137,28 @@
     updateIndicator();
   }
 
-  // Update bottom page counter
   function updateIndicator() {
     const current = $("#flipbook").turn("page");
     const total = $("#flipbook").turn("pages");
     $("#pageIndicator").text(`Page ${current} / ${total}`);
   }
 
-  // Button events
   $("#prevBtn").click(() => $("#flipbook").turn("previous"));
   $("#nextBtn").click(() => $("#flipbook").turn("next"));
 
-  // Keyboard navigation (optional)
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") $("#flipbook").turn("previous");
     if (e.key === "ArrowRight") $("#flipbook").turn("next");
   });
 
-  // Init
-  initFlipbook();
-
-  // Keep size responsive
-  window.addEventListener("resize", () => {
+  $(window).on("resize", () => {
     if ($("#flipbook").data("turn")) {
       $("#flipbook").turn("size", $("#book-wrap").width(), $("#book-wrap").height());
     }
   });
+
+  initFlipbook();
 </script>
+
 </body>
 </html>
