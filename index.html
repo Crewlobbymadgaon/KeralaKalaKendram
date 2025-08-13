@@ -51,11 +51,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const flipbook = document.getElementById("flipbook");
 
-    // Correct initialization using the library global
+    // Initialize PageFlip
     const pageFlip = new St.PageFlip(flipbook, {
         width: 500,          // page width in px
         height: 700,         // page height in px
-        size: "stretch",     // make it responsive
+        size: "stretch",
         minWidth: 315,
         minHeight: 420,
         maxWidth: 1000,
@@ -65,14 +65,22 @@ document.addEventListener("DOMContentLoaded", function () {
         mobileScrollSupport: false
     });
 
-    // Add pages
-    pageFlip.loadFromHTML([
-        `<div class="page"><img src="pdf/p1.webp" style="width:100%;height:auto;"></div>`,
-        `<div class="page"><img src="pdf/p10.webp" style="width:100%;height:auto;"></div>`,
-        `<div class="page"><img src="pdf/p11.webp" style="width:100%;height:auto;"></div>`
-    ]);
+    // Create page nodes
+    const pages = ["pdf/p1.webp", "pdf/p10.webp", "pdf/p11.webp"].map(src => {
+        const page = document.createElement("div");
+        page.classList.add("page");
+        const img = document.createElement("img");
+        img.src = src;
+        img.style.width = "100%";
+        img.style.height = "auto";
+        page.appendChild(img);
+        return page;
+    });
 
-    // Navigation buttons
+    // Load pages into flipbook
+    pageFlip.loadFromHTML(pages);
+
+    // Navigation
     document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
     document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
 });
