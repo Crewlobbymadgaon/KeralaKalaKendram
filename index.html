@@ -2,102 +2,75 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Brochure Flipbook</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Turn.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-
+<title>Flipbook</title>
 <style>
-body {
-    background: #f0f0f0;
+  body {
+    background: #ccc;
     margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-#flipbook {
+  }
+  #flipbook {
     width: 90%;
-    max-width: 900px;
+    max-width: 800px;
     height: 90vh;
-}
-#flipbook .page {
+  }
+  .page {
     width: 100%;
     height: 100%;
-}
-#flipbook .page img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-/* Stylish arrows */
-.nav-btn {
+    background-size: cover;
+    background-position: center;
+  }
+  .nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1000;
-    font-size: 3rem;
-    color: #fff;
-    background: rgba(0,0,0,0.4);
-    padding: 0.3em 0.5em;
-    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
     cursor: pointer;
-    user-select: none;
-}
-#prev { left: 10px; }
-#next { right: 10px; }
-.nav-btn:hover {
-    background: rgba(0,0,0,0.7);
-}
+    font-size: 24px;
+    border-radius: 50%;
+  }
+  #prevBtn { left: 10px; }
+  #nextBtn { right: 10px; }
 </style>
+
+<!-- jQuery + Turn.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 </head>
 <body>
 
 <div id="flipbook">
-    <div class="page"><img src="pdf/p1.webp" alt="Page 1"></div>
-    <div class="page"><img src="pdf/p10.webp" alt="Page 10"></div>
-    <div class="page"><img src="pdf/p11.webp" alt="Page 11"></div>
+  <div class="page" style="background-image:url('pdf/p1.webp')"></div>
+  <div class="page" style="background-image:url('pdf/p10.webp')"></div>
+  <div class="page" style="background-image:url('pdf/p11.webp')"></div>
 </div>
 
-<!-- Navigation arrows -->
-<div id="prev" class="nav-btn">&#10094;</div>
-<div id="next" class="nav-btn">&#10095;</div>
+<button class="nav-btn" id="prevBtn">&#8592;</button>
+<button class="nav-btn" id="nextBtn">&#8594;</button>
 
 <script>
-$(document).ready(function() {
-    $("#flipbook").turn({
-        width: $("#flipbook").width(),
-        height: $("#flipbook").height(),
-        autoCenter: true,
-        gradients: true,
-        acceleration: true
-    });
+$(document).ready(function(){
+  $("#flipbook").turn({
+    width: $("#flipbook").width(),
+    height: $("#flipbook").height(),
+    autoCenter: true,
+    gradients: true,
+    acceleration: true
+  });
 
-    $("#prev").click(function(){
-        $("#flipbook").turn("previous");
-    });
-    $("#next").click(function(){
-        $("#flipbook").turn("next");
-    });
-
-    // Swipe for mobile
-    let startX = 0;
-    $("#flipbook").on("touchstart", function(e){
-        startX = e.originalEvent.touches[0].clientX;
-    });
-    $("#flipbook").on("touchend", function(e){
-        let endX = e.originalEvent.changedTouches[0].clientX;
-        if (startX - endX > 50) {
-            $("#flipbook").turn("next");
-        } else if (endX - startX > 50) {
-            $("#flipbook").turn("previous");
-        }
-    });
+  $("#prevBtn").click(function(){
+    $("#flipbook").turn("previous");
+  });
+  $("#nextBtn").click(function(){
+    $("#flipbook").turn("next");
+  });
 });
 </script>
 
