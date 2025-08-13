@@ -3,36 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3D Flipbook - Kerala Kala Kendram</title>
+<title>3D Single-Page Flipbook</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css">
 
 <style>
-    body {
-        background: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100vh;
-    }
-    #flipbook {
-        flex: 1;
-        width: 100%;
-        max-width: 900px;
-        margin-top: 10px;
-    }
-    .controls {
-        text-align: center;
-        margin: 10px 0;
-    }
-    .controls button {
-        padding: 10px 20px;
-        font-size: 16px;
-        margin: 5px;
-        cursor: pointer;
-    }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  #flipbook {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;  /* Adjust to desired page width */
+    margin-top: 10px;
+  }
+  .controls {
+    text-align: center;
+    margin: 10px 0;
+  }
+  .controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -40,32 +40,31 @@
 <div id="flipbook"></div>
 
 <div class="controls">
-    <button id="prev">⬅ Prev</button>
-    <button id="next">Next ➡</button>
+  <button id="prev">⬅ Prev</button>
+  <button id="next">Next ➡</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const flipbook = document.getElementById("flipbook");
+    const flipbookEl = document.getElementById("flipbook");
 
-    const pageFlip = new St.PageFlip(flipbook, {
+    // Initialize single-page flipbook
+    const pageFlip = new St.PageFlip(flipbookEl, {
         width: 600,
         height: 850,
         size: "stretch",
-        minWidth: 315,
-        minHeight: 420,
-        maxWidth: 1000,
-        maxHeight: 1400,
+        showCover: false,       // first page curls normally
         maxShadowOpacity: 0.5,
-        showCover: false,
-        usePortrait: true,  // enables mobile single-page, desktop two-page
+        usePortrait: true,      // keeps single-page on all screens
         mobileScrollSupport: false
     });
 
+    // Pages array (add your images here)
     const pages = [
-        "pdf/p1.webp", "pdf/p2.webp", "pdf/p3.webp", "pdf/p4.webp",
-        "pdf/p5.webp", "pdf/p6.webp", "pdf/p7.webp", "pdf/p8.webp"
+        "pdf/p1.webp",
+        "pdf/p10.webp",
+        "pdf/p11.webp"
     ].map(src => {
         const page = document.createElement("div");
         page.classList.add("page");
@@ -80,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     pageFlip.loadFromHTML(pages);
 
+    // Navigation
     document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
     document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
 });
