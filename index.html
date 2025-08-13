@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3D Flipbook - Kerala Kala Kendram</title>
 
-<!-- PageFlip CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css">
 
 <style>
@@ -45,15 +44,13 @@
     <button id="next">Next ➡</button>
 </div>
 
-<!-- PageFlip JS -->
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const flipbook = document.getElementById("flipbook");
 
-    // Initialize PageFlip
     const pageFlip = new St.PageFlip(flipbook, {
-        width: 600,         // match image aspect ratio
+        width: 600,
         height: 850,
         size: "stretch",
         minWidth: 315,
@@ -61,12 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
         maxWidth: 1000,
         maxHeight: 1400,
         maxShadowOpacity: 0.5,
-        showCover: false,   // allow first page to curl
+        showCover: false,       // no special cover page
+        usePortrait: false,     // always two-page mode
         mobileScrollSupport: false
     });
 
-    // Create pages from images
-    const pages = ["pdf/p1.webp", "pdf/p10.webp", "pdf/p11.webp"].map(src => {
+    const pages = [
+        "pdf/p1.webp", "pdf/p2.webp", "pdf/p3.webp", "pdf/p4.webp",
+        "pdf/p5.webp", "pdf/p6.webp", "pdf/p7.webp", "pdf/p8.webp"
+    ].map(src => {
         const page = document.createElement("div");
         page.classList.add("page");
         const img = document.createElement("img");
@@ -78,10 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return page;
     });
 
-    // Load pages
     pageFlip.loadFromHTML(pages);
 
-    // Buttons
     document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
     document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
 });
