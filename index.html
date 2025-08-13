@@ -1,79 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flipbook - Kerala Kala Kendram</title>
+<title>Flipbook</title>
 <style>
-    body {
-        background: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    #flipbook {
-        width: 90%;
-        height: 90vh;
-    }
-    canvas {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: auto;
-    }
+  body {
+    margin: 0;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .flipbook {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    perspective: 1500px;
+  }
+  .page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    transition: transform 1s;
+  }
+  .page.flipped {
+    transform: rotateY(-180deg);
+  }
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
 </style>
-<!-- jQuery & Turn.js -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
 </head>
 <body>
 
-<div id="flipbook"></div>
+<div class="flipbook">
+  <div class="container" id="container"></div>
+</div>
 
 <script>
-const totalPages = 48; // 🔹 Change to your actual number of pages
-const pdfFolder = "pdf/";
+  // Image list from GitHub Pages
+  const pages = [
+    "pdf/p1.webp",
+    "pdf/p10.webp",
+    "pdf/p11.webp"
+  ];
 
-function renderPDFtoCanvas(pdfUrl) {
-    return pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-        return pdf.getPage(1).then(page => {
-            const viewport = page.getViewport({ scale: 2 });
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            return page.render({ canvasContext: context, viewport: viewport }).promise.then(() => canvas);
-        });
+  const container = document.getElementById("container");
+
+  pages.forEach((src, i) => {
+    const page = document.createElement("div");
+    page.className = "page";
+    page.style.backgroundImage = `url(${src})`;
+    page.style.zIndex = pages.length - i;
+    page.style.transformOrigin = "left center";
+    page.addEventListener("click", () => {
+      page.classList.toggle("flipped");
     });
-}
-
-async function loadFlipbook() {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        const pagePath = `${pdfFolder}p${i}.pdf`;
-        const canvas = await renderPDFtoCanvas(pagePath);
-        const pageDiv = document.createElement("div");
-        pageDiv.appendChild(canvas);
-        pages.push(pageDiv);
-    }
-
-    $("#flipbook").html(pages);
-    $("#flipbook").turn({
-        width: "100%",
-        height: "100%",
-        autoCenter: true,
-        responsive: true
-    });
-}
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js";
-loadFlipbook();
+    container.appendChild(page);
+  });
 </script>
 
 </body>
