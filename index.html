@@ -4,87 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flipbook</title>
+
+<!-- Turn.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
 <style>
-  body {
+body {
+    background: #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
-    background: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-  }
-  #book {
-    position: relative;
-    max-width: 100%;
+}
+#flipbook {
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    margin: 20px auto;
+}
+#flipbook img {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+}
+.nav-buttons {
     display: flex;
-    align-items: center;
-  }
-  #book img {
-    max-width: 100%;
-    max-height: 100%;
-    transition: transform 0.6s ease;
-  }
-  .nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 20px;
+    justify-content: space-between;
+    width: 200px;
+    margin-top: 10px;
+}
+.arrow {
+    background: #fff;
     border-radius: 50%;
-  }
-  #prevBtn { left: 10px; }
-  #nextBtn { right: 10px; }
+    border: none;
+    padding: 10px 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+.arrow:hover {
+    background: #f0c14b;
+}
 </style>
 </head>
 <body>
 
-<div id="book">
-  <button id="prevBtn" class="nav-btn">&#8592;</button>
-  <img id="pageImage" src="" alt="Page">
-  <button id="nextBtn" class="nav-btn">&#8594;</button>
+<div id="flipbook">
+    <div><img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p1.webp"></div>
+    <div><img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p10.webp"></div>
+    <div><img src="https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p11.webp"></div>
+</div>
+
+<div class="nav-buttons">
+    <button class="arrow" id="prev">&#8592;</button>
+    <button class="arrow" id="next">&#8594;</button>
 </div>
 
 <script>
-const pages = [
-  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p1.webp",
-  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p10.webp",
-  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p11.webp"
-];
+document.addEventListener("DOMContentLoaded", function () {
+    $("#flipbook").turn({
+        width: 800,
+        height: 600,
+        autoCenter: true,
+        elevation: 50,
+        gradients: true,
+        duration: 1000
+    });
 
-let currentPage = 0;
-const img = document.getElementById("pageImage");
-img.src = pages[currentPage];
-
-function showPage(index, direction) {
-  if (index < 0 || index >= pages.length) return;
-  img.style.transform = direction === "next" ? "rotateY(90deg)" : "rotateY(-90deg)";
-  setTimeout(() => {
-    img.src = pages[index];
-    img.style.transform = "rotateY(0)";
-  }, 300);
-  currentPage = index;
-}
-
-// Button navigation
-document.getElementById("nextBtn").addEventListener("click", () => showPage(currentPage + 1, "next"));
-document.getElementById("prevBtn").addEventListener("click", () => showPage(currentPage - 1, "prev"));
-
-// Swipe navigation
-let startX = 0;
-img.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-img.addEventListener("touchend", e => {
-  let diff = e.changedTouches[0].clientX - startX;
-  if (diff > 50) showPage(currentPage - 1, "prev"); // swipe right
-  else if (diff < -50) showPage(currentPage + 1, "next"); // swipe left
+    document.getElementById("prev").addEventListener("click", function () {
+        $("#flipbook").turn("previous");
+    });
+    document.getElementById("next").addEventListener("click", function () {
+        $("#flipbook").turn("next");
+    });
 });
 </script>
+
+<!-- jQuery (required by Turn.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 </html>
