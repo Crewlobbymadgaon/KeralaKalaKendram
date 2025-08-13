@@ -1,92 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>Flipbook</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 <style>
   body {
     margin: 0;
-    background: #222;
+    background: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
   }
-
   #flipbook {
     width: 100%;
-    height: 90vh; /* leave space for arrows */
+    height: 100%;
+    max-width: 900px;
+    max-height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
   }
-
   #flipbook img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-
-  .controls {
-    height: 10vh;
+  .nav-buttons {
+    position: absolute;
+    bottom: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 30px;
+    width: 100%;
+    gap: 20px;
   }
-
-  .arrow-btn {
-    background: #fff;
-    border: none;
+  .nav-buttons button {
     padding: 10px 20px;
-    border-radius: 50%;
-    font-size: 20px;
+    font-size: 18px;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
-  }
-
-  .arrow-btn:hover {
-    transform: scale(1.1);
-    background: #f0f0f0;
   }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/turn.js@4/turn.min.js"></script>
 </head>
 <body>
 
 <div id="flipbook">
-  <div><img src="pdf/p1.webp" alt="Page 1"></div>
-  <div><img src="pdf/p10.webp" alt="Page 2"></div>
-  <div><img src="pdf/p11.webp" alt="Page 3"></div>
+  <div><img src="pdf/p1.webp"></div>
+  <div><img src="pdf/p10.webp"></div>
+  <div><img src="pdf/p11.webp"></div>
 </div>
 
-<div class="controls">
-  <button id="prev" class="arrow-btn">⟨</button>
-  <button id="next" class="arrow-btn">⟩</button>
+<div class="nav-buttons">
+  <button id="prev">⬅ Prev</button>
+  <button id="next">Next ➡</button>
 </div>
 
 <script>
+$(document).ready(function(){
   $("#flipbook").turn({
-    width: window.innerWidth,
-    height: window.innerHeight * 0.9,
+    width: 900,
+    height: 600,
     autoCenter: true,
-    display: 'single', // one page at a time
+    elevation: 50,
     gradients: true,
-    acceleration: true
+    duration: 1000
   });
 
   $("#prev").click(function(){
     $("#flipbook").turn("previous");
   });
-
   $("#next").click(function(){
     $("#flipbook").turn("next");
   });
-
-  // Handle resizing
-  $(window).resize(function(){
-    $("#flipbook").turn("size", window.innerWidth, window.innerHeight * 0.9);
-  });
+});
 </script>
 
 </body>
