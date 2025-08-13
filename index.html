@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flipbook - Kerala Kala Kendram</title>
+<title>3D Flipbook - Kerala Kala Kendram</title>
 
 <!-- PageFlip CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css">
@@ -53,19 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize PageFlip
     const pageFlip = new St.PageFlip(flipbook, {
-        width: 500,          // page width in px
-        height: 700,         // page height in px
+        width: 600,         // match image aspect ratio
+        height: 850,
         size: "stretch",
         minWidth: 315,
         minHeight: 420,
         maxWidth: 1000,
-        maxHeight: 1350,
+        maxHeight: 1400,
         maxShadowOpacity: 0.5,
-        showCover: true,
+        showCover: false,   // allow first page to curl
         mobileScrollSupport: false
     });
 
-    // Create page nodes
+    // Create pages from images
     const pages = ["pdf/p1.webp", "pdf/p10.webp", "pdf/p11.webp"].map(src => {
         const page = document.createElement("div");
         page.classList.add("page");
@@ -73,14 +73,15 @@ document.addEventListener("DOMContentLoaded", function () {
         img.src = src;
         img.style.width = "100%";
         img.style.height = "auto";
+        img.style.display = "block";
         page.appendChild(img);
         return page;
     });
 
-    // Load pages into flipbook
+    // Load pages
     pageFlip.loadFromHTML(pages);
 
-    // Navigation
+    // Buttons
     document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
     document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
 });
