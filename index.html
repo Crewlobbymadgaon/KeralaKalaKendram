@@ -6,7 +6,7 @@
 <title>Flipbook - Kerala Kala Kendram</title>
 
 <!-- PageFlip CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/css/page-flip.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css">
 
 <style>
     body {
@@ -46,13 +46,13 @@
 </div>
 
 <!-- PageFlip JS -->
-<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const flipbook = document.getElementById("flipbook");
 
-    // Initialize PageFlip
-    const pageFlip = new pageFlip.PageFlip(flipbook, {
+    // Correct initialization using the library global
+    const pageFlip = new St.PageFlip(flipbook, {
         width: 500,          // page width in px
         height: 700,         // page height in px
         size: "stretch",     // make it responsive
