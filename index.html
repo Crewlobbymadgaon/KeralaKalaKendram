@@ -4,85 +4,92 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flipbook - Kerala Kala Kendram</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/stpageflip@2.0.7/dist/css/stpageflip.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/css/page-flip.css">
 <style>
     body {
-        background: #f4f4f4;
         margin: 0;
         padding: 0;
+        background: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         height: 100vh;
+        font-family: sans-serif;
+    }
+    #flipbook {
+        flex: 1;
+        width: 100%;
+        max-width: 900px;
+    }
+    .controls {
         display: flex;
         justify-content: center;
-        align-items: center;
-    }
-    #container {
-        width: 90%;
-        height: 90vh;
-    }
-    .page-img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    /* Bottom arrow buttons */
-    .controls {
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-        text-align: center;
-        z-index: 100;
+        gap: 20px;
+        margin: 10px 0;
     }
     .btn {
-        background: rgba(0,0,0,0.6);
+        background: #333;
         color: #fff;
         border: none;
-        padding: 10px 15px;
-        margin: 0 10px;
+        padding: 10px 20px;
         cursor: pointer;
         font-size: 18px;
         border-radius: 5px;
+    }
+    .btn:active {
+        background: #555;
     }
 </style>
 </head>
 <body>
 
-<div id="container"></div>
+<div id="flipbook"></div>
 
 <div class="controls">
-    <button id="prev" class="btn">⬅ Prev</button>
-    <button id="next" class="btn">Next ➡</button>
+    <button class="btn" id="prevBtn">⬅ Prev</button>
+    <button class="btn" id="nextBtn">Next ➡</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/stpageflip@2.0.7/dist/js/stpageflip.min.js"></script>
+<!-- StPageFlip JS -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("container");
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageFlip = new St.PageFlip(document.getElementById("flipbook"), {
+            width: 600,      // page width
+            height: 800,     // page height
+            size: "stretch",
+            minWidth: 300,
+            maxWidth: 1000,
+            minHeight: 400,
+            maxHeight: 1350,
+            drawShadow: true,
+            flippingTime: 800,
+            useMouseEvents: true,
+            showCover: true,
+            mobileScrollSupport: false
+        });
 
-    const pageFlip = new St.PageFlip(container, {
-        width: 600,        // base page width
-        height: 800,       // base page height
-        size: "stretch",   // fit to container
-        minWidth: 300,
-        maxWidth: 1000,
-        minHeight: 400,
-        maxHeight: 1350,
-        drawShadow: true,
-        flippingTime: 1000,
-        usePortrait: true,   // single-page mode
-        showCover: false,
-        mobileScrollSupport: false
+        // Images to load
+        const pages = [
+            "pdf/p1.webp",
+            "pdf/p10.webp",
+            "pdf/p11.webp"
+        ];
+
+        // Add each image as a page
+        const pageElements = pages.map(src => {
+            const page = document.createElement("div");
+            page.classList.add("page");
+            page.innerHTML = `<img src="${src}" style="width:100%; height:100%; object-fit:contain;">`;
+            return page;
+        });
+
+        pageFlip.loadFromHTML(pageElements);
+
+        // Buttons
+        document.getElementById("prevBtn").addEventListener("click", () => pageFlip.flipPrev());
+        document.getElementById("nextBtn").addEventListener("click", () => pageFlip.flipNext());
     });
-
-    pageFlip.loadFromImages([
-        "pdf/p1.webp",
-        "pdf/p10.webp",
-        "pdf/p11.webp"
-    ]);
-
-    // Buttons
-    document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
-    document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
-});
 </script>
 
 </body>
