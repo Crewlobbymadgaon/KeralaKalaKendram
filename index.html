@@ -7,13 +7,11 @@
 
 <!-- jQuery & Turn.js -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Core Turn.js (page curl) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 <style>
   :root {
     --book-bg: #f4f4f4;
-    --page-bg: #fff;
     --bar-bg: rgba(0,0,0,.65);
     --bar-fg: #fff;
     --btn-bg: rgba(255,255,255,.15);
@@ -26,48 +24,46 @@
   body {
     margin: 0;
     background: var(--book-bg);
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-family: sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) calc(56px + env(safe-area-inset-bottom)) env(safe-area-inset-left);
   }
 
-  /* Flipbook wrapper */
+  /* Flipbook container */
   #book-wrap {
-    width: min(100vw, 1100px);
-    height: min(92vh, 820px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: min(100vw, 500px);
+    height: min(92vh, 700px);
+    background: #e9e9e9;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
   }
 
-  /* Turn container */
+  /* Turn.js flipbook */
   #flipbook {
     width: 100%;
     height: 100%;
   }
 
-  /* Each page */
+  /* Page style */
   #flipbook .page {
-    background: var(--page-bg);
+    background: #fff;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  #flipbook .page img {
+  #flipbook img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: block;
     -webkit-user-drag: none;
-    user-select: none;
     pointer-events: none;
   }
 
-  /* Bottom control bar (always visible on mobile) */
+  /* Bottom control bar */
   .control-bar {
     position: fixed;
     left: 0;
@@ -82,51 +78,24 @@
     padding: 0 10px;
     gap: 10px;
     z-index: 9999;
-    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
 
   .control-bar .btn {
-    border: 0;
+    border: none;
     background: var(--btn-bg);
     color: var(--btn-fg);
     height: 40px;
     min-width: 90px;
-    border-radius: 999px;
+    border-radius: 20px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    touch-action: manipulation;
-  }
-
-  .control-bar .btn:active {
-    transform: translateY(1px);
   }
 
   .page-indicator {
     font-size: 14px;
     text-align: center;
-    white-space: nowrap;
-  }
-
-  /* Subtle shadow around the book */
-  #book-wrap {
-    border-radius: 18px;
-    box-shadow:
-      0 10px 25px rgba(0,0,0,.15),
-      0 2px 8px rgba(0,0,0,.08);
-    background: #e9e9e9;
-  }
-
-  /* Make it single-page on narrow screens for readability */
-  @media (max-width: 760px) {
-    #book-wrap {
-      width: 100vw;
-      height: calc(100vh - 56px - env(safe-area-inset-bottom));
-      border-radius: 0;
-      box-shadow: none;
-      background: transparent;
-    }
   }
 </style>
 </head>
@@ -136,7 +105,6 @@
     <div id="flipbook"></div>
   </div>
 
-  <!-- Bottom controls -->
   <div class="control-bar">
     <button id="prevBtn" class="btn">◀ Prev</button>
     <div id="pageIndicator" class="page-indicator">Page 1 / 3</div>
@@ -144,109 +112,67 @@
   </div>
 
 <script>
-  // Your image order (exact filenames in /pdf/)
+  // Pages to display
   const imageFolder = "pdf/";
-  const pages = ["p1.webp", "p10.webp", "p11.webp"]; // order you want to show
+  const pages = ["p1.webp", "p10.webp", "p11.webp"];
 
-  // Create page HTML (first & last as 'hard' cover for extra curl effect)
+  // Build flipbook HTML
   function buildPages() {
-    let html = "";
-    pages.forEach((file, idx) => {
-      const isFirst = idx === 0;
-      const isLast  = idx === pages.length - 1;
-      const hardCls = (isFirst || isLast) ? " hard" : "";
-      html += `
-        <div class="page${hardCls}" data-pg="${idx + 1}">
-          <img src="${imageFolder}${file}" alt="Page ${idx + 1}">
-        </div>`;
-    });
-    return html;
+    return pages.map((file, i) => `
+      <div class="page" data-page="${i+1}">
+        <img src="${imageFolder}${file}" alt="Page ${i+1}">
+      </div>
+    `).join("");
   }
 
-  // Initialize turn.js with responsive single/double display and nice curl
   function initFlipbook() {
-    const $flip = $("#flipbook");
-    $flip.html(buildPages());
+    $("#flipbook").html(buildPages());
 
-    const useSingle = window.matchMedia("(max-width: 760px)").matches || pages.length < 2;
-
-    $flip.turn({
+    $("#flipbook").turn({
       width: $("#book-wrap").width(),
       height: $("#book-wrap").height(),
-      display: useSingle ? "single" : "double",
+      display: "single",       // single page mode
       autoCenter: true,
-      elevation: 80,      // stronger 3D lift at edges
-      gradients: true,    // page gradient for curl feel
-      acceleration: true, // CSS acceleration for mobile
-      duration: 700,      // flip speed in ms
+      elevation: 50,           // curl lift
+      gradients: true,         // page gradient for 3D feel
+      acceleration: true,      // CSS acceleration
+      duration: 600,           // flip speed
       when: {
-        turned: function (e, page) {
+        turned: function(e, page) {
           updateIndicator();
-          // Preload neighbors for smoother curl
-          preloadImg(page - 1);
-          preloadImg(page + 1);
         }
       }
     });
 
-    // Load neighbors initially
-    preloadImg(1);
-    preloadImg(2);
-
     updateIndicator();
   }
 
-  // Keep the book responsive on resize/orientation change
-  function resizeFlipbook() {
-    const $flip = $("#flipbook");
-    if (!$flip.data("turn")) return;
-
-    const w = $("#book-wrap").width();
-    const h = $("#book-wrap").height();
-    $flip.turn("size", w, h);
-
-    const useSingle = window.matchMedia("(max-width: 760px)").matches || pages.length < 2;
-    const currentDisplay = $flip.turn("display");
-    if ((useSingle && currentDisplay !== "single") || (!useSingle && currentDisplay !== "double")) {
-      $flip.turn("display", useSingle ? "single" : "double");
-    }
-  }
-
-  // Preload helper
-  function preloadImg(pageNumber) {
-    if (pageNumber < 1 || pageNumber > pages.length) return;
-    const idx = pageNumber - 1;
-    const src = imageFolder + pages[idx];
-    const img = new Image();
-    img.src = src;
-  }
-
-  // Controls
+  // Update bottom page counter
   function updateIndicator() {
-    const $flip = $("#flipbook");
-    if (!$flip.data("turn")) return;
-    const total = $flip.turn("pages");
-    const current = $flip.turn("page");
-    document.getElementById("pageIndicator").textContent = `Page ${current} / ${total}`;
+    const current = $("#flipbook").turn("page");
+    const total = $("#flipbook").turn("pages");
+    $("#pageIndicator").text(`Page ${current} / ${total}`);
   }
 
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    $("#flipbook").turn("previous");
-  });
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    $("#flipbook").turn("next");
-  });
+  // Button events
+  $("#prevBtn").click(() => $("#flipbook").turn("previous"));
+  $("#nextBtn").click(() => $("#flipbook").turn("next"));
 
-  // Keyboard support (desktop)
-  document.addEventListener("keydown", (e) => {
+  // Keyboard navigation (optional)
+  document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") $("#flipbook").turn("previous");
     if (e.key === "ArrowRight") $("#flipbook").turn("next");
   });
 
-  // Init & listeners
+  // Init
   initFlipbook();
-  window.addEventListener("resize", resizeFlipbook);
-  window.addEventListener("orientationchange", () => setTimeout(resizeFlipbook, 200));
+
+  // Keep size responsive
+  window.addEventListener("resize", () => {
+    if ($("#flipbook").data("turn")) {
+      $("#flipbook").turn("size", $("#book-wrap").width(), $("#book-wrap").height());
+    }
+  });
 </script>
 </body>
 </html>
