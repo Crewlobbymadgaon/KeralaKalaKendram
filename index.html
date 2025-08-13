@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flipbook - Kerala Kala Kendram</title>
+<title>Flipbook</title>
 
 <!-- StPageFlip CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/stpageflip@2.0.6/dist/css/page-flip.css">
@@ -18,31 +18,16 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        flex-direction: column;
     }
     #flipbook {
         width: 90vw;
-        max-width: 600px;
+        max-width: 500px; /* portrait size */
         height: 90vh;
-        max-height: 800px;
-    }
-    .page {
-        width: 100%;
-        height: 100%;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .page img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+        max-height: 700px;
     }
     .controls {
-        position: fixed;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
+        margin-top: 10px;
         display: flex;
         gap: 15px;
     }
@@ -73,29 +58,28 @@
 <script src="https://cdn.jsdelivr.net/npm/stpageflip@2.0.6/dist/js/page-flip.browser.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const flipbook = document.getElementById("flipbook");
-
-    const pageFlip = new St.PageFlip(flipbook, {
-        width: 600,      // fixed width for orientation stability
-        height: 800,     // fixed height for orientation stability
-        size: "fixed",   // keep same size
+    const pageFlip = new St.PageFlip(document.getElementById("flipbook"), {
+        width: 500,      // keep fixed width
+        height: 700,     // keep fixed height
+        size: "fixed",
         drawShadow: true,
         flippingTime: 800,
-        showCover: true,
+        showCover: false,    // single-page view
         mobileScrollSupport: false,
         useMouseEvents: true,
         maxShadowOpacity: 0.5,
-        showPageCorners: true
+        showPageCorners: true,
+        usePortrait: true,   // always single-page
+        autoSize: true
     });
 
-    // Load your images
+    // Load actual GitHub images
     pageFlip.loadFromImages([
         "https://yourusername.github.io/repo/pdf/p1.webp",
         "https://yourusername.github.io/repo/pdf/p10.webp",
         "https://yourusername.github.io/repo/pdf/p11.webp"
     ]);
 
-    // Buttons
     document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
     document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
 });
