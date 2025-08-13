@@ -3,75 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flipbook</title>
+<title>Kerala Kala Kendram Flipbook</title>
+
+<!-- Turn.js CSS -->
 <style>
   body {
-    background: #ccc;
-    margin: 0;
+    background: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
   }
   #flipbook {
     width: 90%;
-    max-width: 800px;
-    height: 90vh;
+    height: 90%;
   }
-  .page {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
+  #flipbook .page {
+    background: white;
   }
   .nav-btn {
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
+    font-size: 2rem;
     background: rgba(0,0,0,0.5);
     color: white;
-    border: none;
-    padding: 10px;
+    padding: 10px 15px;
     cursor: pointer;
-    font-size: 24px;
     border-radius: 50%;
+    z-index: 999;
+    transition: background 0.3s;
   }
-  #prevBtn { left: 10px; }
-  #nextBtn { right: 10px; }
+  .nav-btn:hover {
+    background: rgba(0,0,0,0.8);
+  }
+  #prev { left: 10px; }
+  #next { right: 10px; }
 </style>
-
-<!-- jQuery + Turn.js -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 </head>
 <body>
 
 <div id="flipbook">
-  <div class="page" style="background-image:url('pdf/p1.webp')"></div>
-  <div class="page" style="background-image:url('pdf/p10.webp')"></div>
-  <div class="page" style="background-image:url('pdf/p11.webp')"></div>
+  <div class="page"><img src="pdf/p1.webp" style="width:100%; height:100%;"></div>
+  <div class="page"><img src="pdf/p10.webp" style="width:100%; height:100%;"></div>
+  <div class="page"><img src="pdf/p11.webp" style="width:100%; height:100%;"></div>
 </div>
 
-<button class="nav-btn" id="prevBtn">&#8592;</button>
-<button class="nav-btn" id="nextBtn">&#8594;</button>
+<div id="prev" class="nav-btn">&#8592;</div>
+<div id="next" class="nav-btn">&#8594;</div>
+
+<!-- jQuery + Turn.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 <script>
-$(document).ready(function(){
-  $("#flipbook").turn({
-    width: $("#flipbook").width(),
-    height: $("#flipbook").height(),
-    autoCenter: true,
-    gradients: true,
-    acceleration: true
+  $(document).ready(function(){
+    $("#flipbook").turn({
+      width: $(window).width() * 0.9,
+      height: $(window).height() * 0.9,
+      autoCenter: true,
+      gradients: true,
+      acceleration: true
+    });
+
+    // Button navigation
+    $("#prev").click(function(){
+      $("#flipbook").turn("previous");
+    });
+    $("#next").click(function(){
+      $("#flipbook").turn("next");
+    });
+
+    // Swipe navigation
+    $("#flipbook").on("swipeleft", function(){
+      $("#flipbook").turn("next");
+    });
+    $("#flipbook").on("swiperight", function(){
+      $("#flipbook").turn("previous");
+    });
   });
 
-  $("#prevBtn").click(function(){
-    $("#flipbook").turn("previous");
+  // Adjust size on window resize
+  $(window).resize(function(){
+    $("#flipbook").turn("size", $(window).width() * 0.9, $(window).height() * 0.9);
   });
-  $("#nextBtn").click(function(){
-    $("#flipbook").turn("next");
-  });
-});
 </script>
 
 </body>
