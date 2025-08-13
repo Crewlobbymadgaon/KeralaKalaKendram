@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3D Single-Page Flipbook</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css">
-
+<title>Fade Flipbook - Kerala Kala Kendram</title>
 <style>
   body {
     margin: 0;
@@ -16,22 +13,49 @@
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    font-family: sans-serif;
   }
+
   #flipbook {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
     flex: 1;
-    width: 100%;
-    max-width: 600px;  /* Adjust to desired page width */
-    margin-top: 10px;
+    margin-top: 20px;
+    overflow: hidden;
   }
+
+  .page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .page.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
   .controls {
     text-align: center;
-    margin: 10px 0;
+    margin: 15px 0;
   }
+
   .controls button {
     padding: 10px 20px;
     font-size: 16px;
     margin: 5px;
     cursor: pointer;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 </style>
 </head>
@@ -44,45 +68,42 @@
   <button id="next">Next ➡</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const flipbookEl = document.getElementById("flipbook");
+  const images = [
+    "pdf/p1.webp",
+    "pdf/p10.webp",
+    "pdf/p11.webp"
+  ];
 
-    // Initialize single-page flipbook
-    const pageFlip = new St.PageFlip(flipbookEl, {
-        width: 600,
-        height: 850,
-        size: "stretch",
-        showCover: false,       // first page curls normally
-        maxShadowOpacity: 0.5,
-        usePortrait: true,      // keeps single-page on all screens
-        mobileScrollSupport: false
-    });
+  const flipbook = document.getElementById("flipbook");
+  let currentIndex = 0;
 
-    // Pages array (add your images here)
-    const pages = [
-        "pdf/p1.webp",
-        "pdf/p10.webp",
-        "pdf/p11.webp"
-    ].map(src => {
-        const page = document.createElement("div");
-        page.classList.add("page");
-        const img = document.createElement("img");
-        img.src = src;
-        img.style.width = "100%";
-        img.style.height = "auto";
-        img.style.display = "block";
-        page.appendChild(img);
-        return page;
-    });
+  // Create page elements
+  const pages = images.map(src => {
+    const page = document.createElement("div");
+    page.classList.add("page");
+    const img = document.createElement("img");
+    img.src = src;
+    page.appendChild(img);
+    flipbook.appendChild(page);
+    return page;
+  });
 
-    pageFlip.loadFromHTML(pages);
+  // Show first page
+  pages[currentIndex].classList.add("active");
 
-    // Navigation
-    document.getElementById("prev").addEventListener("click", () => pageFlip.flipPrev());
-    document.getElementById("next").addEventListener("click", () => pageFlip.flipNext());
-});
+  // Navigation
+  document.getElementById("prev").addEventListener("click", () => {
+    pages[currentIndex].classList.remove("active");
+    currentIndex = Math.max(currentIndex - 1, 0);
+    pages[currentIndex].classList.add("active");
+  });
+
+  document.getElementById("next").addEventListener("click", () => {
+    pages[currentIndex].classList.remove("active");
+    currentIndex = Math.min(currentIndex + 1, pages.length - 1);
+    pages[currentIndex].classList.add("active");
+  });
 </script>
 
 </body>
