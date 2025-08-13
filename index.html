@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flipbook</title>
 <style>
   body {
     margin: 0;
+    background: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #222;
-  }
-  .flipbook-container {
-    position: relative;
-    max-width: 95vw;
-    max-height: 95vh;
     overflow: hidden;
   }
-  .page {
-    width: 100%;
-    height: auto;
-    display: none;
-    transition: transform 0.6s ease, opacity 0.6s ease;
+  #book {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
-  .page.active {
-    display: block;
-    transform: scale(1);
-    opacity: 1;
+  #book img {
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.6s ease;
   }
   .nav-btn {
     position: absolute;
@@ -38,67 +35,55 @@
     border: none;
     padding: 10px;
     cursor: pointer;
+    z-index: 10;
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 50%;
   }
-  .nav-btn:hover {
-    background: rgba(0,0,0,0.8);
-  }
-  .prev-btn { left: 5px; }
-  .next-btn { right: 5px; }
+  #prevBtn { left: 10px; }
+  #nextBtn { right: 10px; }
 </style>
 </head>
 <body>
 
-<div class="flipbook-container" id="flipbook">
-  <button class="nav-btn prev-btn" onclick="prevPage()">&#8592;</button>
-  <button class="nav-btn next-btn" onclick="nextPage()">&#8594;</button>
+<div id="book">
+  <button id="prevBtn" class="nav-btn">&#8592;</button>
+  <img id="pageImage" src="" alt="Page">
+  <button id="nextBtn" class="nav-btn">&#8594;</button>
 </div>
 
 <script>
-  const pages = [
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/3964fba01c32a1e6e686fd83919355a3abbe694d/pdf/p1.webp",
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/3964fba01c32a1e6e686fd83919355a3abbe694d/pdf/p10.webp",
-    "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/3964fba01c32a1e6e686fd83919355a3abbe694d/pdf/p11.webp"
-  ];
+const pages = [
+  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p1.webp",
+  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p10.webp",
+  "https://raw.githubusercontent.com/Crewlobbymadgaon/KeralaKalaKendram/main/pdf/p11.webp"
+];
 
-  let currentPage = 0;
-  const container = document.getElementById('flipbook');
+let currentPage = 0;
+const img = document.getElementById("pageImage");
+img.src = pages[currentPage];
 
-  function renderPage() {
-    container.querySelectorAll('img').forEach(img => img.remove());
-    const img = document.createElement('img');
-    img.src = pages[currentPage];
-    img.className = "page active";
-    container.appendChild(img);
-    container.appendChild(container.querySelector(".prev-btn"));
-    container.appendChild(container.querySelector(".next-btn"));
-  }
+function showPage(index, direction) {
+  if (index < 0 || index >= pages.length) return;
+  img.style.transform = direction === "next" ? "rotateY(90deg)" : "rotateY(-90deg)";
+  setTimeout(() => {
+    img.src = pages[index];
+    img.style.transform = "rotateY(0)";
+  }, 300);
+  currentPage = index;
+}
 
-  function nextPage() {
-    if (currentPage < pages.length - 1) {
-      currentPage++;
-      renderPage();
-    }
-  }
+// Button navigation
+document.getElementById("nextBtn").addEventListener("click", () => showPage(currentPage + 1, "next"));
+document.getElementById("prevBtn").addEventListener("click", () => showPage(currentPage - 1, "prev"));
 
-  function prevPage() {
-    if (currentPage > 0) {
-      currentPage--;
-      renderPage();
-    }
-  }
-
-  // Swipe support
-  let startX = 0;
-  container.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  container.addEventListener('touchend', e => {
-    let endX = e.changedTouches[0].clientX;
-    if (startX - endX > 50) nextPage();
-    else if (endX - startX > 50) prevPage();
-  });
-
-  renderPage();
+// Swipe navigation
+let startX = 0;
+img.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+img.addEventListener("touchend", e => {
+  let diff = e.changedTouches[0].clientX - startX;
+  if (diff > 50) showPage(currentPage - 1, "prev"); // swipe right
+  else if (diff < -50) showPage(currentPage + 1, "next"); // swipe left
+});
 </script>
 
 </body>
