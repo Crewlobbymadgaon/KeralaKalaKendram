@@ -181,11 +181,16 @@
   window.addEventListener('resize', setVH);
   window.addEventListener('orientationchange', setVH);
 
-const images = [];
-for (let i = 1; i <= 48; i++) {
-  if (i === 10 || i === 11) continue; // skip p10 & p11
-  images.push(`pages/p${i}.webp`);
-}
+  // Your page images
+  const images = [
+    "pages/p1.webp",
+    "pages/p2.webp",
+    "pages/p3.webp",
+    "pages/p4.webp",
+    "pages/p5.webp",
+    "pages/p6.webp",
+    "pages/p7.webp"
+  ];
 
   const flipbook = document.getElementById("flipbook");
   const prevBtn  = document.getElementById("prev");
