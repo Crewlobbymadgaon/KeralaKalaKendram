@@ -183,9 +183,9 @@
 
   // Your page images
   const images = [
-    "pages/p1.webp",
-    "pages/p2.webp",
-    "pages/p3.webp"
+    "page/p1.webp",
+    "page/p2.webp",
+    "page/p3.webp"
   ];
 
   const flipbook = document.getElementById("flipbook");
@@ -197,17 +197,17 @@
 
   const pages = images.map((src, i) => {
     const page = document.createElement("div");
-    page.className = "pages";
+    page.className = "page";
     page.style.zIndex = images.length - i;
 
     const img = document.createElement("img");
     img.src = src;
-    img.alt = `Pages ${i+1}`;
+    img.alt = `Page ${i+1}`;
     img.addEventListener('error', () => img.classList.add('img-missing'));
 
     page.appendChild(img);
-    flipbook.appendChild(pages);
-    return pages;
+    flipbook.appendChild(page);
+    return page;
   });
 
   function clamp(i){ return Math.max(0, Math.min(i, pages.length - 1)); }
@@ -218,7 +218,7 @@
       page.style.transform = i < index ? "rotateY(-180deg)" : "rotateY(0deg)";
     });
     currentIndex = index;
-    counter.textContent = `Pages ${currentIndex + 1} / ${pages.length}`;
+    counter.textContent = `Page ${currentIndex + 1} / ${pages.length}`;
     prevBtn.disabled = currentIndex === 0;
     nextBtn.disabled = currentIndex === pages.length - 1;
   }
@@ -230,4 +230,4 @@
 </script>
 
 </body>
-</html>
+  </html>
