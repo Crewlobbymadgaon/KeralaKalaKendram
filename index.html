@@ -181,16 +181,10 @@
   window.addEventListener('resize', setVH);
   window.addEventListener('orientationchange', setVH);
 
-  // Your page images
-  const images = [
-    "pages/p1.webp",
-    "pages/p2.webp",
-    "pages/p3.webp",
-    "pages/p4.webp",
-    "pages/p5.webp",
-    "pages/p6.webp",
-    "pages/p7.webp"
-  ];
+  // Build image list p1..p48 excluding p10 & p11
+  const originalPageNumbers = Array.from({ length: 48 }, (_, i) => i + 1)
+    .filter(n => n !== 10 && n !== 11);
+  const images = originalPageNumbers.map(n => `pages/p${n}.webp`);
 
   const flipbook = document.getElementById("flipbook");
   const prevBtn  = document.getElementById("prev");
@@ -206,7 +200,7 @@
 
     const img = document.createElement("img");
     img.src = src;
-    img.alt = `Page ${i+1}`;
+    img.alt = `Page ${originalPageNumbers[i]}`;
     img.addEventListener('error', () => img.classList.add('img-missing'));
 
     page.appendChild(img);
@@ -222,7 +216,12 @@
       page.style.transform = i < index ? "rotateY(-180deg)" : "rotateY(0deg)";
     });
     currentIndex = index;
-    counter.textContent = `Page ${currentIndex + 1} / ${pages.length}`;
+
+    // Show both flip index and original page number
+    const shown = currentIndex + 1;
+    const original = originalPageNumbers[currentIndex];
+    counter.textContent = `Page ${shown} of ${pages.length} (orig #${original})`;
+
     prevBtn.disabled = currentIndex === 0;
     nextBtn.disabled = currentIndex === pages.length - 1;
   }
