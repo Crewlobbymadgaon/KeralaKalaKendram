@@ -181,9 +181,9 @@
   window.addEventListener('resize', setVH);
   window.addEventListener('orientationchange', setVH);
 
-  // Your page images
-  const images = [];
+const images = [];
 for (let i = 1; i <= 48; i++) {
+  if (i === 10 || i === 11) continue; // skip p10 & p11
   images.push(`pages/p${i}.webp`);
 }
 
