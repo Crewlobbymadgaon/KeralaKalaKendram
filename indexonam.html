@@ -7,6 +7,23 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Basic page title -->
+
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:title"        content="Onaghosham 2025 — Kerala Kala Kendram, Margao" />
+<meta property="og:description"  content="Mega Stage Show, Entertainment Programs & Sumptuous Onasadhya — Join us on Sep 27–28!" />
+<meta property="og:image"        content="https://keralakalakendramgoa.org/preview.jpg" />
+<meta property="og:image:width"  content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url"          content="https://keralakalakendramgoa.org/" />
+<meta property="og:type"         content="website" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Onaghosham 2025 — Kerala Kala Kendram, Margao" />
+<meta name="twitter:description" content="Mega Stage Show, Entertainment Programs & Sumptuous Onasadhya — Join us on Sep 27–28!" />
+<meta name="twitter:image" content="https://keralakalakendramgoa.org/assets/preview.jpg" />
 
   <style>
     :root{
@@ -15,186 +32,195 @@
       --bg:#fff9f1;
       --card-bg:linear-gradient(180deg,#fffefb,#fff9ec);
       --text:#1b2a22;
-      --shadow: 0 18px 40px rgba(6,30,18,0.08);
+      --shadow: 0 22px 48px rgba(6,30,18,0.12);
+      --card-radius:22px;
+      --frame-gap:12px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
-    body{font-family:'Poppins',system-ui,Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    body{font-family:'Poppins',system-ui,Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:20px}
 
-    .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px}
+/* OUTER decorative frame with festive 3D effect */
+.frame {
+  position: relative;
+  border-radius: calc(var(--card-radius) + var(--frame-gap));
+  padding: var(--frame-gap);
 
-    /* Card: flex column so footer is predictable */
-    .card{
-      width:100%;
-      max-width:780px;
-      border-radius:20px;
-      background:var(--card-bg);
-      padding:clamp(16px,4vw,30px);
-      border:3px solid rgba(212,175,55,0.22);
-      box-shadow: var(--shadow);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      /* ensure card fits viewport (so footer doesn't go out of view) */
-      max-height: calc(100vh - 32px);
-      overflow: hidden; /* keep layout tidy; inner carousel may scroll if needed */
+  /* rich festive gradient */
+  background: linear-gradient(145deg, #ffd700, #ff8a00, #ff4d4d, #d72638);
+  
+  /* 3D effect with shadow layers */
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.25),  /* outer deep shadow */
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),  /* top highlight */
+    inset 0 -3px 6px rgba(0, 0, 0, 0.25); /* bottom depth */
+}
+
+/* add glowing festive shine */
+.frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 4px;
+  background: conic-gradient(
+    from 0deg, 
+    #ffd700, #ffb347, #ff69b4, #6a5acd, #ffd700
+  );
+  filter: blur(8px);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+    /* inner card */
+    .card { position:relative; width:100%; max-width:820px; border-radius:var(--card-radius); padding:clamp(18px,3.6vw,34px); background: var(--card-bg); border:3px solid rgba(212,175,55,0.16); box-shadow: var(--shadow); overflow:hidden; z-index:1; }
+
+    /* TOP */
+    .top{text-align:center;margin-bottom:6px}
+    .logo{display:block;margin:0 auto 10px;max-width:clamp(64px,18vw,120px);height:auto;border-radius:50%;padding:6px;background:linear-gradient(180deg,#fff,#fff9ec);border:2px solid rgba(212,175,55,0.12)}
+    .heading{color:var(--accent);font-weight:800;margin:0;font-size:clamp(18px,3.8vw,28px);line-height:1.05}
+    .subheading{display:block;font-size:clamp(14px,3vw,20px);font-weight:600;color:#4c4c4c}
+    .title{font-family:'Merriweather',serif;font-weight:800;margin:8px 0 6px;font-size:clamp(28px,6.4vw,44px);line-height:1.02;background: linear-gradient(90deg,#d72638,#ff8a00,#ffd700,#4caf50,#1976d2,#8e24aa);-webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+
+    .ribbon{display:inline-block;margin:6px auto 14px;padding:8px 22px;border-radius:999px;background:linear-gradient(180deg,#f7df98,#d4af37);color:#3b2a00;font-weight:800;box-shadow:0 8px 18px rgba(212,175,55,0.14);position:relative;overflow:hidden}
+    .ribbon::after{content:'';position:absolute;left:-40%;top:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);transform:skewX(-18deg);animation:shine 3.6s linear infinite}
+    @keyframes shine{0%{left:-40%}100%{left:140%}}
+
+    /* CAROUSEL */
+    .carousel-wrap{display:flex;flex-direction:column;gap:12px}
+    .carousel-viewport{overflow:hidden;width:100%}
+    .carousel-track{display:flex;transition:transform .6s cubic-bezier(.2,.9,.2,1);gap:0}
+    .slide{flex:0 0 100%;max-width:720px;margin:0 auto;border-radius:16px;overflow:hidden;position:relative;background:transparent;box-shadow:0 10px 30px rgba(0,0,0,0.06);border:1px solid rgba(255,255,255,0.06)}
+
+    /* image */
+    .image-box{width:100%;height:auto;overflow:hidden}
+    .image-box img{width:100%;height:clamp(96px,20vh,150px);object-fit:cover;display:block}
+
+    /* card body + textures */
+    .card-body{position:relative;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff}
+    .card-body::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='%23ffffff' opacity='0.06'><path d='M10 50a6 6 0 1 0 12 0 6 6 0 1 0-12 0z'/><path d='M60 20a5 5 0 1 0 10 0 5 5 0 1 0-10 0z'/></g></svg>");background-repeat:repeat;background-size:140px 140px;border-radius:8px;pointer-events:none;z-index:0}
+    .card-body > * { position:relative; z-index:2; }
+
+    .slide[data-index="0"] .card-body{background: linear-gradient(180deg,#9b59b6,#ff6b6b);}
+    .slide[data-index="1"] .card-body{background: linear-gradient(180deg,#0b8043,#f6b352);}
+
+    /* --- NEW COLORFUL TEXT STYLES (applied) --- */
+    .program-date {
+      font-weight: 900;
+      color: #ffe066; /* warm golden yellow */
+      font-size: clamp(15px, 4vw, 18px);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
-    /* top area (logo + titles) stays natural size */
-    .top{
-      flex: 0 0 auto;
-      text-align:center;
-    }
-    .logo{width:96px;height:auto;margin:0 auto 10px;display:block}
-    .heading{color:var(--accent);font-weight:700;margin:0;font-size:clamp(16px,4vw,22px)}
-    .title{font-family:'Merriweather',serif;font-weight:700;margin:10px 0 8px;font-size:clamp(24px,7vw,40px);line-height:1.1}
-    .ribbon{display:inline-block;margin:10px auto 14px;padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,var(--gold),#f5db7a);color:#3b2a00;font-weight:700;font-size:clamp(14px,3.8vw,18px)}
-
-    /* Carousel area: flexible and can scroll internally if needed */
-    .carousel-wrap{
-      flex: 1 1 auto; /* take available space */
-      min-height: 0; /* allow children to shrink inside flex */
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:8px;
-      overflow: hidden;
-    }
-    .carousel-viewport{
-      overflow:hidden;
-      width:100%;
-      /* allow the viewport to shrink on small screens */
-      max-height: 60vh;
-    }
-    .carousel-track{
-      display:flex;
-      transition:transform 600ms cubic-bezier(.2,.9,.2,1);
-      will-change:transform;
-      gap:0;
-      padding-bottom:8px;
-      touch-action:pan-y; /* allow vertical scroll on touch devices */
+    .program-time {
+      margin-top: 6px;
+      font-weight: 800;
+      color: #ffb347; /* soft orange */
+      font-size: clamp(14px, 3.8vw, 17px);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.35);
     }
 
-    /* show exactly one slide per view */
-    .slide{
-      flex:0 0 100%;
-      display:block;
-      margin:0 auto;
-      max-width:720px;
-      background:#fff;
-      border-radius:14px;
-      padding:14px;
-      box-shadow:0 8px 22px rgba(0,0,0,0.08);
-      border:1px solid rgba(0,0,0,0.05);
-      min-height:120px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
+ .program-highlight {
+  margin-top: 8px;
+  color: #fff; /* solid white */
+  line-height: 1.36;
+  font-size: clamp(16px, 4vw, 18px);
+  text-align: center;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.program-highlight strong {
+  color: #ffd700; /* gold highlight */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+    /* --- end colorful text styles --- */
+
+    .card .corner { position:absolute; width:140px; height:140px; right:-28px; top:-36px; opacity:0.18; filter:blur(4px); pointer-events:none; z-index:0; background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0)); transform:rotate(12deg); }
+
+    .dots{display:flex;gap:10px;justify-content:center}
+    .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.08);cursor:pointer}
+    .dot.active{background:var(--gold);box-shadow:0 6px 12px rgba(212,175,55,0.18);transform:scale(1.1)}
+
+    .venue{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px;border-radius:12px;background:#fff;border:2px solid var(--gold);font-weight:700;color:var(--text)}
+    .venue svg{width:28px;height:28px;flex-shrink:0;fill:var(--accent)}
+
+    .footer{text-align:center;font-weight:800;color:var(--accent);padding-top:6px}
+
+    /* small screens */
+    @media (max-width:480px){
+      body{padding:12px}
+      .frame{padding:8px}
+      .card{padding:14px}
+      .title{font-size:clamp(22px,9vw,36px)}
+      .image-box img{height:clamp(84px,18vh,120px)}
+      .program-date{font-size:16px}
+      .program-time{font-size:15px}
+      .program-highlight{font-size:15px}
     }
-
-    /* images use responsive height so they don't push the footer off-screen */
-    .slide img{
-      width:100%;
-      border-radius:10px;
-      height: clamp(110px, 22vh, 160px); /* responsive image height */
-      object-fit:cover;
-      margin-bottom:10px;
-    }
-
-    .program-date{font-weight:800;color:var(--accent);font-size:clamp(15px,4vw,18px)}
-    .program-time{margin-top:8px;font-weight:700;color:#214b3d;font-size:clamp(14px,3.8vw,17px)}
-    .program-highlight{margin-top:10px;color:#121212;line-height:1.36;font-size:clamp(14px,4vw,16px);text-align:center}
-    .program-highlight strong{color:var(--gold)}
-
-    /* dots (fixed size) */
-    .dots{display:flex;gap:8px;justify-content:center;margin-top:6px}
-    .dot{width:10px;height:10px;border-radius:999px;background:rgba(0,0,0,0.12);transition:background .18s ease,transform .18s ease;cursor:pointer}
-    .dot.active{background:var(--accent);transform:scale(1.15)}
-
-    /* venue always visible (flex: 0) */
-    .venue{
-      flex: 0 0 auto;
-      display:flex;
-      flex-direction:row;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      margin-top:0;
-      padding:14px;
-      border-radius:14px;
-      background:#fff;
-      border:2px solid var(--gold);
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
-      font-size:clamp(15px,4.2vw,18px)
-    }
-    .venue svg{width:48px;height:48px;flex-shrink:0;fill:var(--accent)}
-
-    /* footer pinned at bottom of card (flex: 0) */
-    .footer{
-      flex: 0 0 auto;
-      font-weight:800;
-      color:var(--accent);
-      font-size:clamp(15px,4.2vw,18px);
-      text-align:center;
-      padding-bottom:2px;
-    }
-
-    /* small screens tweaks */
-    @media(max-width:420px){
-      .slide img{height: clamp(96px, 20vh, 130px)}
-      .slide{padding:12px}
-      .logo{width:80px}
-      .card{padding:12px}
-    }
+    /* soften the background under text */
+.slide[data-index="0"] .card-body::after,
+.slide[data-index="1"] .card-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25); /* dark overlay */
+  border-radius: inherit;
+  z-index: 1;
+}
+.card-body > * { position: relative; z-index: 2; }
   </style>
 </head>
 <body>
-  <div class="stage">
+  <div class="frame" aria-hidden="false">
     <div class="card" role="region" aria-label="Onaghosham invitation">
+      <div class="corner" aria-hidden="true"></div>
+
       <!-- TOP -->
       <div class="top">
-        <img src="assets/logo.png" alt="Kerala Kala Kendram Logo" class="logo">
-        <div class="heading">Kerala Kala Kendram, Margao</div>
-        <div class="title">Onaghosham 2025</div>
+        <img src="logo.png" alt="Kerala Kala Kendram Logo" class="logo">
+        <div class="heading">Kerala Kala Kendram<br><span class="subheading">Margao</span></div>
+        <div class="title"><span>Onaghosham</span><br><span style="font-weight:900">2025</span></div>
         <div class="ribbon">September 27 · 28</div>
       </div>
 
-      <!-- CAROUSEL (flexes to available space) -->
+      <!-- CAROUSEL -->
       <div class="carousel-wrap">
         <div class="carousel-viewport">
           <div class="carousel-track" id="track">
             <article class="slide" data-index="0">
-              <img src="assets/program1.jpg" alt="Mega Stage Show">
-              <div class="program-date">September 27 — Saturday</div>
-              <div class="program-time">7:00 PM onwards</div>
-              <div class="program-highlight"><strong>Mega Stage Show</strong><br>Murali Chalakudy &amp; Team</div>
+              <div class="image-box"><img src="program1.jpg" alt="Mega Stage Show"></div>
+              <div class="card-body" role="group" aria-labelledby="p1">
+                <div id="p1" class="program-date">September 27 — Saturday</div>
+                <div class="program-time">7:00 PM onwards</div>
+                <div class="program-highlight"><strong>Mega Stage Show</strong><br>Murali Chalakudy &amp; Team</div>
+              </div>
             </article>
 
             <article class="slide" data-index="1">
-              <img src="assets/program2.jpg" alt="Entertainment & Onasadhya">
-              <div class="program-date">September 28 — Sunday</div>
-              <div class="program-time">10:00 AM onwards</div>
-              <div class="program-highlight"><strong>Entertainment Programs</strong><br>Followed by a sumptuous Onasadhya</div>
+              <div class="image-box"><img src="program2.jpg" alt="Entertainment & Onasadhya"></div>
+              <div class="card-body" role="group" aria-labelledby="p2">
+                <div id="p2" class="program-date">September 28 — Sunday</div>
+                <div class="program-time">10:00 AM onwards</div>
+                <div class="program-highlight"><strong>Entertainment Programs</strong><br>Followed by a sumptuous Onasadhya</div>
+              </div>
             </article>
           </div>
         </div>
 
-        <div class="dots" id="dots">
+        <div class="dots" id="dots" aria-hidden="false">
           <div class="dot active" data-index="0"></div>
           <div class="dot" data-index="1"></div>
         </div>
       </div>
 
-      <!-- VENUE (always visible) -->
+      <!-- VENUE -->
       <a class="venue" href="https://www.google.com/maps/dir/?api=1&destination=Adarsh+High+School+Margao" target="_blank" rel="noopener">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3" fill="white"/></svg>
         Narcinva Damodar Naik Hall (Adarsh High School), Margao
       </a>
 
-      <!-- FOOTER (visible without extra page scroll) -->
+      <!-- FOOTER -->
       <div class="footer">All are cordially invited</div>
     </div>
   </div>
@@ -208,12 +234,10 @@
       let autoTimer = null;
       const INTERVAL = 5000;
 
-      function getSlideWidth(){ return slides[0].getBoundingClientRect().width; }
       function update(){
-        const slideWidth = getSlideWidth();
-        const offset = slideWidth * current;
-        track.style.transform = `translateX(-${offset}px)`;
-        dots.forEach((d,i)=> d.classList.toggle('active', i === current));
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${slideWidth * current}px)`;
+        dots.forEach((d,i)=> d.classList.toggle('active', i===current));
       }
       function next(){ current = (current + 1) % slides.length; update(); }
       function prev(){ current = (current - 1 + slides.length) % slides.length; update(); }
@@ -223,21 +247,20 @@
       function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
       function resetAuto(){ stopAuto(); startAuto(); }
 
-      // pointer drag: only pause when dragging
-      let startX = null, deltaX = 0, isDragging = false;
+      // pointer drag
+      let startX=null, deltaX=0, isDragging=false;
       const DRAG_THRESHOLD = 10, SWIPE_THRESHOLD = 50;
+      track.addEventListener('pointerdown', (e)=>{ startX = e.clientX; deltaX = 0; isDragging=false; track.setPointerCapture && track.setPointerCapture(e.pointerId); });
+      track.addEventListener('pointermove', (e)=>{ if(startX===null) return; deltaX = e.clientX - startX; if(!isDragging && Math.abs(deltaX)>DRAG_THRESHOLD){ isDragging=true; stopAuto(); } if(isDragging){ const base = slides[0].getBoundingClientRect().width * current; track.style.transform = `translateX(-${base - deltaX}px)`; }});
+      track.addEventListener('pointerup', (e)=>{ if(isDragging){ if(deltaX<-SWIPE_THRESHOLD) next(); else if(deltaX>SWIPE_THRESHOLD) prev(); else update(); setTimeout(startAuto,800);} else update(); startX=null; deltaX=0; isDragging=false; try{ track.releasePointerCapture && track.releasePointerCapture(e.pointerId);}catch(_){}});
 
-      track.addEventListener('pointerdown', (e)=>{ startX = e.clientX; deltaX = 0; isDragging = false; track.setPointerCapture && track.setPointerCapture(e.pointerId); });
-      track.addEventListener('pointermove', (e)=>{ if(startX === null) return; deltaX = e.clientX - startX; if(!isDragging && Math.abs(deltaX) > DRAG_THRESHOLD){ isDragging = true; stopAuto(); } if(isDragging){ const base = getSlideWidth() * current; track.style.transform = `translateX(-${base - deltaX}px)`; } });
-      track.addEventListener('pointerup', (e)=>{ if(isDragging){ if(deltaX < -SWIPE_THRESHOLD) next(); else if(deltaX > SWIPE_THRESHOLD) prev(); else update(); setTimeout(startAuto, 800); } else { update(); } startX = null; deltaX = 0; isDragging = false; try{ track.releasePointerCapture && track.releasePointerCapture(e.pointerId); }catch(_){ } });
-
-      // dots click: jump but keep autoplay running
+      // dots click
       dots.forEach(d=> d.addEventListener('click', ()=>{ goTo(Number(d.dataset.index)); resetAuto(); }));
 
-      // keyboard: arrows move and keep autoplay running
+      // keyboard
       document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight'){ next(); resetAuto(); } if(e.key==='ArrowLeft'){ prev(); resetAuto(); } });
 
-      window.addEventListener('resize', ()=> setTimeout(update, 120));
+      window.addEventListener('resize', ()=> setTimeout(update,120));
 
       // init
       update();
