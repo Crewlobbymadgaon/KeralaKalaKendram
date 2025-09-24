@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Onaghosham — Kerala Kala Kendram, Margao</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent:#006a4e;
+      --gold:#d4af37;
+      --bg:#fff9f1;
+      --card-bg:linear-gradient(180deg,#fffefb,#fff9ec);
+      --text:#1b2a22;
+      --shadow: 0 18px 40px rgba(6,30,18,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{font-family:'Poppins',system-ui,Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+    .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px}
+
+    /* Card: flex column so footer is predictable */
+    .card{
+      width:100%;
+      max-width:780px;
+      border-radius:20px;
+      background:var(--card-bg);
+      padding:clamp(16px,4vw,30px);
+      border:3px solid rgba(212,175,55,0.22);
+      box-shadow: var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      /* ensure card fits viewport (so footer doesn't go out of view) */
+      max-height: calc(100vh - 32px);
+      overflow: hidden; /* keep layout tidy; inner carousel may scroll if needed */
+    }
+
+    /* top area (logo + titles) stays natural size */
+    .top{
+      flex: 0 0 auto;
+      text-align:center;
+    }
+    .logo{width:96px;height:auto;margin:0 auto 10px;display:block}
+    .heading{color:var(--accent);font-weight:700;margin:0;font-size:clamp(16px,4vw,22px)}
+    .title{font-family:'Merriweather',serif;font-weight:700;margin:10px 0 8px;font-size:clamp(24px,7vw,40px);line-height:1.1}
+    .ribbon{display:inline-block;margin:10px auto 14px;padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,var(--gold),#f5db7a);color:#3b2a00;font-weight:700;font-size:clamp(14px,3.8vw,18px)}
+
+    /* Carousel area: flexible and can scroll internally if needed */
+    .carousel-wrap{
+      flex: 1 1 auto; /* take available space */
+      min-height: 0; /* allow children to shrink inside flex */
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:8px;
+      overflow: hidden;
+    }
+    .carousel-viewport{
+      overflow:hidden;
+      width:100%;
+      /* allow the viewport to shrink on small screens */
+      max-height: 60vh;
+    }
+    .carousel-track{
+      display:flex;
+      transition:transform 600ms cubic-bezier(.2,.9,.2,1);
+      will-change:transform;
+      gap:0;
+      padding-bottom:8px;
+      touch-action:pan-y; /* allow vertical scroll on touch devices */
+    }
+
+    /* show exactly one slide per view */
+    .slide{
+      flex:0 0 100%;
+      display:block;
+      margin:0 auto;
+      max-width:720px;
+      background:#fff;
+      border-radius:14px;
+      padding:14px;
+      box-shadow:0 8px 22px rgba(0,0,0,0.08);
+      border:1px solid rgba(0,0,0,0.05);
+      min-height:120px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    /* images use responsive height so they don't push the footer off-screen */
+    .slide img{
+      width:100%;
+      border-radius:10px;
+      height: clamp(110px, 22vh, 160px); /* responsive image height */
+      object-fit:cover;
+      margin-bottom:10px;
+    }
+
+    .program-date{font-weight:800;color:var(--accent);font-size:clamp(15px,4vw,18px)}
+    .program-time{margin-top:8px;font-weight:700;color:#214b3d;font-size:clamp(14px,3.8vw,17px)}
+    .program-highlight{margin-top:10px;color:#121212;line-height:1.36;font-size:clamp(14px,4vw,16px);text-align:center}
+    .program-highlight strong{color:var(--gold)}
+
+    /* dots (fixed size) */
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:6px}
+    .dot{width:10px;height:10px;border-radius:999px;background:rgba(0,0,0,0.12);transition:background .18s ease,transform .18s ease;cursor:pointer}
+    .dot.active{background:var(--accent);transform:scale(1.15)}
+
+    /* venue always visible (flex: 0) */
+    .venue{
+      flex: 0 0 auto;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      margin-top:0;
+      padding:14px;
+      border-radius:14px;
+      background:#fff;
+      border:2px solid var(--gold);
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+      font-size:clamp(15px,4.2vw,18px)
+    }
+    .venue svg{width:48px;height:48px;flex-shrink:0;fill:var(--accent)}
+
+    /* footer pinned at bottom of card (flex: 0) */
+    .footer{
+      flex: 0 0 auto;
+      font-weight:800;
+      color:var(--accent);
+      font-size:clamp(15px,4.2vw,18px);
+      text-align:center;
+      padding-bottom:2px;
+    }
+
+    /* small screens tweaks */
+    @media(max-width:420px){
+      .slide img{height: clamp(96px, 20vh, 130px)}
+      .slide{padding:12px}
+      .logo{width:80px}
+      .card{padding:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card" role="region" aria-label="Onaghosham invitation">
+      <!-- TOP -->
+      <div class="top">
+        <img src="assets/logo.png" alt="Kerala Kala Kendram Logo" class="logo">
+        <div class="heading">Kerala Kala Kendram, Margao</div>
+        <div class="title">Onaghosham 2025</div>
+        <div class="ribbon">September 27 · 28</div>
+      </div>
+
+      <!-- CAROUSEL (flexes to available space) -->
+      <div class="carousel-wrap">
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="track">
+            <article class="slide" data-index="0">
+              <img src="assets/program1.jpg" alt="Mega Stage Show">
+              <div class="program-date">September 27 — Saturday</div>
+              <div class="program-time">7:00 PM onwards</div>
+              <div class="program-highlight"><strong>Mega Stage Show</strong><br>Murali Chalakudy &amp; Team</div>
+            </article>
+
+            <article class="slide" data-index="1">
+              <img src="assets/program2.jpg" alt="Entertainment & Onasadhya">
+              <div class="program-date">September 28 — Sunday</div>
+              <div class="program-time">10:00 AM onwards</div>
+              <div class="program-highlight"><strong>Entertainment Programs</strong><br>Followed by a sumptuous Onasadhya</div>
+            </article>
+          </div>
+        </div>
+
+        <div class="dots" id="dots">
+          <div class="dot active" data-index="0"></div>
+          <div class="dot" data-index="1"></div>
+        </div>
+      </div>
+
+      <!-- VENUE (always visible) -->
+      <a class="venue" href="https://www.google.com/maps/dir/?api=1&destination=Adarsh+High+School+Margao" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3" fill="white"/></svg>
+        Narcinva Damodar Naik Hall (Adarsh High School), Margao
+      </a>
+
+      <!-- FOOTER (visible without extra page scroll) -->
+      <div class="footer">All are cordially invited</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const track = document.getElementById('track');
+      const slides = Array.from(track.children);
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      let current = 0;
+      let autoTimer = null;
+      const INTERVAL = 5000;
+
+      function getSlideWidth(){ return slides[0].getBoundingClientRect().width; }
+      function update(){
+        const slideWidth = getSlideWidth();
+        const offset = slideWidth * current;
+        track.style.transform = `translateX(-${offset}px)`;
+        dots.forEach((d,i)=> d.classList.toggle('active', i === current));
+      }
+      function next(){ current = (current + 1) % slides.length; update(); }
+      function prev(){ current = (current - 1 + slides.length) % slides.length; update(); }
+      function goTo(i){ current = i % slides.length; update(); }
+
+      function startAuto(){ stopAuto(); autoTimer = setInterval(next, INTERVAL); }
+      function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
+      function resetAuto(){ stopAuto(); startAuto(); }
+
+      // pointer drag: only pause when dragging
+      let startX = null, deltaX = 0, isDragging = false;
+      const DRAG_THRESHOLD = 10, SWIPE_THRESHOLD = 50;
+
+      track.addEventListener('pointerdown', (e)=>{ startX = e.clientX; deltaX = 0; isDragging = false; track.setPointerCapture && track.setPointerCapture(e.pointerId); });
+      track.addEventListener('pointermove', (e)=>{ if(startX === null) return; deltaX = e.clientX - startX; if(!isDragging && Math.abs(deltaX) > DRAG_THRESHOLD){ isDragging = true; stopAuto(); } if(isDragging){ const base = getSlideWidth() * current; track.style.transform = `translateX(-${base - deltaX}px)`; } });
+      track.addEventListener('pointerup', (e)=>{ if(isDragging){ if(deltaX < -SWIPE_THRESHOLD) next(); else if(deltaX > SWIPE_THRESHOLD) prev(); else update(); setTimeout(startAuto, 800); } else { update(); } startX = null; deltaX = 0; isDragging = false; try{ track.releasePointerCapture && track.releasePointerCapture(e.pointerId); }catch(_){ } });
+
+      // dots click: jump but keep autoplay running
+      dots.forEach(d=> d.addEventListener('click', ()=>{ goTo(Number(d.dataset.index)); resetAuto(); }));
+
+      // keyboard: arrows move and keep autoplay running
+      document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight'){ next(); resetAuto(); } if(e.key==='ArrowLeft'){ prev(); resetAuto(); } });
+
+      window.addEventListener('resize', ()=> setTimeout(update, 120));
+
+      // init
+      update();
+      startAuto();
+    })();
+  </script>
+</body>
+</html>
