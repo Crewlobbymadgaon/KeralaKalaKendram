@@ -88,22 +88,109 @@
 
     /* CAROUSEL */
     .carousel-wrap{display:flex;flex-direction:column;gap:12px}
-    .carousel-viewport{overflow:hidden;width:100%}
+    ./* stable viewport height so slides don't resize independently */
+/* stable viewport so slides never change height independently */
+.carousel-viewport{
+  width:100%;
+  height: clamp(340px, 36vh, 420px); /* adjust if you want compact/taller cards */
+  overflow:hidden;
+}
+
+/* track stretches slides to viewport height */
+.carousel-track{
+  display:flex;
+  gap:0;
+  transition:transform .6s cubic-bezier(.2,.9,.2,1);
+  align-items:stretch; /* KEY: makes slides identical height */
+  height:100%;
+  box-sizing:border-box;
+}
+
     .carousel-track{display:flex;transition:transform .6s cubic-bezier(.2,.9,.2,1);gap:0}
-    .slide{flex:0 0 100%;max-width:720px;margin:0 auto;border-radius:16px;overflow:hidden;position:relative;background:transparent;box-shadow:0 10px 30px rgba(0,0,0,0.06);border:1px solid rgba(255,255,255,0.06)}
+/* slide uses the same radius as outer card and clips everything */
+.slide{
+  flex:0 0 100%;
+  max-width:720px;
+  margin:0 auto;
+  height:100%;                       /* fill viewport height */
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  border-radius: var(--card-radius); /* MATCH outer .card */
+  overflow:hidden;                   /* CRITICAL: clip children to same rounded rect */
+  position:relative;
+  background:transparent;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+  border:1px solid rgba(255,255,255,0.06);
+  box-sizing:border-box;
+}
 
-    /* image */
-    .image-box{width:100%;height:auto;overflow:hidden}
-    .image-box img{width:100%;height:clamp(96px,20vh,150px);object-fit:cover;display:block}
+/* image area: fixed visual height so different image aspect ratios won't change slide height */
+.image-box{
+  width:100%;
+  flex:0 0 auto;
+  height: clamp(96px, 20vh, 150px);
+  overflow:hidden;
+  box-sizing:border-box;
+  /* no border-radius here — parent .slide provides clipping */
+}
 
-    /* card body + textures */
-    .card-body{position:relative;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff}
+/* ensure image respects box and doesn't add any margins */
+.image-box img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  margin:0;
+  padding:0;
+  border:0;
+}
+
+  
+/* body fills remaining space, inherits bottom corners */
+.card-body{
+  position:relative;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+
+  z-index:1;
+  flex:1 1 auto;     /* fill leftover height so bottoms align */
+  min-height:0;      /* important for correct flex shrinking */
+  box-sizing:border-box;
+  background:transparent;
+}
+
     .card-body::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='%23ffffff' opacity='0.06'><path d='M10 50a6 6 0 1 0 12 0 6 6 0 1 0-12 0z'/><path d='M60 20a5 5 0 1 0 10 0 5 5 0 1 0-10 0z'/></g></svg>");background-repeat:repeat;background-size:140px 140px;border-radius:8px;pointer-events:none;z-index:0}
+    /* ensure overlays use same border-radius (respect parent's clipping too) */
+.slide .card-body::after,
+.slide .card-body::before {
+  border-radius: inherit;
+}
+
     .card-body > * { position:relative; z-index:2; }
 
     .slide[data-index="0"] .card-body{background: linear-gradient(180deg,#9b59b6,#ff6b6b);}
     .slide[data-index="1"] .card-body{background: linear-gradient(180deg,#0b8043,#f6b352);}
-
+/* small / less intrusive decorative corner so it doesn't mask actual card radius */
+.card .corner {
+  position:absolute;
+  right:-10px;
+  top:-14px;
+  width:96px;
+  height:96px;
+  opacity:0.12;
+  filter:blur(3px);
+  pointer-events:none;
+  z-index:0;
+  background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0));
+  transform:rotate(12deg);
+  border-radius:50%;
+}
     /* --- NEW COLORFUL TEXT STYLES (applied) --- */
     .program-date {
       font-weight: 900;
@@ -169,6 +256,467 @@
   z-index: 1;
 }
 .card-body > * { position: relative; z-index: 2; }
+/* --- Strong override: force identical size + corner rounding --- */
+/* Put this at the BOTTOM of your <style> so it wins over previous rules */
+
+.carousel-viewport { /* make viewport stable */
+  height: clamp(340px, 36vh, 420px) !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.carousel-track {
+  align-items: stretch !important;
+  height: 100% !important;
+  display: flex !important;
+}
+
+.slide {
+  height: 100% !important;                      /* fill viewport exactly */
+  border-radius: var(--card-radius) !important; /* exact same radius as outer card */
+  overflow: hidden !important;                  /* clip everything to same rounded rect */
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+  max-width: 720px !important;
+  display:flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  padding: 0 !important;                        /* remove accidental padding differences */
+  transform: none !important;                   /* neutralize transform-based shifts */
+  -webkit-transform: none !important;
+}
+
+/* image area must not change the outer rect */
+.image-box {
+  flex: 0 0 auto !important;
+  height: clamp(96px, 20vh, 150px) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* image itself should not add margins/borders and should be clipped */
+.image-box img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+/* body must fill remaining space and inherit bottom corners */
+.card-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  padding: 14px !important;
+  box-sizing: border-box !important;
+  border-bottom-left-radius: inherit !important;
+  border-bottom-right-radius: inherit !important;
+  background: transparent !important;
+}
+
+/* Ensure pseudo-elements don't change shape */
+.slide::before,
+.slide::after,
+.slide .card-body::before,
+.slide .card-body::after {
+  border-radius: inherit !important;
+  box-sizing: border-box !important;
+  pointer-events: none !important;
+}
+
+/* Decorative corner: push it further out or hide it */
+.card .corner {
+  right: -26px !important;
+  top: -36px !important;
+  width: 88px !important;
+  height: 88px !important;
+  opacity: 0.10 !important;
+  filter: blur(3px) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Debug helper - enable if you need visible outlines during testing */
+/*
+.slide { outline: 2px dashed rgba(255,66,145,0.5) !important; }
+.image-box { outline: 2px dashed rgba(88,200,0,0.35) !important; }
+.card-body { outline: 2px dashed rgba(0,140,255,0.25) !important; }
+*/
+
+/* --- Onam Theme Text Styling --- */
+
+/* Dates: bold white with golden glow */
+.program-date {
+  font-weight: 900;
+  font-size: clamp(15px, 4vw, 18px);
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.45), 0 0 8px rgba(255,215,0,0.6);
+}
+
+/* Times: bright gold with darker outline for readability */
+.program-time {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: clamp(14px, 3.8vw, 17px);
+  color: #ffd700;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Highlights: white + bold gold accents */
+.program-highlight {
+  margin-top: 8px;
+  text-align: center;
+  font-weight: 800;
+  font-size: clamp(16px, 4vw, 18px);
+  line-height: 1.36;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.program-highlight strong {
+  color: #ffeb3b; /* lighter golden yellow for emphasis */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7), 0 0 10px rgba(255, 215, 0, 0.7);
+}
+/* Kerala Onam theme: bright festive gradients without gray overlay */
+
+/* Remove / lighten the dark overlay */
+.slide[data-index="0"] .card-body::after,
+.slide[data-index="1"] .card-body::after {
+  background: rgba(0,0,0,0.05) !important; /* very light, keeps text readable */
+}
+
+/* Festive gradients */
+.slide[data-index="0"] .card-body {
+  background: linear-gradient(180deg, #006a4e, #ffd700) !important; /* Green → Gold */
+}
+
+.slide[data-index="1"] .card-body {
+  background: linear-gradient(180deg, #ff8a00, #ffd700) !important; /* Saffron → Gold */
+}
+/* --------------------- Final Onam theme polish --------------------- */
+/* Put this at the BOTTOM of your <style> so it takes precedence */
+
+/* 1) Remove the dark overlay that was desaturating the gradients */
+.slide[data-index="0"] .card-body::after,
+.slide[data-index="1"] .card-body::after {
+  content: none !important;
+}
+
+/* 2) Bright festive gradients (Onam) */
+.slide[data-index="0"] .card-body {
+  background: linear-gradient(180deg, #00724a 0%, #00a05a 45%, #ffd700 100%) !important;
+  /* subtle texture */
+  background-blend-mode: normal !important;
+}
+
+.slide[data-index="1"] .card-body {
+  background: linear-gradient(180deg, #ff8a00 0%, #ffb74d 45%, #ffd700 100%) !important;
+  background-blend-mode: normal !important;
+}
+
+/* 3) Subtle inset glow so the gold reads as shiny (not muddy) */
+.slide .card-body {
+  box-shadow: inset 0 8px 30px rgba(255,215,0,0.06), inset 0 -8px 24px rgba(0,0,0,0.08) !important;
+}
+
+/* 4) Animated gold shimmer (soft, slow) */
+.slide .card-body::before {
+  content: '' ;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.00) 55%);
+  transform: translateX(-120%); /* start off left */
+  filter: blur(6px);
+  opacity: 0.35;
+  transition: none;
+  border-radius: inherit;
+}
+
+/* run shimmer slowly and once every 6s */
+@keyframes onamShimmer {
+  0%   { transform: translateX(-120%); opacity: 0.0; }
+  30%  { opacity: 0.35; }
+  60%  { transform: translateX(120%); opacity: 0.35; }
+  100% { transform: translateX(220%); opacity: 0; }
+}
+.slide .card-body.shimmer::before {
+  animation: onamShimmer 6.5s linear infinite;
+}
+
+/* 5) Ensure the shimmer sits behind content but above background */
+.slide .card-body > * { position: relative; z-index: 2; }
+
+/* 6) Tweak text colours for contrast on both backgrounds */
+.program-date { color: #ffffff !important; text-shadow: 0 2px 6px rgba(0,0,0,0.45) !important; }
+.program-time { color: #fff8e1 !important; text-shadow: 0 2px 6px rgba(0,0,0,0.5) !important; }
+.program-highlight { color: #ffffff !important; text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important; }
+.program-highlight strong { color: #fff9a8 !important; text-shadow: 0 2px 6px rgba(0,0,0,0.75) !important; }
+
+/* 7) Slight border to make the card body pop on the card background */
+.slide .card-body {
+  border: 1px solid rgba(255,215,0,0.08) !important;
+  border-radius: inherit !important;
+}
+
+/* 8) Make sure pseudo-elements don't re-introduce overlay */
+.slide::before,
+.slide::after,
+.slide .card-body::after {
+  background: none !important;
+  content: none !important;
+}
+
+/* Layout: image + details + description all inside one card */
+.slide {
+  display: flex !important;
+  flex-direction: column !important; /* stack vertically */
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #fff;
+}
+
+/* image always at top */
+.slide .image-box {
+  flex: 0 0 auto;
+  height: 180px; /* adjust */
+  overflow: hidden;
+}
+.slide .image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* details in the middle */
+.slide .card-body {
+  flex: 0 0 auto;
+  padding: 16px;
+  color: #fff;
+}
+.slide[data-index="0"] .card-body {
+  background: linear-gradient(180deg, #006a4e, #ffd700); /* green → gold */
+}
+.slide[data-index="1"] .card-body {
+  background: linear-gradient(180deg, #ff8a00, #ffd700); /* saffron → gold */
+}
+
+/* NEW description block at bottom */
+.slide .program-description {
+  flex: 1 1 auto;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: #fff9ec; /* soft background to contrast */
+  color: var(--text);
+}
+/* Unified card: everything inside card-body */
+.slide {
+  flex: 0 0 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+/* card-body now contains image + text */
+.slide .card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+/* festive gradients per slide */
+.slide[data-index="0"] .card-body {
+  background: linear-gradient(180deg, #006a4e, #ffd700); /* green → gold */
+}
+.slide[data-index="1"] .card-body {
+  background: linear-gradient(180deg, #ff8a00, #ffd700); /* saffron → gold */
+}
+
+/* image inside description */
+.slide .card-body img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* description paragraph */
+.slide .program-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+/* ===== Unified image + description card inside .card-body ===== */
+
+/* Make the .slide a single rounded card with consistent radius */
+.slide {
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: center;
+}
+
+/* The card-body becomes the single content area (keeps earlier structure) */
+.slide .card-body {
+  width: 100%;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  box-sizing: border-box;
+  border-radius: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Onam gradients for the card-body (keeps previous choice but brighter) */
+.slide[data-index="0"] .card-body {
+  background: linear-gradient(180deg, #00724a 0%, #00a05a 45%, #ffd700 100%);
+}
+.slide[data-index="1"] .card-body {
+  background: linear-gradient(180deg, #ff8a00 0%, #ffb74d 45%, #ffd700 100%);
+}
+
+/* Media (image) inside the card body — part of the description */
+.card-media{
+  width:100%;
+  display:block;
+  position:relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  flex: 0 0 auto;
+}
+
+/* Make the image scale responsively and be visually part of the content */
+.card-media img{
+  display:block;
+  width:100%;
+  height: clamp(120px, 22vh, 200px);
+  object-fit: cover;
+  object-position: center;
+  vertical-align: middle;
+}
+
+/* optional small date badge over the image */
+.media-badge{
+  position:absolute;
+  left:12px;
+  bottom:12px;
+  background: rgba(0,0,0,0.42);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+  backdrop-filter: blur(4px);
+  z-index:2;
+}
+
+/* Card meta (date/time/highlight) sits below image inside same block */
+.card-meta{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:center;
+  padding: 6px 4px;
+}
+
+/* Text styles tuned for readability on bright gradients */
+.program-date {
+  font-weight: 900;
+  color: #ffffff;
+  font-size: clamp(14px, 3.6vw, 17px);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+.program-time {
+  font-weight: 800;
+  color: rgba(255,250,230,0.95);
+  font-size: clamp(13px, 3.2vw, 15px);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.program-highlight {
+  font-weight: 800;
+  color: #ffffff;
+  font-size: clamp(15px, 3.8vw, 18px);
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+.program-highlight strong {
+  color:#fff9a8;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+
+/* Description block (subtext) stays inside same card-body and is readable */
+.program-description{
+  background: rgba(255,255,255,0.06); /* subtle translucent panel inside gradient */
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #fff;
+  line-height: 1.46;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Ensure the shimmer / overlay from earlier doesn't dim colors */
+.slide .card-body::after,
+.slide .card-body::before { content: none !important; background: none !important; }
+
+/* responsive: on very narrow screens stack tighter and limit image height */
+@media (max-width:600px){
+  .card-media img{ height: clamp(100px, 22vh, 160px); }
+  .program-description{ font-size: 13px; padding:10px; }
+  .media-badge{ left:10px; bottom:10px; padding:5px 8px; font-size:12px; }
+}
+/* Ensure the entire slide fills with festive gradient, no white gap */
+.slide[data-index="0"] {
+  background: linear-gradient(180deg, #00724a 0%, #00a05a 45%, #ffd700 100%) !important;
+}
+.slide[data-index="1"] {
+  background: linear-gradient(180deg, #ff8a00 0%, #ffb74d 45%, #ffd700 100%) !important;
+}
+
+/* Remove transparent background from description box */
+.program-description {
+  background: transparent !important; /* remove semi-white overlay */
+  color: #fff !important;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* 9) Add 'shimmer' class to visible slides (JS will add it) so the animation runs */
   </style>
 </head>
 <body>
@@ -188,23 +736,46 @@
       <div class="carousel-wrap">
         <div class="carousel-viewport">
           <div class="carousel-track" id="track">
-            <article class="slide" data-index="0">
-              <div class="image-box"><img src="program1.jpg" alt="Mega Stage Show"></div>
-              <div class="card-body" role="group" aria-labelledby="p1">
-                <div id="p1" class="program-date">September 27 — Saturday</div>
-                <div class="program-time">7:00 PM onwards</div>
-                <div class="program-highlight"><strong>Mega Stage Show</strong><br>Murali Chalakudy &amp; Team</div>
-              </div>
-            </article>
+     <!-- Program 1 (replace original article) -->
+<article class="slide" data-index="0" role="group" aria-labelledby="p1">
+  <div class="card-body">
+    <div class="card-media">
+      <img src="program1.jpg" alt="Mega Stage Show — Murali Chalakudy & Team" />
+      <!-- optional small badge in image corner -->
+      <div class="media-badge">Sep 27</div>
+    </div>
 
-            <article class="slide" data-index="1">
-              <div class="image-box"><img src="program2.jpg" alt="Entertainment & Onasadhya"></div>
-              <div class="card-body" role="group" aria-labelledby="p2">
-                <div id="p2" class="program-date">September 28 — Sunday</div>
-                <div class="program-time">10:00 AM onwards</div>
-                <div class="program-highlight"><strong>Entertainment Programs</strong><br>Followed by a sumptuous Onasadhya</div>
-              </div>
-            </article>
+    <div class="card-meta">
+      <div id="p1" class="program-date">September 27 — Saturday</div>
+      <div class="program-time">7:00 PM onwards</div>
+      <div class="program-highlight"><strong>Mega Stage Show</strong><br>Murali Chalakudy &amp; Team</div>
+    </div>
+
+    <div class="program-description">
+      A grand cultural evening featuring music, dance and comedy—experience the festive spirit of Onam with spectacular stage acts and vibrant entertainment.
+    </div>
+  </div>
+</article>
+
+<!-- Program 2 (replace original article) -->
+<article class="slide" data-index="1" role="group" aria-labelledby="p2">
+  <div class="card-body">
+    <div class="card-media">
+      <img src="program2.jpg" alt="Entertainment & Onasadhya" />
+      <div class="media-badge">Sep 28</div>
+    </div>
+
+    <div class="card-meta">
+      <div id="p2" class="program-date">September 28 — Sunday</div>
+      <div class="program-time">10:00 AM onwards</div>
+      <div class="program-highlight"><strong>Entertainment Programs</strong><br>Followed by a sumptuous ONASADHYA</div>
+    </div>
+
+    <div class="program-description">
+      Traditional Kerala art forms and community celebrations, followed by an authentic Onasadhya (festive feast) served on banana leaves.
+    </div>
+  </div>
+</article>
           </div>
         </div>
 
@@ -266,6 +837,39 @@
       update();
       startAuto();
     })();
-  </script>
+    
+(function enableShimmerOnActiveSlide(){
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  function setActive(index){
+    slides.forEach((s,i)=> {
+      s.classList.toggle('shimmer', i===index);
+    });
+  }
+  // init
+  const initial = document.querySelector('.dot.active');
+  setActive(initial ? Number(initial.dataset.index) : 0);
+
+  // when dots are clicked your existing code toggles 'active' on dots; watch for that
+  const dotsContainer = document.getElementById('dots');
+  if(dotsContainer){
+    dotsContainer.addEventListener('click', (e)=>{
+      const d = e.target.closest('.dot');
+      if(!d) return;
+      const idx = Number(d.dataset.index);
+      setTimeout(()=> setActive(idx), 40); // slight delay so visual change is in sync
+    });
+  }
+  // keyboard / programmatic changes: observe class changes on dots
+  const observer = new MutationObserver(()=> {
+    const cur = document.querySelector('.dot.active');
+    setActive(cur ? Number(cur.dataset.index) : 0);
+  });
+  const dotsEl = document.getElementById('dots');
+  if(dotsEl) observer.observe(dotsEl, { attributes:true, subtree:true, attributeFilter:['class'] });
+
+})();
+</script>
+ 
 </body>
 </html>
